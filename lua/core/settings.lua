@@ -6,7 +6,6 @@
 -- Setup python path
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
 local possible_python_paths = {
-    -- Extend the list for possible python path. Will use the 1st possible one
     os.getenv("HOME") .. "/.venvs/knvim/bin/python",             -- Python3's venv (knvim)
     os.getenv("HOME") .. "/opt/anaconda3/envs/knvim/bin/python", -- MacOS's conda (knvim)
     os.getenv("HOME") .. "/anaconda3/envs/knvim/bin/python",     -- Linux's conda (knvim)
@@ -15,6 +14,9 @@ local possible_python_paths = {
     os.getenv("HOME") .. "/.pyenv/shims/python",                 -- pyenv's default path
     "/usr/bin/python3",                                          -- System default python3
     "/usr/bin/python",                                           -- System default python
+    "/opt/homebrew/bin/python3",                                 -- Homebrew Python3 (macOS)
+    "/usr/local/bin/python3",                                    -- Local Python3
+    "/usr/bin/python3",                                          -- System Python3 (duplicate, but harmless)
 }
 for _, python_path in pairs(possible_python_paths) do
     if io.open(python_path, "r") ~= nil then

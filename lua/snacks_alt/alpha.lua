@@ -35,7 +35,7 @@ return {
             dashboard.button("o", "  Old files", ":Telescope oldfiles<CR>"),
             dashboard.button("s", "󰺄  Session manager", ":SessionManager<CR>"),
             dashboard.button("r", "  Remote manager", ":RemoteStart<CR>"),
-            dashboard.button("f", "󰱼  File finder", ":Telescope find_files<CR>"),
+            dashboard.button("f", "󰱼  File finder", ":Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<CR>"),
             dashboard.button("t", "󱎸  Text finder", ":Telescope live_grep<CR>"),
             dashboard.button("u", "󰏖  Update plugins", update_all),
             dashboard.button("l", "  Language servers", ":Mason<CR>"),

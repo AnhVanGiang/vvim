@@ -11,6 +11,10 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "<", "<gv", opts)
 
+-- Telescope find hidden files
+-- vim.keymap.set('n', '<leader>fh', function()
+--   require('telescope.builtin').find_files({ hidden = true })
+-- end, { desc = "Find hidden files" })
 -- Go down/up soft-wrapped lines instead of "real" lines
 -- vim.keymap.set("n", "j", "gj", default_opts)
 -- vim.keymap.set("n", "k", "gk", default_opts)
@@ -125,3 +129,14 @@ vim.keymap.set("n", "<F23>", "<cmd>ColorizerToggle<CR>", opts)
 vim.keymap.set("n", "<F12>", "<cmd>set nu rnu!<CR>", opts)
 -- <S-F11>: Toggle welcome screen
 vim.keymap.set("n", "<F24>", function() require("snacks").dashboard() end, opts)
+
+-- Shortcut to generate ctags
+vim.keymap.set("n", "<leader>ct", ":!ctags -R .<CR>", { desc = "Generate ctags" })
+
+
+
+
+
+
+
+

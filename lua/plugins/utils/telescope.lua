@@ -16,7 +16,7 @@ return {
     },
     keys = {
         { "<space><space>", "<CMD>Telescope<CR>",                           desc = "Telescope: Open builtin" },
-        { "<space>f",       "<CMD>Telescope find_files<CR>",                desc = "Telescope: Find files" },
+        { "<space>f",       "<CMD>Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<CR>",                desc = "Telescope: Find files" },
         { "<space>t",       "<CMD>Telescope live_grep<CR>",                 desc = "Telescope: Find text" },
         { "<space>b",       "<CMD>Telescope buffers<CR>",                   desc = "Telescope: Find buffer" },
         { "<space>/",       "<CMD>Telescope current_buffer_fuzzy_find<CR>", desc = "Telescope: Find in buffer" },
@@ -61,6 +61,7 @@ return {
                     "--line-number",
                     "--column",
                     "--smart-case",
+                    "--hidden",
                 },
                 prompt_prefix = "   ",
                 selection_caret = "  ",
