@@ -6,7 +6,7 @@ return {
     -- Mason
     {
         "williamboman/mason.nvim",
-        event = "VeryLazy",
+        event = "BufReadPost",
         build = ":MasonUpdate",
         opts = {
             ui = {
@@ -23,7 +23,7 @@ return {
     -- Ensure install for Mason's LSP
     {
         "williamboman/mason-lspconfig.nvim", -- bridges mason.nvim and nvim-lspconfig
-        event = "VeryLazy",
+        event = "BufReadPost",
         opts = {
             -- Install the LSP servers automatically using mason-lspconfig
             ensure_installed = {
@@ -37,12 +37,12 @@ return {
     -- LSP config
     {
         "neovim/nvim-lspconfig",
-        event = "VeryLazy",
+        event = "BufReadPost",
         dependencies = {
             -- statusline/winbar component using lsp
             {
                 "SmiteshP/nvim-navic",
-                event = "VeryLazy",
+                event = "BufReadPost",
             },
         },
         config = function()

@@ -68,4 +68,9 @@ local function set_colorscheme(scheme)
 end
 
 -- Set your preferred colorscheme here
-set_colorscheme("monokai-pro") -- Set Monokai Pro as the default
+set_colorscheme("ofirkai") -- Set Monokai Pro as the default
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+  pattern = "*.py",
+  command = "set filetype=python"
+})
+-- vim.o.shell = '/opt/homebrew/bin/fish'

@@ -51,46 +51,51 @@ return {
                         },
                         -- Custom mappings
                         -- "h" moves to the parent directory and collapses the node
-["h"] = function(state)
-  local node = state.tree:get_node()
-  if not node then
-    return -- If no node is selected, do nothing
-  end
+                        ["h"] = function(state)
+                            local node = state.tree:get_node()
+                            if not node then
+                                return -- If no node is selected, do nothing
+                            end
 
-  if node.type ~= "directory" or not node:is_expanded() then
-    -- If not a directory or not expanded, move to the parent
-    local parent_id = node:get_parent_id()
-    if not parent_id then
-      return -- If no parent exists, do nothing
-    end
-    node = state.tree:get_node(parent_id)
-  end
+                            if node.type ~= "directory" or not node:is_expanded() then
+                                -- If not a directory or not expanded, move to the parent
+                                local parent_id = node:get_parent_id()
+                                if not parent_id then
+                                    return -- If no parent exists, do nothing
+                                end
+                                node = state.tree:get_node(parent_id)
+                            end
 
-  if node and node.type == "directory" then
-    -- Collapse the directory
-    node:collapse()
-    state.tree:render()
-    -- Focus on the collapsed node
-    require("neo-tree.ui.renderer").focus_node(state, node:get_id())
-  end
-end,
+                            if node and node.type == "directory" then
+                                -- Collapse the directory
+                                node:collapse()
+                                state.tree:render()
+                                -- Focus on the collapsed node
+                                require("neo-tree.ui.renderer").focus_node(state, node:get_id())
+                            end
+                        end,
                         -- "l" opens the node (edit action)
                         ["l"] = "open",
                         -- "Y" copies various file paths or filename components to the clipboard
                         ["Y"] = function(state)
                             -- NeoTree is based on NuiTree
                             local node = state.tree:get_node()
+                            if not node then
+                                vim.notify("No node selected!", vim.log.levels.ERROR)
+                                return
+                            end
+
                             local filepath = node:get_id()
                             local filename = node.name
                             local modify = vim.fn.fnamemodify
 
                             local results = {
                                 filepath,
-                                modify(filepath, ":."),
-                                modify(filepath, ":~"),
+                                modify(filepath, ":."), -- Path relative to CWD
+                                modify(filepath, ":~"), -- Path relative to HOME
                                 filename,
-                                modify(filename, ":r"),
-                                modify(filename, ":e"),
+                                modify(filename, ":r"), -- Filename without extension
+                                modify(filename, ":e"), -- Extension of the filename
                             }
 
                             -- Prompt the user to choose a copy option
@@ -104,11 +109,17 @@ end,
                                 "6. Extension of the filename: " .. results[6],
                             })
 
-                            if i > 0 then
+                            if i > 0 and i <= #results then
                                 local result = results[i]
-                                if not result then return print("Invalid choice: " .. i) end
-                                vim.fn.setreg('"', result)
-                                vim.notify("Copied: " .. result)
+                                if not result then
+                                    vim.notify("Invalid choice: " .. i, vim.log.levels.ERROR)
+                                    return
+                                end
+                                -- Copy to system clipboard
+                                vim.fn.setreg("+", result)
+                                vim.notify("Copied to system clipboard: " .. result)
+                            else
+                                vim.notify("No valid choice made.", vim.log.levels.WARN)
                             end
                         end,
                     },
