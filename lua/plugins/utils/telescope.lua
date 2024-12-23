@@ -62,6 +62,7 @@ return {
                     "--column",
                     "--smart-case",
                     "--hidden",
+                    "--no-ignore-vcs"
                 },
                 prompt_prefix = "   ",
                 selection_caret = "  ",
