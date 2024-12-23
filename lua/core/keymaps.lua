@@ -133,9 +133,11 @@ vim.keymap.set("n", "<F24>", function() require("snacks").dashboard() end, opts)
 -- Shortcut to generate ctags
 vim.keymap.set("n", "<leader>ct", ":!ctags -R .<CR>", { desc = "Generate ctags" })
 
+-- Equalize Buffers
+vim.keymap.set("n", "<leader>E", "<cmd>WindowsEqualize<CR>", { desc = "Equalize Buffers" })
 
-
-
+-- Maximize current buffer
+vim.keymap.set("n", "<leader>M", "<cmd>WindowsMaximize<CR>", { desc = "Maximize Buffer" })
 
 
 
