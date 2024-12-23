@@ -142,3 +142,34 @@ vim.keymap.set("n", "<leader>M", "<cmd>WindowsMaximize<CR>", { desc = "Maximize 
 -- Run Python file
 vim.keymap.set("n", "<leader>rp", "<cmd>!python3 %<CR>", { desc = "Run Python file" })
 
+vim.api.nvim_set_keymap("n", "<leader>rpf", ":w<CR>:lua RunPythonInFloatingTerm()<CR>", {desc='Run python in floating terminal', noremap = true, silent = true })
+
+function RunPythonInFloatingTerm()
+    -- Get the current buffer's file path
+    local file = vim.fn.expand("%")
+
+    -- Set up the floating window options
+    local width = math.floor(vim.o.columns * 0.8)
+    local height = math.floor(vim.o.lines * 0.8)
+    local col = math.floor((vim.o.columns - width) / 2)
+    local row = math.floor((vim.o.lines - height) / 2)
+    local opts = {
+        relative = "editor",
+        width = width,
+        height = height,
+        col = col,
+        row = row,
+        style = "minimal",
+        border = "single", -- You can change this to "rounded", "double", etc.
+    }
+
+    -- Create the floating terminal
+    local buf = vim.api.nvim_create_buf(false, true) -- Create a scratch buffer
+    local win = vim.api.nvim_open_win(buf, true, opts) -- Open the buffer in a floating window
+
+    -- Start a terminal in the buffer
+    vim.fn.termopen("python3 " .. file)
+
+    -- Optional: Close the terminal with "q"
+    vim.api.nvim_buf_set_keymap(buf, "t", "q", "<C-\\><C-n>:close<CR>", { noremap = true, silent = true })
+end
