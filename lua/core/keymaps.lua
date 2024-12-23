@@ -139,6 +139,6 @@ vim.keymap.set("n", "<leader>E", "<cmd>WindowsEqualize<CR>", { desc = "Equalize 
 -- Maximize current buffer
 vim.keymap.set("n", "<leader>M", "<cmd>WindowsMaximize<CR>", { desc = "Maximize Buffer" })
 
-
-
+-- Run Python file
+vim.keymap.set("n", "<leader>rp", "<cmd>!python3 %<CR>", { desc = "Run Python file" })
 
