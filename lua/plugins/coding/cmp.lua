@@ -103,11 +103,11 @@ return {
             }),
             sources = cmp.config.sources({
                 { name = "nvim_lsp" },
-                { name = "codeium"},
-                { name = "buffer" },
+                { name = "codeium" },
+                { name = "buffer",  keyword_length = 3, max_item_count = 5},
                 { name = "path" },
                 -- { name = "nvim_lsp_signature_help" },
-                { name = "calc" },
+                -- { name = "calc" },
                 -- { name = "neorg" },
                 -- { name = 'vsnip' }, -- For vsnip users.
                 { name = "luasnip" }, -- For luasnip users.

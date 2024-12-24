@@ -35,7 +35,7 @@ return {
         })
 
         -- Disable focus.nvim for specific filetypes and buffer types
-        local ignore_filetypes = { "neo-tree", "Outline" }
+        local ignore_filetypes = { "neo-tree", "Outline", "Avante" }
         local ignore_buftypes = { "nofile", "prompt", "popup" }
 
         -- Create an autocommand group
