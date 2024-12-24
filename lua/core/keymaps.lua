@@ -29,6 +29,17 @@ vim.keymap.set("n", "<A-j>", "<C-w>j", opts)
 vim.keymap.set("n", "<A-k>", "<C-w>k", opts)
 vim.keymap.set("n", "<A-l>", "<C-w>l", opts)
 
+-- load the session for the current directory
+vim.keymap.set("n", "<leader>qs", function() require("persistence").load() end, { desc = "Load session for current directory" })
+
+-- select a session to load
+vim.keymap.set("n", "<leader>qS", function() require("persistence").select() end, { desc = "Select session to load" })
+
+-- load the last session
+vim.keymap.set("n", "<leader>ql", function() require("persistence").load({ last = true }) end, { desc = "Load last session" })
+
+-- stop Persistence => session won't be saved on exit
+vim.keymap.set("n", "<leader>qd", function() require("persistence").stop() end, { desc = "Stop session persistence" })
 -- In insert mode, <Alt>+h,j,k,l becomes arrows
 vim.keymap.set("i", "<A-h>", "<Left>", opts)
 vim.keymap.set("i", "<A-j>", "<Down>", opts)
