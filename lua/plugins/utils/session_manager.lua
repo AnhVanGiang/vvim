@@ -1,6 +1,6 @@
 return {
     "Shatur/neovim-session-manager",
-    enabled=false,
+    enabled=true,
     dependencies = {
         {
             "nvim-lua/plenary.nvim",

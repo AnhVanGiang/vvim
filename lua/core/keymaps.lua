@@ -96,6 +96,8 @@ vim.keymap.set("n", "<F15>", "<cmd>Neotree reveal<CR>", opts)
 -- <F4>: Show tags of current buffer
 -- vim.keymap.set("n", "<F4>", ":Telescope current_buffer_tags<CR>", default_opts)
 vim.keymap.set("n", "<F4>", "<cmd>Outline!<CR>", opts)
+vim.keymap.set("n", "<space>o", "<cmd>OutlineFocusOutline<CR>", opts)
+vim.keymap.set("n", "<F4>", "<cmd>Outline!<CR>", opts)
 -- <S-F4>: Show diagnostics
 vim.keymap.set("n", "<F16>", "<cmd>Telescope diagnostics<CR>", opts)
 -- <S-F4>: Generate tags

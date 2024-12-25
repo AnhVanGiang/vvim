@@ -7,6 +7,7 @@ return {
       vim.g.tagbar_autofocus = 1
       vim.g.tagbar_width = 30
       vim.g.tagbar_autoclose = 1
+      vim.g.tagbar_position = 'rightbelow vertical'
     end,
   },
 }
