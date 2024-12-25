@@ -102,9 +102,9 @@ return {
                 ["<C-p>"]     = cmp.mapping(prev_item, { "i", "s" }),
             }),
             sources = cmp.config.sources({
-                { name = "codeium" },
-                { name = "nvim_lsp", keyword_length = 3, max_item_count = 5},
-                { name = "buffer",  keyword_length = 3, max_item_count = 5},
+                { name = "nvim_lsp", max_item_count = 5},
+                -- { name = "codeium" },
+                { name = "buffer", max_item_count = 2},
                 { name = "path" },
                 -- { name = "nvim_lsp_signature_help" },
                 -- { name = "calc" },
