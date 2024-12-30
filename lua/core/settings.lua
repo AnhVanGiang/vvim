@@ -47,7 +47,7 @@ vim.opt.encoding = "utf-8"             -- use Unicode
 vim.opt.spelllang = "en_us"            -- set spell language as US english
 vim.opt.spellfile = vim.fn.stdpath("data") ..
     "/spelling/en.utf-8.add"           -- file to store custom spelling
-
+-- vim.o.cmdheight = 1
 -- vim.cmd [[ set path+=** ]]         -- provide tab-completion for file-related tasks, e.g., gf
 
 
@@ -66,7 +66,7 @@ vim.opt.showmatch = true      -- highlight matching parenthesis
 vim.opt.smartcase = true      -- ignore lowercase for the whole pattern
 vim.opt.linebreak = true      -- wrap on word boundary
 vim.opt.signcolumn = "yes"    -- always show the sign column to not shift the text
-
+vim.opt.shortmess:remove("c")
 -- Marking special characters
 vim.opt.list = true                  -- list mode to mark special characters
 vim.opt.listchars = "tab:>-,trail:." -- mark <Tab> as >-, trailing <Space> as .

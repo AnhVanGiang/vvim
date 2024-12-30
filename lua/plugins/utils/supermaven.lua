@@ -1,6 +1,7 @@
 return {
     {
         "supermaven-inc/supermaven-nvim",
+        enabled=true,
         config = function()
             require("supermaven-nvim").setup({
                 keymaps = {
@@ -8,7 +9,7 @@ return {
                     clear_suggestion = "<C-]>",
                     accept_word = "<C-j>",
                 },
-                ignore_filetypes = { "csv", "txt", "markdown", "gitcommit", "gitrebase", "svn", "hgcommit" },
+                -- ignore_filetypes = { "csv", "txt", "markdown", "gitcommit", "gitrebase", "svn", "hgcommit" },
                 -- color = {
                 --     suggestion_color = "#ffffff",
                 --     cterm = 244,

@@ -17,7 +17,7 @@ return {
         require("outline").setup({
             outline_window = {
                 relative_width = false,
-                width = width_with_min(0.15, 50),
+                width = width_with_min(0.1, 30),
                 -- autofold_depth = 2,
             },
             symbols = {

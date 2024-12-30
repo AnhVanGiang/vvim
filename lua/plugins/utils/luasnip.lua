@@ -14,13 +14,13 @@ return {
         require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/snippets/" })
 
         -- Key mappings for navigating snippets
-        vim.keymap.set({ "i", "s" }, "<Tab>", function()
-            if luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-            else
-                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", true)
-            end
-        end, { silent = true })
+        -- vim.keymap.set({ "i", "s" }, "<Tab>", function()
+        --     if luasnip.expand_or_jumpable() then
+        --         luasnip.expand_or_jump()
+        --     else
+        --         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, false, true), "n", true)
+        --     end
+        -- end, { silent = true })
 
         vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
             if luasnip.jumpable(-1) then

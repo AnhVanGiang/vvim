@@ -2,6 +2,10 @@
 return {
     "hrsh7th/nvim-cmp", -- code completion
     event = { "CmdlineEnter", "InsertEnter" },
+    -- keys = {
+    --     { "<tab>",   false, mode = { "i", "s" } },
+    --     { "<s-tab>", false, mode = { "i", "s" } },
+    -- },
     -- event = "VeryLazy",
     dependencies = {
         {
@@ -97,14 +101,14 @@ return {
                 ["<C-c>"]     = cmp.mapping.abort(),
                 ["<CR>"]      = cmp.mapping.confirm({ select = false }),
                 -- ["<Tab>"]     = cmp.mapping(next_item, { "i", "s" }),
-                -- ["<S-Tab>"]   = cmp.mapping(prev_item, { "i", "s" }),
+                ["<S-Tab>"]   = cmp.mapping(next_item, { "i", "s" }),
                 ["<C-n>"]     = cmp.mapping(next_item, { "i", "s" }),
                 ["<C-p>"]     = cmp.mapping(prev_item, { "i", "s" }),
             }),
             sources = cmp.config.sources({
-                { name = "nvim_lsp", max_item_count = 5},
+                { name = "nvim_lsp", max_item_count = 5 },
                 -- { name = "codeium" },
-                { name = "buffer", max_item_count = 2},
+                { name = "buffer",   max_item_count = 2 },
                 { name = "path" },
                 -- { name = "nvim_lsp_signature_help" },
                 -- { name = "calc" },

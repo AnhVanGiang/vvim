@@ -11,6 +11,8 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "<", "<gv", opts)
 
+-- Remove shift+tab default behavior
+-- vim.keymap.del('i', '<S-Tab>')
 -- Telescope find hidden files
 -- vim.keymap.set('n', '<leader>fh', function()
 --   require('telescope.builtin').find_files({ hidden = true })
@@ -30,13 +32,15 @@ vim.keymap.set("n", "<A-k>", "<C-w>k", opts)
 vim.keymap.set("n", "<A-l>", "<C-w>l", opts)
 
 -- load the session for the current directory
-vim.keymap.set("n", "<leader>qs", function() require("persistence").load() end, { desc = "Load session for current directory" })
+vim.keymap.set("n", "<leader>qs", function() require("persistence").load() end,
+    { desc = "Load session for current directory" })
 
 -- select a session to load
 vim.keymap.set("n", "<leader>qS", function() require("persistence").select() end, { desc = "Select session to load" })
 
 -- load the last session
-vim.keymap.set("n", "<leader>ql", function() require("persistence").load({ last = true }) end, { desc = "Load last session" })
+vim.keymap.set("n", "<leader>ql", function() require("persistence").load({ last = true }) end,
+    { desc = "Load last session" })
 
 -- stop Persistence => session won't be saved on exit
 vim.keymap.set("n", "<leader>qd", function() require("persistence").stop() end, { desc = "Stop session persistence" })
@@ -73,7 +77,12 @@ vim.keymap.set("t", "<A-l>", [[<C-\><C-n><C-w>l]], opts)
 --     { desc = "Toggle conceal level in the current buffer", noremap = true, silent = true }
 -- )
 
+-- Splits
+vim.keymap.set("n", "<leader>vs", "<cmd>vsplit<CR>", { desc = "Vertical split" })
+vim.keymap.set("n", "<leader>ss", "<cmd>split<CR>", { desc = "Horizontal split" })
 
+-- Close split
+vim.keymap.set("n", "<leader>qq", "<cmd>q<CR>", { desc = "Close buffer" })
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
 -- Function key bindings
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -155,7 +164,8 @@ vim.keymap.set("n", "<leader>M", "<cmd>WindowsMaximize<CR>", { desc = "Maximize 
 -- Run Python file
 vim.keymap.set("n", "<leader>rp", "<cmd>!python3 %<CR>", { desc = "Run Python file" })
 
-vim.api.nvim_set_keymap("n", "<leader>rpf", ":w<CR>:lua RunPythonInFloatingTerm()<CR>", {desc='Run python in floating terminal', noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>rpf", ":w<CR>:lua RunPythonInFloatingTerm()<CR>",
+    { desc = "Run python in floating terminal", noremap = true, silent = true })
 
 function RunPythonInFloatingTerm()
     -- Get the current buffer's file path
@@ -177,7 +187,7 @@ function RunPythonInFloatingTerm()
     }
 
     -- Create the floating terminal
-    local buf = vim.api.nvim_create_buf(false, true) -- Create a scratch buffer
+    local buf = vim.api.nvim_create_buf(false, true)   -- Create a scratch buffer
     local win = vim.api.nvim_open_win(buf, true, opts) -- Open the buffer in a floating window
 
     -- Start a terminal in the buffer
@@ -186,3 +196,63 @@ function RunPythonInFloatingTerm()
     -- Optional: Close the terminal with "q"
     vim.api.nvim_buf_set_keymap(buf, "t", "q", "<C-\\><C-n>:close<CR>", { noremap = true, silent = true })
 end
+
+local function new_terminal(lang)
+    vim.cmd("vsplit term://" .. lang)
+end
+
+local function new_terminal_python()
+    new_terminal "python"
+end
+
+local function new_terminal_r()
+    new_terminal "R --no-save"
+end
+
+local function new_terminal_ipython()
+    new_terminal "ipython --no-confirm-exit"
+end
+
+local function new_terminal_julia()
+    new_terminal "julia"
+end
+
+local function new_terminal_shell()
+    new_terminal "$SHELL"
+end
+
+local function send_cell()
+  if vim.b['quarto_is_r_mode'] == nil then
+    vim.fn['slime#send_cell']()
+    return
+  end
+  if vim.b['quarto_is_r_mode'] == true then
+    vim.g.slime_python_ipython = 0
+    local is_python = require('otter.tools.functions').is_otter_language_context 'python'
+    if is_python and not vim.b['reticulate_running'] then
+      vim.fn['slime#send']('reticulate::repl_python()' .. '\r')
+      vim.b['reticulate_running'] = true
+    end
+    if not is_python and vim.b['reticulate_running'] then
+      vim.fn['slime#send']('exit' .. '\r')
+      vim.b['reticulate_running'] = false
+    end
+    vim.fn['slime#send_cell']()
+  end
+end
+--
+vim.keymap.set("n", "<leader><cr>", send_cell, {desc = "run code cell"} )
+-- vim.keymap.set("n", "<leader>c", group = "[c]ode / [c]ell / [c]hunk" ),
+vim.keymap.set("n", "<leader>ci", new_terminal_ipython, {desc = "new [i]python terminal"} )
+-- vim.keymap.set("n", "<leader>cj", new_terminal_julia, desc = "new [j]ulia terminal" ),
+-- vim.keymap.set("n", "<leader>cn", new_terminal_shell, desc = "[n]ew terminal with shell" ),
+vim.keymap.set("n", "<leader>cp", new_terminal_python, {desc = "new [p]ython terminal"} )
+
+--
+
+
+
+
+
+
+
