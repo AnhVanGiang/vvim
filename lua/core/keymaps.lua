@@ -68,7 +68,8 @@ vim.keymap.set("t", "<A-h>", [[<C-\><C-n><C-w>h]], opts)
 vim.keymap.set("t", "<A-j>", [[<C-\><C-n><C-w>j]], opts)
 vim.keymap.set("t", "<A-k>", [[<C-\><C-n><C-w>k]], opts)
 vim.keymap.set("t", "<A-l>", [[<C-\><C-n><C-w>l]], opts)
-
+vim.keymap.set('n', '}', '}^', { noremap = true })
+vim.keymap.set('n', '{', '{^', { noremap = true })
 -- Toggle conceal level between 0 and 2
 -- vim.keymap.set("n", "<leader>cc",
 --     function()
@@ -161,12 +162,16 @@ vim.keymap.set("n", "<leader>E", "<cmd>WindowsEqualize<CR>", { desc = "Equalize 
 -- Maximize current buffer
 vim.keymap.set("n", "<leader>M", "<cmd>WindowsMaximize<CR>", { desc = "Maximize Buffer" })
 
+-- Force close current buffer 
+vim.keymap.set("n", "<space>qb", "<cmd>BD!<CR>", { desc = "Force close current buffer" })
+vim.keymap.set("n", "<space>qa", "<cmd>BufferCloseAllButVisible<CR>", { desc = "Force close all buffers but visible" })
 -- Run Python file
 vim.keymap.set("n", "<leader>rp", "<cmd>!python3 %<CR>", { desc = "Run Python file" })
 
 vim.api.nvim_set_keymap("n", "<leader>rpf", ":w<CR>:lua RunPythonInFloatingTerm()<CR>",
     { desc = "Run python in floating terminal", noremap = true, silent = true })
 
+vim.api.nvim_set_keymap("n", "<leader>pc", "o```{python}<CR><CR>```<Esc>k", { noremap = true, silent = true, desc = "Add python cell" })
 function RunPythonInFloatingTerm()
     -- Get the current buffer's file path
     local file = vim.fn.expand("%")
@@ -222,37 +227,30 @@ local function new_terminal_shell()
 end
 
 local function send_cell()
-  if vim.b['quarto_is_r_mode'] == nil then
-    vim.fn['slime#send_cell']()
-    return
-  end
-  if vim.b['quarto_is_r_mode'] == true then
-    vim.g.slime_python_ipython = 0
-    local is_python = require('otter.tools.functions').is_otter_language_context 'python'
-    if is_python and not vim.b['reticulate_running'] then
-      vim.fn['slime#send']('reticulate::repl_python()' .. '\r')
-      vim.b['reticulate_running'] = true
+    if vim.b["quarto_is_r_mode"] == nil then
+        vim.fn["slime#send_cell"]()
+        return
     end
-    if not is_python and vim.b['reticulate_running'] then
-      vim.fn['slime#send']('exit' .. '\r')
-      vim.b['reticulate_running'] = false
+    if vim.b["quarto_is_r_mode"] == true then
+        vim.g.slime_python_ipython = 0
+        local is_python = require("otter.tools.functions").is_otter_language_context "python"
+        if is_python and not vim.b["reticulate_running"] then
+            vim.fn["slime#send"]("reticulate::repl_python()" .. "\r")
+            vim.b["reticulate_running"] = true
+        end
+        if not is_python and vim.b["reticulate_running"] then
+            vim.fn["slime#send"]("exit" .. "\r")
+            vim.b["reticulate_running"] = false
+        end
+        vim.fn["slime#send_cell"]()
     end
-    vim.fn['slime#send_cell']()
-  end
 end
 --
-vim.keymap.set("n", "<leader><cr>", send_cell, {desc = "run code cell"} )
+vim.keymap.set("n", "<leader><cr>", send_cell, { desc = "run code cell" })
 -- vim.keymap.set("n", "<leader>c", group = "[c]ode / [c]ell / [c]hunk" ),
-vim.keymap.set("n", "<leader>ci", new_terminal_ipython, {desc = "new [i]python terminal"} )
+vim.keymap.set("n", "<leader>ci", new_terminal_ipython, { desc = "new [i]python terminal" })
 -- vim.keymap.set("n", "<leader>cj", new_terminal_julia, desc = "new [j]ulia terminal" ),
 -- vim.keymap.set("n", "<leader>cn", new_terminal_shell, desc = "[n]ew terminal with shell" ),
-vim.keymap.set("n", "<leader>cp", new_terminal_python, {desc = "new [p]ython terminal"} )
+vim.keymap.set("n", "<leader>cp", new_terminal_python, { desc = "new [p]ython terminal" })
 
 --
-
-
-
-
-
-
-
