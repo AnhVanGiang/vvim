@@ -4,6 +4,7 @@ return {
     {
         "SmiteshP/nvim-navic", -- statusline/winbar component using lsp
         event = "VeryLazy",
+        enabled = true,
         dependencies = "neovim/nvim-lspconfig",
         opts = {
             highlight = true,
@@ -42,6 +43,7 @@ return {
     -- Winbar setup that uses navic
     {
         "utilyre/barbecue.nvim",
+        enabled = true,
         name = "barbecue",
         version = "*",
         event = "VeryLazy",

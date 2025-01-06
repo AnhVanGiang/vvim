@@ -11,7 +11,7 @@ return {
         end,
         cleaning_interval = 1000,
       },
-      trigger_events = {"InsertLeave", "TextChanged"}, -- Auto-save on these events
+      trigger_events = {"InsertLeave"}, -- Auto-save on these events
       condition = function(buf)
         -- Only save if the buffer is not read-only and is a normal file
         local fn = vim.fn

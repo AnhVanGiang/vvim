@@ -162,6 +162,8 @@ vim.keymap.set("n", "<leader>E", "<cmd>WindowsEqualize<CR>", { desc = "Equalize 
 -- Maximize current buffer
 vim.keymap.set("n", "<leader>M", "<cmd>WindowsMaximize<CR>", { desc = "Maximize Buffer" })
 
+-- Blackhole change 
+vim.keymap.set("n", "c", '"_c', { noremap = true })
 -- Force close current buffer 
 vim.keymap.set("n", "<space>qb", "<cmd>BD!<CR>", { desc = "Force close current buffer" })
 vim.keymap.set("n", "<space>qa", "<cmd>BufferCloseAllButVisible<CR>", { desc = "Force close all buffers but visible" })
@@ -253,4 +255,18 @@ vim.keymap.set("n", "<leader>ci", new_terminal_ipython, { desc = "new [i]python 
 -- vim.keymap.set("n", "<leader>cn", new_terminal_shell, desc = "[n]ew terminal with shell" ),
 vim.keymap.set("n", "<leader>cp", new_terminal_python, { desc = "new [p]ython terminal" })
 
---
+vim.api.nvim_set_keymap("n", "<leader>mr", ":lua require('neotest').run.run()<CR>", { noremap = true, silent = true, desc="Run Neotest" })
+vim.api.nvim_set_keymap("n", "<leader>mf", ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>", { noremap = true, silent = true, desc="Run Neotest on current file" })
+vim.api.nvim_set_keymap("n", "<leader>ms", ":lua require('neotest').run.stop()<CR>", { noremap = true, silent = true, desc="Stop Neotest" })
+vim.api.nvim_set_keymap("n", "<leader>mo", ":lua require('neotest').summary.toggle()<CR>", { noremap = true, silent = true, desc="Toggle Neotest summary" })
+vim.api.nvim_set_keymap("n", "<leader>ml", ":lua require('neotest').output.open({ enter = true })<CR>", { noremap = true, silent = true, desc="Open Neotest output" })
+vim.api.nvim_set_keymap("n", "<leader>ma", "<cmd>Neotest attach<CR>", { noremap = true, silent = true, desc="Attach to Neotest" })
+vim.api.nvim_set_keymap("n", "<leader>mop", "<cmd>Neotest output-panel", { noremap = true, silent = true, desc="Toggle Neotest output panel" })
+
+-- See diagnostics in float window
+vim.keymap.set("n", "<leader>dd", function()
+  vim.diagnostic.open_float(nil, { focusable = true, border = "rounded" })
+end, { desc = "Show diagnostics in floating window" })
+
+
+

@@ -8,7 +8,7 @@ return {
         { "<leader>n", function() require("snacks").notifier.hide() end,         desc = "Snacks: Dismiss All Notifications" },
         { "<leader>N", function() require("snacks").notifier.show_history() end, desc = "Snacks: Notification History" },
         { "<C-\\>",    function() require("snacks").terminal() end,              desc = "Snacks: Toggle Terminal" },
-        { "<leader>g", function() require("snacks").lazygit() end,               desc = "Snacks: Lazygit" },
+        -- { "<leader>g", function() require("snacks").lazygit() end,               desc = "Snacks: Lazygit" },
     },
     opts = {
         -- ────────────────────────────────────────────────────────────────────────────────────────
