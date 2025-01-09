@@ -1,6 +1,7 @@
 return {
   {
     "vim-test/vim-test",
+    enabled=false,
     config = function()
       -- Optional: Configure vim-test settings
       vim.g["test#strategy"] = "neovim" -- Use Neovim terminal for running tests

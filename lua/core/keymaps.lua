@@ -255,13 +255,13 @@ vim.keymap.set("n", "<leader>ci", new_terminal_ipython, { desc = "new [i]python 
 -- vim.keymap.set("n", "<leader>cn", new_terminal_shell, desc = "[n]ew terminal with shell" ),
 vim.keymap.set("n", "<leader>cp", new_terminal_python, { desc = "new [p]ython terminal" })
 
-vim.api.nvim_set_keymap("n", "<leader>mr", ":lua require('neotest').run.run()<CR>", { noremap = true, silent = true, desc="Run Neotest" })
-vim.api.nvim_set_keymap("n", "<leader>mf", ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>", { noremap = true, silent = true, desc="Run Neotest on current file" })
-vim.api.nvim_set_keymap("n", "<leader>ms", ":lua require('neotest').run.stop()<CR>", { noremap = true, silent = true, desc="Stop Neotest" })
-vim.api.nvim_set_keymap("n", "<leader>mo", ":lua require('neotest').summary.toggle()<CR>", { noremap = true, silent = true, desc="Toggle Neotest summary" })
-vim.api.nvim_set_keymap("n", "<leader>ml", ":lua require('neotest').output.open({ enter = true })<CR>", { noremap = true, silent = true, desc="Open Neotest output" })
-vim.api.nvim_set_keymap("n", "<leader>ma", "<cmd>Neotest attach<CR>", { noremap = true, silent = true, desc="Attach to Neotest" })
-vim.api.nvim_set_keymap("n", "<leader>mop", "<cmd>Neotest output-panel", { noremap = true, silent = true, desc="Toggle Neotest output panel" })
+vim.keymap.set("n", "<leader>tr", ":lua require('neotest').run.run()<CR>", { noremap = true, silent = true, desc="Run Neotest" })
+vim.keymap.set("n", "<leader>tf", ":lua require('neotest').run.run(vim.fn.expand('%'))<CR>", { noremap = true, silent = true, desc="Run Neotest on current file" })
+vim.keymap.set("n", "<leader>ts", ":lua require('neotest').run.stop()<CR>", { noremap = true, silent = true, desc="Stop Neotest" })
+vim.keymap.set("n", "<leader>to", ":lua require('neotest').summary.toggle()<CR>", { noremap = true, silent = true, desc="Toggle Neotest summary" })
+vim.keymap.set("n", "<leader>tl", ":lua require('neotest').output.open({ enter = true })<CR>", { noremap = true, silent = true, desc="Open Neotest output" })
+vim.keymap.set("n", "<leader>ta", "<cmd>Neotest attach<CR>", { noremap = true, silent = true, desc="Attach to Neotest" })
+vim.keymap.set("n", "<leader>top", "<cmd>Neotest output-panel", { noremap = true, silent = true, desc="Toggle Neotest output panel" })
 
 -- See diagnostics in float window
 vim.keymap.set("n", "<leader>dd", function()
@@ -269,4 +269,7 @@ vim.keymap.set("n", "<leader>dd", function()
 end, { desc = "Show diagnostics in floating window" })
 
 
-
+vim.keymap.set("n", "<leader>1", ":ToggleTerm 1<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>2", ":ToggleTerm 2<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>3", ":ToggleTerm 3<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>4", ":ToggleTerm 4<CR>", { noremap = true, silent = true })

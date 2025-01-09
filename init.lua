@@ -177,7 +177,7 @@ end
 
 vim.keymap.set(
 	"n",
-	"<leader>st",
+	"<leader>rt",
 	toggle_boolean,
 	{ noremap = true, silent = true, desc = "Change boolean" }
 )

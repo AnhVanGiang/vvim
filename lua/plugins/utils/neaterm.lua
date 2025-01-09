@@ -1,5 +1,6 @@
 return {
     "Dan7h3x/neaterm.nvim",
+    enabled = false,
     branch = "stable",
     event = "VeryLazy",
     opts = {

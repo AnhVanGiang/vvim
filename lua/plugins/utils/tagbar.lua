@@ -1,6 +1,7 @@
 return {
   {
     "preservim/tagbar",
+    enabled = false,
     cmd = { "TagbarOpen", "TagbarToggle" },
     keys = { { "<leader>tt", ":TagbarToggle<CR>", desc = "Toggle Tagbar" } },
     config = function()
