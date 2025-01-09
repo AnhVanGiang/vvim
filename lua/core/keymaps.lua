@@ -99,7 +99,7 @@ vim.keymap.set("n", "<F14>", "<cmd>TodoTelescope<CR>", opts)
 
 -- <F3>: Show file tree explorer
 -- vim.keymap.set("n", "<F3>", "<cmd>NvimTreeToggle<CR>", default_opts)
-vim.keymap.set("n", "<F3>", "<cmd>Neotree toggle<CR>", opts)
+vim.keymap.set("n", "<F3>", "<cmd>Neotree toggle float<CR>", opts)
 -- <F3>: Show file tree at the current file
 vim.keymap.set("n", "<F15>", "<cmd>Neotree reveal<CR>", opts)
 

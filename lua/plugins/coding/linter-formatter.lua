@@ -49,16 +49,14 @@ return {
 					markdown = { "prettier" },
 					typescript = { "prettier" },
 					yaml = { "prettier" },
-					python = { "isort", "black" },
+					python = { "isort", "black", timeout_ms = 1000},
 					lua = { "stylua" },
-					sql = { "sqlformat" },
+					sql = { "sqlfluff" },
 					toml = { "taplo" },
 				},
 				formatters = {
 					black = {
-						args = { "--fast", "-" }, -- Use Black in fast mode (optional)
-						timeout_ms = 2000, -- Set a 5-second timeout (adjust as needed)
-						stdin = true,
+						preprend_args = { "--fast"}, -- Use Black in fast mode (optional)
 					},
 				},
 			})

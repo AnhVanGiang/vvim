@@ -1,9 +1,10 @@
 return {
     "nvim-focus/focus.nvim",
+    enabled = false,
     config = function()
         -- Setup focus with your existing settings
         require("focus").setup({
-            enable = false, -- Enable module
+            -- enabled = false, -- Enable module
             commands = true, -- Create Focus commands
             autoresize = {
                 enable = true, -- Enable or disable auto-resizing of splits
