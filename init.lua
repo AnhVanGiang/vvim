@@ -68,7 +68,7 @@ local function set_colorscheme(scheme)
 end
 
 -- Set your preferred colorscheme here
-set_colorscheme("ofirkai") -- Set Monokai Pro as the default
+set_colorscheme("catppuccin-macchiato")
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = "*.py",
 	command = "set filetype=python",
@@ -81,14 +81,15 @@ vim.api.nvim_create_user_command(
 		local file_path = ""
 		local success, nt_manager = pcall(require, "neo-tree.sources.manager")
 
+		-- Get the file path from NeoTree if available
 		if success then
 			local state = nt_manager.get_state("filesystem") -- Get the filesystem state
 			local node = state and state.tree:get_node() or nil
 			file_path = node and node.path or ""
 		end
 
+		-- Fallback: Use the current buffer's file path
 		if file_path == "" then
-			-- Fallback: Use the current buffer's file path
 			file_path = vim.fn.expand("%:p")
 		end
 
@@ -104,39 +105,79 @@ vim.api.nvim_create_user_command(
 		-- Extract directory and base name
 		local dir = file_path:match("(.*/)")
 		local base_name = file_path:match("([^/]+)%.json$")
-
-		-- Generate output file name
 		local output_path = dir .. base_name .. ".parquet"
 
 		-- Get the orient argument or use "index" as default
-		local orient = opts.args or "index" -- Default to "index" if no argument is provided
+		local orient = opts.args or "index"
 
-		-- Run Python script for conversion
-		local result = vim.fn.system({
+		-- Run the Python script asynchronously
+		vim.fn.jobstart({
 			"python3",
 			"-c",
 			[[
-        import pandas as pd
-        import sys
-        try:
-            input_file = sys.argv[1]
-            output_file = sys.argv[2]
-            orient = sys.argv[3]
-            df = pd.read_json(input_file, orient=orient)
-            df.to_parquet(output_file)
-            print(f"Converted {input_file} to {output_file} with orient='{orient}'")
-        except ValueError as e:
-            print(f"Error: Invalid orient '{orient}' - {e}")
-        except Exception as e:
-            print(f"Error: {e}")
-              ]],
+import pandas as pd
+import sys
+try:
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+    orient = sys.argv[3]
+    df = pd.read_json(input_file, orient='index')
+    df.to_parquet(output_file)
+    print(f"Converted {input_file} to {output_file} with orient='{orient}'")
+except ValueError as e:
+    print(f"Error: Invalid orient '{orient}' - {e}")
+except Exception as e:
+    print(f"Error: {e}")
+      ]],
 			file_path,
 			output_path,
 			orient,
+		}, {
+			stdout_buffered = true,
+			stderr_buffered = true,
+			on_stdout = function(_, data, _)
+				if data then
+					print(table.concat(data, "\n"))
+				end
+			end,
+			on_stderr = function(_, data, _)
+				if data then
+					print(table.concat(data, "\n"))
+				end
+			end,
+			on_exit = function(_, exit_code, _)
+				if exit_code == 0 then
+					print("Conversion completed successfully.")
+				else
+					print("Conversion failed. Check the error messages.")
+				end
+			end,
 		})
-
-		-- Print result
-		print(result)
 	end,
 	{ nargs = "?" } -- Allow an optional argument
+)
+
+local function toggle_boolean()
+	-- Get the word under the cursor
+	local word = vim.fn.expand("<cword>")
+
+	-- Define the toggle logic
+	if word == "True" then
+		vim.cmd("normal! ciwFalse")
+	elseif word == "False" then
+		vim.cmd("normal! ciwTrue")
+	elseif word == "true" then
+		vim.cmd("normal! ciwfalse")
+	elseif word == "false" then
+		vim.cmd("normal! ciwtrue")
+	else
+		print("Not a Boolean value")
+	end
+end
+
+vim.keymap.set(
+	"n",
+	"<leader>st",
+	toggle_boolean,
+	{ noremap = true, silent = true, desc = "Change boolean" }
 )
