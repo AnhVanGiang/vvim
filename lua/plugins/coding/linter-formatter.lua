@@ -51,13 +51,17 @@ return {
 					yaml = { "prettier" },
 					python = { "isort", "black", timeout_ms = 1000},
 					lua = { "stylua" },
-					sql = { "sqlfluff" },
+					sql = { "sql-formatter" },
 					toml = { "taplo" },
 				},
 				formatters = {
-					black = {
-						preprend_args = { "--fast"}, -- Use Black in fast mode (optional)
-					},
+					-- black = {
+					-- 	prepend_args = { "--fast"}, -- Use Black in fast mode (optional)
+					-- },
+
+                    -- [ "sqlfluff" ] = {
+                    --     append_args = {"--dialect", "bigquery", "$FILENAME" },
+                    -- },
 				},
 			})
 		end,

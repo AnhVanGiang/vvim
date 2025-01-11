@@ -26,10 +26,14 @@ return {
 				},
 				filesystem = {
 					group_empty_dirs = true, -- when true, empty folders will be grouped together
-                    -- auto_preview = true
+					-- auto_preview = true
 				},
 				window = {
 					mappings = {
+						["s"] = function()
+							-- Call Flash's jump function
+							require("flash").jump()
+						end,
 						["p"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
 						["<CR>"] = "focus_preview",
 						["<C-u>"] = { "scroll_preview", config = { direction = 10 } },

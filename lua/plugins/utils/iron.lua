@@ -28,10 +28,10 @@ return {
 
                 -- Example 1: Vertical split, 80 columns wide
                 -- repl_open_cmd = "vertical botright 80 split",
-                repl_open_cmd = view.split.vertical.botright(80),
+                -- repl_open_cmd = view.split.vertical.botright(80),
 
                 -- Example 2: Vertical split, 61.9% of the window width
-                -- repl_open_cmd = view.split.vertical.botright(0.61903398875),
+                repl_open_cmd = view.split.vertical.botright("40%"),
 
                 -- Example 3: Horizontal split, 40% of the window height
                 -- repl_open_cmd = view.split("40%"),
@@ -90,6 +90,13 @@ return {
 
         vim.keymap.set("n", "<space>scl", function()
             require("iron.core").send(nil, { "clear" })
-        end, { desc = "Send 'clear' to REPL" })
+        end, {noremap = true, desc = "Send 'clear' to REPL" })
+
+        vim.keymap.set("n", "<space>se", function()
+            require("iron.core").send(nil, { "%load_ext autoreload" })
+            require("iron.core").send(nil, { "%autoreload 2" })
+            require("iron.core").send(nil, { "%load_ext autotime" })
+            require("iron.core").send(nil, { "%load_ext memory_profiler" })
+        end, {noremap = true, desc = "Send extensions to REPL" })
     end
 }

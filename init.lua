@@ -156,7 +156,70 @@ except Exception as e:
 	end,
 	{ nargs = "?" } -- Allow an optional argument
 )
+vim.api.nvim_create_user_command(
+	"ConvertIpynbToPy",
+	function()
+		-- Attempt to get the selected file in NeoTree
+		local file_path = ""
+		local success, nt_manager = pcall(require, "neo-tree.sources.manager")
 
+		-- Get the file path from NeoTree if available
+		if success then
+			local state = nt_manager.get_state("filesystem") -- Get the filesystem state
+			local node = state and state.tree:get_node() or nil
+			file_path = node and node.path or ""
+		end
+
+		-- Fallback: Use the current buffer's file path
+		if file_path == "" then
+			file_path = vim.fn.expand("%:p")
+		end
+
+		-- Debugging: Print the selected file path
+		print(string.format("Selected file name is %s", file_path))
+
+		-- Check if the file is a .ipynb file
+		if not file_path:match("%.ipynb$") then
+			print("Error: Selected file is not a .ipynb file")
+			return
+		end
+
+		-- Extract directory and base name
+		local dir = file_path:match("(.*/)")
+		local base_name = file_path:match("([^/]+)%.ipynb$")
+		local output_path = dir .. base_name .. ".py"
+
+		-- Run the nbconvert command asynchronously
+		vim.fn.jobstart({
+			"jupyter",
+			"nbconvert",
+			"--to",
+			"script",
+			file_path,
+		}, {
+			stdout_buffered = true,
+			stderr_buffered = true,
+			on_stdout = function(_, data, _)
+				if data then
+					print(table.concat(data, "\n"))
+				end
+			end,
+			on_stderr = function(_, data, _)
+				if data then
+					print(table.concat(data, "\n"))
+				end
+			end,
+			on_exit = function(_, exit_code, _)
+				if exit_code == 0 then
+					print(string.format("Conversion completed successfully: %s", output_path))
+				else
+					print("Conversion failed. Check the error messages.")
+				end
+			end,
+		})
+	end,
+	{ nargs = "?" } -- Allow an optional argument
+)
 local function toggle_boolean()
 	-- Get the word under the cursor
 	local word = vim.fn.expand("<cword>")
@@ -175,9 +238,4 @@ local function toggle_boolean()
 	end
 end
 
-vim.keymap.set(
-	"n",
-	"<leader>rt",
-	toggle_boolean,
-	{ noremap = true, silent = true, desc = "Change boolean" }
-)
+vim.keymap.set("n", "<leader>rt", toggle_boolean, { noremap = true, silent = true, desc = "Change boolean" })
