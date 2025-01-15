@@ -96,7 +96,7 @@ return {
             require("iron.core").send(nil, { "%load_ext autoreload" })
             require("iron.core").send(nil, { "%autoreload 2" })
             require("iron.core").send(nil, { "%load_ext autotime" })
-            require("iron.core").send(nil, { "%load_ext memory_profiler" })
+            -- require("iron.core").send(nil, { "%load_ext memory_profiler" })
         end, {noremap = true, desc = "Send extensions to REPL" })
     end
 }

@@ -239,3 +239,41 @@ local function toggle_boolean()
 end
 
 vim.keymap.set("n", "<leader>rt", toggle_boolean, { noremap = true, silent = true, desc = "Change boolean" })
+
+-- function OpenFloatingTerminal()
+--   local buf = vim.api.nvim_create_buf(false, true) -- Create a new empty buffer
+--   local opts = {
+--     relative = "editor",
+--     width = math.floor(vim.o.columns * 0.8), -- 80% of the editor width
+--     height = math.floor(vim.o.lines * 0.8),  -- 80% of the editor height
+--     row = math.floor(vim.o.lines * 0.1),     -- Centered vertically
+--     col = math.floor(vim.o.columns * 0.1),  -- Centered horizontally
+--     style = "minimal",
+--     border = "rounded", -- Optional: rounded border
+--   }
+--
+--   -- Open the terminal in the floating window
+--   local win = vim.api.nvim_open_win(buf, true, opts)
+--   vim.fn.termopen(vim.o.shell) -- Open a terminal in the buffer
+--   vim.cmd("startinsert") -- Start in insert mode
+--   return win
+-- end
+
+vim.keymap.set("n", "<leader>ft", ":lua OpenFloatingTerminal()<CR>", { noremap = true, silent = true, desc="Open floating terminal" })
+-- movement
+vim.keymap.set({ 'n', 'v' }, '<C-k>', '<cmd>Treewalker Up<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-j>', '<cmd>Treewalker Down<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-l>', '<cmd>Treewalker Right<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-h>', '<cmd>Treewalker Left<cr>', { silent = true })
+
+-- swapping
+vim.keymap.set('n', '<C-S-j>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
+vim.keymap.set('n', '<C-S-k>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
+vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<CR>', { silent = true })
+vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<CR>', { silent = true })
+
+vim.keymap.set('n', '<leader>tn', ':tabnew<CR>', { noremap = true, silent = true, desc = "Open a new tab" })
+vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { noremap = true, silent = true, desc = "Close the current tab" })
+vim.keymap.set('n', '<leader>ts', ':tab split<CR>', { noremap = true, silent = true, desc = "Split tab" })
+-- vim.api.nvim_set_keymap('n', '<leader>tp', ':tabprevious<CR>', { noremap = true, silent = true, desc = "Go to the previous tab" })
+-- vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnext<CR>', { noremap = true, silent = true, desc = "Go to the next tab" })

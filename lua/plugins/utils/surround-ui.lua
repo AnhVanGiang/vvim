@@ -6,7 +6,7 @@ return {
   },
   config = function()
     require("surround-ui").setup({
-      root_key = "S"
+      root_key = "H"
     })
   end,
 }

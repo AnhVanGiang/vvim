@@ -1,6 +1,7 @@
 -- Show project outline
 return {
     "hedyhli/outline.nvim", -- show symbols of the current buffer
+    enabled = true,
     event = "VeryLazy",
     keys = {
         { "<leader>o", "<CMD>Outline!<CR>", desc = "Outline: Toggle on the right-most" },

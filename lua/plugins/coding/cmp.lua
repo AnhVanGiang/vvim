@@ -1,6 +1,7 @@
 -- Code completion
 return {
 	"hrsh7th/nvim-cmp", -- code completion
+	enabled = false,
 	event = { "CmdlineEnter", "InsertEnter" },
 	-- keys = {
 	--     { "<tab>",   false, mode = { "i", "s" } },
@@ -80,6 +81,9 @@ return {
 
 		-- Main config
 		cmp.setup({
+			-- completion = {
+			-- 	autocomplete = false,
+			-- },
 			snippet = {
 				expand = function(args)
 					-- vim.fn['vsnip#anonymous'](args.body) -- For `vsnip` users.
@@ -93,13 +97,14 @@ return {
 				documentation = cmp.config.window.bordered(),
 			},
 			mapping = cmp.mapping.preset.insert({
+				["<Tab>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 				["<C-k>"] = cmp.mapping.scroll_docs(-4),
 				["<C-j>"] = cmp.mapping.scroll_docs(4),
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),
 				["<C-d>"] = cmp.mapping.scroll_docs(4),
-				["<C-Space>"] = cmp.mapping.complete(),
+				-- ["<C-Space>"] = cmp.mapping.complete(),
 				["<C-c>"] = cmp.mapping.abort(),
-				["<CR>"] = cmp.mapping.confirm({ select = false }),
+				["<CR>"] = cmp.mapping.confirm({ select = true }),
 				-- ["<Tab>"]     = cmp.mapping(next_item, { "i", "s" }),
 				["<S-Tab>"] = cmp.mapping(next_item, { "i", "s" }),
 				["<C-n>"] = cmp.mapping(next_item, { "i", "s" }),
@@ -139,30 +144,30 @@ return {
 				},
 			},
 		})
-		local neocodeium = require("neocodeium")
-
-		neocodeium.setup({
-			manual = true, -- recommended to not conflict with nvim-cmp
-		})
+		-- local neocodeium = require("neocodeium")
+		--
+		-- neocodeium.setup({
+		-- 	manual = true, -- recommended to not conflict with nvim-cmp
+		-- })
 
 		-- create an autocommand which closes cmp when ai completions are displayed
-		vim.api.nvim_create_autocmd("User", {
-			pattern = "NeoCodeiumCompletionDisplayed",
-			callback = function()
-				require("cmp").abort()
-			end,
-		})
-
-		vim.keymap.set("i", "<A-e>", function()
-			neocodeium.cycle_or_complete()
-		end)
-		-- make sure to have a mapping to accept a completion
-		vim.keymap.set("i", "<A-c>", function()
-			neocodeium.accept()
-		end)
-		vim.keymap.set("i", "<A-s>", function()
-			neocodeium.accept_word()
-		end)
+		-- vim.api.nvim_create_autocmd("User", {
+		-- 	pattern = "NeoCodeiumCompletionDisplayed",
+		-- 	callback = function()
+		-- 		require("cmp").abort()
+		-- 	end,
+		-- })
+		--
+		-- vim.keymap.set("i", "<A-e>", function()
+		-- 	neocodeium.cycle_or_complete()
+		-- end)
+		-- -- make sure to have a mapping to accept a completion
+		-- vim.keymap.set("i", "<A-c>", function()
+		-- 	neocodeium.accept()
+		-- end)
+		-- vim.keymap.set("i", "<A-s>", function()
+		-- 	neocodeium.accept_word()
+		-- end)
 		-- `/` cmdline setup.
 		cmp.setup.cmdline({ "/", "?" }, {
 			mapping = cmp.mapping.preset.cmdline(),
@@ -177,6 +182,13 @@ return {
 			sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 			matching = { disallow_symbol_nonprefix_matching = false },
 		})
+
+		-- cmp.setup.cmdline(":", {
+		-- 	mapping = cmp.mapping.preset.cmdline(),
+		-- 	sources = {
+		-- 		{ name = "cmdline" }, -- Enable cmdline completion
+		-- 	},
+		-- })
 
 		-- Load snippets for luasnip
 		require("luasnip.loaders.from_vscode").lazy_load()

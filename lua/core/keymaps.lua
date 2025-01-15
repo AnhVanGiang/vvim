@@ -99,7 +99,7 @@ vim.keymap.set("n", "<F14>", "<cmd>TodoTelescope<CR>", opts)
 
 -- <F3>: Show file tree explorer
 -- vim.keymap.set("n", "<F3>", "<cmd>NvimTreeToggle<CR>", default_opts)
-vim.keymap.set("n", "<F3>", "<cmd>Neotree toggle float<CR>", opts)
+vim.keymap.set("n", "<F3>", "<cmd>Neotree toggle float reveal<CR>", opts)
 -- <F3>: Show file tree at the current file
 vim.keymap.set("n", "<F15>", "<cmd>Neotree reveal<CR>", opts)
 
@@ -273,3 +273,17 @@ vim.keymap.set("n", "<leader>1", ":ToggleTerm 1<CR>", { noremap = true, silent =
 vim.keymap.set("n", "<leader>2", ":ToggleTerm 2<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>3", ":ToggleTerm 3<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>4", ":ToggleTerm 4<CR>", { noremap = true, silent = true })
+
+vim.keymap.set({ 'n', 'v' }, '<C-k>', '<cmd>Treewalker Up<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-j>', '<cmd>Treewalker Down<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-l>', '<cmd>Treewalker Right<cr>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-h>', '<cmd>Treewalker Left<cr>', { silent = true })
+
+-- swapping
+vim.keymap.set('n', '<C-S-j>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
+vim.keymap.set('n', '<C-S-k>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
+vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<CR>', { silent = true })
+vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<CR>', { silent = true })
+
+-- Clear search highlight
+-- vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>', { silent = true })
