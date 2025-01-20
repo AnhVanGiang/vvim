@@ -158,3 +158,17 @@ vim.keymap.set("n", "<leader>=", function() FillLine("━") end,
 -- vim.keymap.set("n", "<leader>-", ':call FillLine("-")<CR>', default_opts)
 -- -- Fill with '=' characters
 -- vim.keymap.set("n", "<leader>=", ':call FillLine("=")<CR>', default_opts)
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   callback = function()
+--     -- Simulate pressing <leader>ff (space + f + f)
+--     vim.api.nvim_feedkeys(
+--       vim.api.nvim_replace_termcodes("<Space>ff", true, false, true),
+--       "n",
+--       true
+--     )
+--
+--     -- Optional: Close the quickfix window (or perform another action)
+--     vim.cmd("cclose")
+--   end,
+-- })
+

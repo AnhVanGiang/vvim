@@ -1,11 +1,11 @@
 return {
 	"monkoose/neocodeium",
-	event = "VeryLazy",
+	-- event = "Lazy",
     enabled=false,
 	config = function()
 		local neocodeium = require("neocodeium")
 		neocodeium.setup()
-		vim.keymap.set("i", "<Tab>", function()
+		vim.keymap.set("i", "<A-l>", function()
 			require("neocodeium").accept()
 		end)
 		-- vim.keymap.set("i", "<A-w>", function()

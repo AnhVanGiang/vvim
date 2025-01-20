@@ -11,6 +11,7 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("v", ">", ">gv", opts)
 vim.keymap.set("v", "<", "<gv", opts)
 
+vim.keymap.set('n', 'x', '"_x')
 -- Remove shift+tab default behavior
 -- vim.keymap.del('i', '<S-Tab>')
 -- Telescope find hidden files
@@ -274,16 +275,27 @@ vim.keymap.set("n", "<leader>2", ":ToggleTerm 2<CR>", { noremap = true, silent =
 vim.keymap.set("n", "<leader>3", ":ToggleTerm 3<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>4", ":ToggleTerm 4<CR>", { noremap = true, silent = true })
 
-vim.keymap.set({ 'n', 'v' }, '<C-k>', '<cmd>Treewalker Up<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-j>', '<cmd>Treewalker Down<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-l>', '<cmd>Treewalker Right<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-h>', '<cmd>Treewalker Left<cr>', { silent = true })
-
--- swapping
-vim.keymap.set('n', '<C-S-j>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
-vim.keymap.set('n', '<C-S-k>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
-vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<CR>', { silent = true })
-vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<CR>', { silent = true })
 
 -- Clear search highlight
 -- vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>', { silent = true })
+
+vim.keymap.set("n", "<leader>ft", ":lua OpenFloatingTerminal()<CR>", { noremap = true, silent = true, desc="Open floating terminal" })
+-- movement
+vim.keymap.set('n', '<leader>tn', ':tabnew<CR>', { noremap = true, silent = true, desc = "Open a new tab" })
+vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { noremap = true, silent = true, desc = "Close the current tab" })
+vim.keymap.set('n', '<leader>ts', ':tab split<CR>', { noremap = true, silent = true, desc = "Split tab" })
+-- vim.api.nvim_set_keymap('n', '<leader>tp', ':tabprevious<CR>', { noremap = true, silent = true, desc = "Go to the previous tab" })
+-- vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnext<CR>', { noremap = true, silent = true, desc = "Go to the next tab" })
+local function add_cell_marker()
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0)) -- Get the current cursor position (1-indexed)
+  local buf = vim.api.nvim_get_current_buf() -- Get the current buffer
+
+  -- Insert empty line above, "# %%", and empty line below
+  vim.api.nvim_buf_set_lines(buf, row - 1, row, false, { "", "# %%", "" })
+
+  -- Move the cursor to the line containing "# %%" for convenience
+  vim.api.nvim_win_set_cursor(0, { row + 1, 0 })
+end
+
+vim.keymap.set("n", "<space>ac", add_cell_marker, {noremap = true, desc = "Add # %% to the current or new line" })
+
