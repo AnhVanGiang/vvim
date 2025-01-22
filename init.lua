@@ -13,7 +13,7 @@ require("core")
 -- Bootstrap lazy.nvim on 1st install
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local plugins_cfg_dir = "plugins"
-
+vim.o.scroll = 8
 if not vim.uv.fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
 	local out = vim.fn.system({
@@ -316,6 +316,28 @@ end
 
 vim.keymap.set("n", "<leader>rt", toggle_boolean, { noremap = true, silent = true, desc = "Change boolean" })
 
+-- Auto select virtualenv Nvim open
+vim.api.nvim_create_user_command('SelectPoetryVenv', function()
+  -- Check for `pyproject.toml` in the current directory or parent directories
+  local pyproject_file = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
+  if pyproject_file ~= '' then
+    -- Use venv-selector's retrieve_from_cache or open a selector UI
+    local venv_selector = require('venv-selector')
+    local venv = venv_selector.retrieve_from_cache() -- Try to get the cached venv
+
+    if venv ~= nil and venv ~= '' then
+      print('Using cached venv: ' .. venv)
+    else
+      -- Open the selector UI if no cached venv is found
+      print('No cached venv found')
+      -- venv_selector.select_venv()
+    end
+  else
+    print('No `pyproject.toml` found in the current project.')
+  end
+end, {
+  desc = 'Use venv-selector to activate Poetry virtualenv for the current project',
+})
 -- function OpenFloatingTerminal()
 --   local buf = vim.api.nvim_create_buf(false, true) -- Create a new empty buffer
 --   local opts = {
