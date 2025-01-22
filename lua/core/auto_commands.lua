@@ -8,6 +8,8 @@ local default_opts = { noremap = true, silent = true }
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
 local user_cfgs_group = vim.api.nvim_create_augroup("user_cfgs", { clear = false })
 
+
+
 -- Only show cursorline in active windows
 vim.api.nvim_create_autocmd("WinEnter", {
     group = user_cfgs_group,

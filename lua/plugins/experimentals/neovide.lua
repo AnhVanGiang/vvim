@@ -1,5 +1,6 @@
 -- Neovide settings if available
 if vim.g.neovide then
+    vim.g.neovide_refresh_rate = 60
 	-- Set GUI  font
 	-- vim.o.guifont = "JetBrainsMono Nerd Font:h17"
 

@@ -1,8 +1,8 @@
 return {
 	"saghen/blink.cmp",
 	-- optional: provides snippets for the snippet source
-	dependencies = "rafamadriz/friendly-snippets",
-    enabled = true,
+	dependencies = { "rafamadriz/friendly-snippets", "mikavilpas/blink-ripgrep.nvim" },
+	enabled = true,
 
 	-- use a release tag to download pre-built binaries
 	version = "*",
@@ -45,10 +45,10 @@ return {
 		},
 		-- Displays a preview of the selected item on the current line
 		completion = {
-			ghost_text = { enabled = false },
-            trigger = {
-                show_on_keyword = true,
-            }
+			ghost_text = { enabled = true },
+			trigger = {
+				show_on_keyword = true,
+			},
 		},
 
 		appearance = {
@@ -64,8 +64,20 @@ return {
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "buffer", "snippets", "path", "ripgrep" },
+			providers = {
+				ripgrep = {
+					module = "blink-ripgrep",
+					name = "Ripgrep",
+					-- opts = {
+					-- 	prefix_min_len = 3,
+					-- 	context_size = 5,
+					-- 	max_filesize = "1M",
+					-- 	additional_rg_options = {},
+					-- },
+				},
+			},
 		},
 	},
-	opts_extend = { "sources.default" },
+	opts_extend = { "sources.default", "sources.providers" },
 }
