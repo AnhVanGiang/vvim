@@ -1,6 +1,6 @@
 return {
     "nvim-focus/focus.nvim",
-    enabled = true,
+    enabled = false,
     config = function()
         -- Setup focus with your existing settings
         require("focus").setup({

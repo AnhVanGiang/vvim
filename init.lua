@@ -2,7 +2,8 @@
 -- Nvim's core settings without plugins
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
 require("core")
-
+-- Set leader to \
+vim.g.mapleader = "\\"
 -- Overwrite some custom paths if needed (already defined in lua/core/settings.lua)
 -- vim.g.python3_host_prog = ""
 -- vim.opt.spellfile = ""
@@ -10,10 +11,17 @@ require("core")
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
 -- Setup plugins with the package-manager lazy.nvim
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
--- Bootstrap lazy.nvim on 1st install
+-- Normal mode mappings
+-- vim.api.nvim_set_keymap('n', 'K', ':m .-2<CR>==', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', 'J', ':m .+1<CR>==', { noremap = true, silent = true })
+--
+-- -- Visual mode mappings
+-- vim.api.nvim_set_keymap('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local plugins_cfg_dir = "plugins"
-vim.o.scroll = 8
+
+-- vim.o.scroll = 8
 if not vim.uv.fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
 	local out = vim.fn.system({
@@ -203,10 +211,9 @@ vim.api.nvim_create_user_command(
 
 		-- Run the nbconvert command asynchronously
 		vim.fn.jobstart({
-			"jupyter",
-			"nbconvert",
+			"jupytext",
 			"--to",
-			"script",
+			"py",
 			file_path,
 		}, {
 			stdout_buffered = true,
@@ -338,6 +345,54 @@ vim.api.nvim_create_user_command('SelectPoetryVenv', function()
 end, {
   desc = 'Use venv-selector to activate Poetry virtualenv for the current project',
 })
+-- Remap <C-d> to scroll down by 5 lines
+vim.api.nvim_set_keymap('n', '<C-d>', '20j', { noremap = true, silent = true })
+
+-- Remap <C-u> to scroll up by 5 lines
+vim.api.nvim_set_keymap('n', '<C-u>', '20k', { noremap = true, silent = true })
+
+vim.keymap.set("i", "<C-e>", function()
+  -- Debug: Notify that the function was triggered
+  print("Function triggered!")
+
+  -- Define matching pairs
+  local pair_chars = { ["("] = ")", ["["] = "]", ["{"] = "}", ['"'] = '"', ["'"] = "'" }
+  local col = vim.fn.col('.')  -- Current cursor column
+  local line = vim.fn.getline('.') -- Current line
+
+  -- Debug: Print current column and line
+  print("Current column:", col)
+  print("Current line:", line)
+
+  -- If we're at the end of the line, do nothing
+  if col > #line then
+    print("At the end of the line, no action taken.")
+    return
+  end
+
+  local char_at_cursor = line:sub(col, col) -- Character under the cursor
+  local char_after_cursor = line:sub(col + 1, col + 1) -- Character after the cursor
+
+  -- Debug: Print characters at and after the cursor
+  print("Char at cursor:", char_at_cursor)
+  print("Char after cursor:", char_after_cursor)
+
+  -- If the character after the cursor matches a closing pair, move the cursor forward
+  if pair_chars[char_at_cursor] == char_after_cursor then
+    print("Match found! Moving cursor forward.")
+    vim.cmd("normal! l")
+  else
+    print("No match found.")
+  end
+end, { noremap = true, silent = true })
+
+vim.api.nvim_create_user_command('FTermOpen', require('FTerm').open, { bang = true })
+vim.api.nvim_create_user_command('FTermClose', require('FTerm').close, { bang = true })
+vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })
+-- vim.api.nvim_set_keymap('n', '<C-D>', '30j', { noremap = true, silent = true })
+--
+-- -- Remap <C-u> to scroll up by 5 lines
+-- vim.api.nvim_set_keymap('n', '<C-U>', '30k', { noremap = true, silent = true })
 -- function OpenFloatingTerminal()
 --   local buf = vim.api.nvim_create_buf(false, true) -- Create a new empty buffer
 --   local opts = {

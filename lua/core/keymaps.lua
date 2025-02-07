@@ -1,3 +1,7 @@
+---@module [TODO:description]
+---@author [TODO:description]
+---@license [TODO:description]
+
 -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 -- Keymaps configuration file: keymaps of neovim and plugins.
 -- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -299,3 +303,4 @@ end
 
 vim.keymap.set("n", "<space>ac", add_cell_marker, {noremap = true, desc = "Add # %% to the current or new line" })
 
+vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, { noremap = true, silent = true })

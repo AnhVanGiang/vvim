@@ -2,7 +2,7 @@ return {
 	"saghen/blink.cmp",
 	-- optional: provides snippets for the snippet source
 	dependencies = { "rafamadriz/friendly-snippets", "mikavilpas/blink-ripgrep.nvim" },
-	enabled = true,
+	enabled = false,
 
 	-- use a release tag to download pre-built binaries
 	version = "*",
@@ -33,7 +33,7 @@ return {
 				"snippet_forward",
 				"fallback",
 			},
-			-- ["<S-Tab>"] = { "snippet_backward", "fallback" },
+			["<S-Tab>"] = { "snippet_backward", "fallback" },
 
 			["<Up>"] = { "select_prev", "fallback" },
 			["<Down>"] = { "select_next", "fallback" },
@@ -64,7 +64,7 @@ return {
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { "lsp", "buffer", "snippets", "path", "ripgrep" },
+			default = { "lsp", "snippets", "buffer", "path", "ripgrep" },
 			providers = {
 				ripgrep = {
 					module = "blink-ripgrep",

@@ -132,6 +132,7 @@ return {
         require("telescope").load_extension("ui-select")
         require("telescope").load_extension("fzf")
         require("telescope").load_extension("bibtex")
+        require("telescope").load_extension('find_template')
         -- require("telescope").load_extension("notify")
 
         -- Wrap lines in previewer

@@ -1,7 +1,7 @@
 return {
   {
     "tpope/vim-dadbod",
-    enabled = false,
+    enabled = true,
     dependencies = {
       "kristijanhusak/vim-dadbod-ui",         -- Optional: UI for vim-dadbod
       "kristijanhusak/vim-dadbod-completion" -- Optional: Completion for vim-dadbod

@@ -34,7 +34,7 @@ return {
 							-- Call Flash's jump function
 							require("flash").jump()
 						end,
-						["p"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+						-- ["p"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
 						["<CR>"] = "focus_preview",
 						["<C-u>"] = { "scroll_preview", config = { direction = 10 } },
 						["<C-d>"] = { "scroll_preview", config = { direction = -10 } },
