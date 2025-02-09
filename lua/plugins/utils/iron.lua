@@ -16,7 +16,7 @@ return {
 						command = { "zsh" },
 					},
 					python = {
-						command = { "ipython", "--no-autoindent", "--pprint", "--colors='Linux'"},
+						command = { "ipython", "--no-autoindent", "--pprint", "--colors='Linux'" },
 						format = require("iron.fts.common").bracketed_paste_python,
 						block_deviders = { "# %%", "#%%" },
 					},
@@ -25,6 +25,9 @@ return {
 					-- 	format = require("iron.fts.common").bracketed_paste_python,
 					-- },
 				},
+				repl_filetype = function(bufnr, ft)
+					return "iron"
+				end,
 				-- How the repl window will be displayed
 				-- See below for more information
 				-- repl_open_cmd = require("iron.view").bottom(40),

@@ -2,6 +2,7 @@
 return {
     "nvim-telescope/telescope.nvim", -- fuzzy finder for multiple things
     event = "VeryLazy",
+    enabled = false,
     dependencies = {
         { "nvim-telescope/telescope-ui-select.nvim", event = "VeryLazy" },
         {
@@ -17,7 +18,7 @@ return {
     keys = {
         { "<space><space>", "<CMD>Telescope<CR>", desc = "Telescope: Open builtin" },
         { "<space>fa", "<CMD>Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<CR>", desc = "Telescope: Find all files" },
-        { "<space>ff", "<CMD>Telescope frecency workspace=CWD path_display={'shorten'}<CR>", desc = "Telescope: Find files using frecency" },
+        { "<space>ff", "<CMD>Telescope frecency workspace=CWD<CR>", desc = "Telescope: Find files using frecency" },
         { "<space>t", "<CMD>Telescope live_grep<CR>", desc = "Telescope: Find text" },
         { "<space>b", "<CMD>Telescope buffers<CR>", desc = "Telescope: Find buffer" },
         { "<space>/", "<CMD>Telescope current_buffer_fuzzy_find<CR>", desc = "Telescope: Find in buffer" },

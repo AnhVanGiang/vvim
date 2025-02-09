@@ -304,3 +304,12 @@ end
 vim.keymap.set("n", "<space>ac", add_cell_marker, {noremap = true, desc = "Add # %% to the current or new line" })
 
 vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, { noremap = true, silent = true })
+
+-- vim.api.nvim_set_keymap(
+--   'n',
+--   '<leader>Ag',
+--   ':AiderOpen --model openai/o3-mini-2025-01-31<CR>',G
+--   { noremap = true, silent = true }
+-- )
+
+-- vim.api.nvim_set_keymap('n', '<leader>Ag', ':AiderOpen --model o3-mini<CR>', {noremap = true, silent = true})

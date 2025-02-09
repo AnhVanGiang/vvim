@@ -142,6 +142,20 @@ vim.keymap.set("n", "<leader>-", function() FillLine("─") end,
 vim.keymap.set("n", "<leader>=", function() FillLine("━") end,
     { desc = "Fill line with `━` characters", noremap = true, silent = true })
 
+-- This autocommand checks all windows in the current tab on TabLeave,
+-- and if any window shows a terminal buffer with filetype "iron-repl",
+-- it deletes that buffer.
+-- vim.api.nvim_create_autocmd("TabLeave", {
+--   callback = function()
+--     local current_tab_wins = vim.api.nvim_tabpage_list_wins(0)
+--     for _, win in ipairs(current_tab_wins) do
+--       local bufnr = vim.api.nvim_win_get_buf(win)
+--       if vim.bo[bufnr].buftype == "terminal" and vim.bo[bufnr].filetype == "iron-repl" then
+--         vim.cmd("bdelete! " .. bufnr)
+--       end
+--     end
+--   end,
+-- })
 -- vim.cmd [[
 -- function! FillLine( str )
 --     " set tw to the desired total length
