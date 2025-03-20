@@ -68,14 +68,14 @@ return {
 			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-k>"] = cmp.mapping.scroll_docs(-4),
-				["<C-j>"] = cmp.mapping.scroll_docs(4),
+				-- ["<C-j>"] = cmp.mapping.scroll_docs(4),
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),
 				["<C-d>"] = cmp.mapping.scroll_docs(4),
 				["<C-c>"] = cmp.mapping.abort(),
-				["<CR>"] = cmp.mapping.confirm({ select = true }),
-				["<Tab>"] = cmp.mapping(function(fallback)
-					handle_snippet_jump_or_fallback(next_item, 1) -- Use next_item as fallback
-				end, { "i", "s" }),
+				["<Tab>"] = cmp.mapping.confirm({ select = true }),
+				-- ["<Tab>"] = cmp.mapping(function(fallback)
+				-- 	handle_snippet_jump_or_fallback(next_item, 1) -- Use next_item as fallback
+				-- end, { "i", "s" }),
 				["<S-Tab>"] = cmp.mapping(function(fallback)
 					if has_luasnip_jump_backwards() then
 						luasnip.jump(-1)
@@ -87,8 +87,10 @@ return {
 				["<C-p>"] = cmp.mapping(prev_item, { "i", "s" }),
 			}),
 			sources = cmp.config.sources({
-				{ name = "nvim_lsp", max_item_count = 5 },
-				{ name = "buffer", max_item_count = 5 },
+                -- {name = "codeium"},
+				{ name = "supermaven"},
+				{ name = "nvim_lsp"},
+				{ name = "buffer",},
 				{ name = "path" },
 				{ name = "luasnip" },
 			}),

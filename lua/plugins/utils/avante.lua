@@ -1,8 +1,8 @@
 return {
 	"yetone/avante.nvim",
 	event = "VeryLazy",
-    enabled = false,
-	lazy = false,
+	enabled = true,
+	lazy = true,
 	version = false, -- set this if you want to always pull the latest change
 	opts = {
 		-- add any opts here
@@ -24,6 +24,25 @@ return {
 			event = "VeryLazy",
 			opts = {
 				-- recommended settings
+				provider = "claude",
+				openai = {
+					endpoint = "https://api.anthropic.com",
+					model = "claude-3-7-sonnet-20250219", -- your desired model (or use gpt-4o, etc.)
+					timeout = 30000, -- timeout in milliseconds
+					temperature = 0, -- adjust if needed
+					max_tokens = 10000,
+					-- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
+				},
+				behaviour = {
+					auto_suggestions = true, -- Experimental stage
+					auto_set_highlight_group = false,
+					auto_set_keymaps = true,
+					auto_apply_diff_after_generation = false,
+					support_paste_from_clipboard = false,
+					minimize_diff = true, -- Whether to remove unchanged lines when applying a code block
+					enable_token_counting = true, -- Whether to enable token counting. Default to true.
+					enable_cursor_planning_mode = true, -- Whether to enable Cursor Planning Mode. Default to false.
+				},
 				default = {
 					embed_image_as_base64 = false,
 					prompt_for_file_name = false,

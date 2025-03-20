@@ -20,8 +20,11 @@ vim.g.mapleader = "\\"
 -- vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local plugins_cfg_dir = "plugins"
-
--- vim.o.scroll = 8
+-- Window resizing with Ctrl+arrows
+vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { silent = true })
+vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { silent = true })
+vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', { silent = true })
+vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', { silent = true })
 if not vim.uv.fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
 	local out = vim.fn.system({
@@ -76,7 +79,7 @@ local function set_colorscheme(scheme)
 end
 
 -- Set your preferred colorscheme here
-set_colorscheme("catppuccin-macchiato")
+set_colorscheme("catppuccin-frappe")
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = "*.py",
 	command = "set filetype=python",
@@ -176,10 +179,18 @@ vim.keymap.set('n', '<C-S-k>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
 vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<CR>', { silent = true })
 vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<CR>', { silent = true })
 
+-- Create a command that opens a terminal in a vertical split
+vim.api.nvim_create_user_command('VSTerminal', function()
+  -- Create a vertical split
+  vim.cmd('vsplit')
+  -- Open terminal in the new split
+  vim.cmd('terminal')
+end, {})
+
 vim.api.nvim_create_user_command(
 	"ConvertIpynbToPy",
 	function()
-		-- Attempt to get the selected file in NeoTree
+		-- Attempt to get the selected file from Yazi
 		local file_path = ""
 		local success, nt_manager = pcall(require, "neo-tree.sources.manager")
 
@@ -345,11 +356,6 @@ vim.api.nvim_create_user_command('SelectPoetryVenv', function()
 end, {
   desc = 'Use venv-selector to activate Poetry virtualenv for the current project',
 })
--- Remap <C-d> to scroll down by 5 lines
-vim.api.nvim_set_keymap('n', '<C-d>', '20j', { noremap = true, silent = true })
-
--- Remap <C-u> to scroll up by 5 lines
-vim.api.nvim_set_keymap('n', '<C-u>', '20k', { noremap = true, silent = true })
 
 vim.keymap.set("i", "<C-e>", function()
   -- Debug: Notify that the function was triggered
@@ -389,58 +395,49 @@ end, { noremap = true, silent = true })
 vim.api.nvim_create_user_command('FTermOpen', require('FTerm').open, { bang = true })
 vim.api.nvim_create_user_command('FTermClose', require('FTerm').close, { bang = true })
 vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })
--- vim.api.nvim_set_keymap('n', '<C-D>', '30j', { noremap = true, silent = true })
---
--- -- Remap <C-u> to scroll up by 5 lines
--- vim.api.nvim_set_keymap('n', '<C-U>', '30k', { noremap = true, silent = true })
--- function OpenFloatingTerminal()
---   local buf = vim.api.nvim_create_buf(false, true) -- Create a new empty buffer
---   local opts = {
---     relative = "editor",
---     width = math.floor(vim.o.columns * 0.8), -- 80% of the editor width
---     height = math.floor(vim.o.lines * 0.8),  -- 80% of the editor height
---     row = math.floor(vim.o.lines * 0.1),     -- Centered vertically
---     col = math.floor(vim.o.columns * 0.1),  -- Centered horizontally
---     style = "minimal",
---     border = "rounded", -- Optional: rounded border
---   }
---
---   -- Open the terminal in the floating window
---   local win = vim.api.nvim_open_win(buf, true, opts)
---   vim.fn.termopen(vim.o.shell) -- Open a terminal in the buffer
---   vim.cmd("startinsert") -- Start in insert mode
---   return win
--- end
 
--- vim.keymap.set("n", "<leader>ft", ":lua OpenFloatingTerminal()<CR>", { noremap = true, silent = true, desc="Open floating terminal" })
--- -- movement
--- vim.keymap.set({ 'n', 'v' }, '<C-k>', '<cmd>Treewalker Up<cr>', { silent = true })
--- vim.keymap.set({ 'n', 'v' }, '<C-j>', '<cmd>Treewalker Down<cr>', { silent = true })
--- vim.keymap.set({ 'n', 'v' }, '<C-l>', '<cmd>Treewalker Right<cr>', { silent = true })
--- vim.keymap.set({ 'n', 'v' }, '<C-h>', '<cmd>Treewalker Left<cr>', { silent = true })
---
--- -- swapping
--- vim.keymap.set('n', '<C-S-j>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
--- vim.keymap.set('n', '<C-S-k>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
--- vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<CR>', { silent = true })
--- vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<CR>', { silent = true })
---
--- vim.keymap.set('n', '<leader>tn', ':tabnew<CR>', { noremap = true, silent = true, desc = "Open a new tab" })
--- vim.keymap.set('n', '<leader>tc', ':tabclose<CR>', { noremap = true, silent = true, desc = "Close the current tab" })
--- vim.keymap.set('n', '<leader>ts', ':tab split<CR>', { noremap = true, silent = true, desc = "Split tab" })
--- -- vim.api.nvim_set_keymap('n', '<leader>tp', ':tabprevious<CR>', { noremap = true, silent = true, desc = "Go to the previous tab" })
--- -- vim.api.nvim_set_keymap('n', '<leader>tn', ':tabnext<CR>', { noremap = true, silent = true, desc = "Go to the next tab" })
--- local function add_cell_marker()
---   local line = vim.api.nvim_get_current_line() -- Get the current line
---   if line == "" then
---     -- If the line is empty, set it to "# %%"
---     vim.api.nvim_set_current_line("# %%")
---   else
---     -- Otherwise, append a new line below with "# %%"
---     local row, _ = unpack(vim.api.nvim_win_get_cursor(0)) -- Get the current row number
---     vim.api.nvim_buf_set_lines(0, row, row, false, { "# %%" })
---   end
--- end
---
--- -- Map to <leader>c using vim.keymap.set
--- vim.keymap.set("n", "<space>ac", add_cell_marker, {noremap = true, desc = "Add # %% to the current or new line" })
+-- Define a namespace for duplicate highlights
+local ns_id = vim.api.nvim_create_namespace("duplicate_highlight")
+
+local function highlight_duplicates()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local occurrences = {}
+
+  -- Build a table of line text to its line numbers (0-indexed)
+  for i, line in ipairs(lines) do
+    if line ~= "" then  -- skip empty lines if desired
+      occurrences[line] = occurrences[line] or {}
+      table.insert(occurrences[line], i - 1)
+    end
+  end
+
+  -- Clear previous highlights in our namespace
+  vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1)
+
+  -- Highlight lines that appear more than once
+  for _, line_numbers in pairs(occurrences) do
+    if #line_numbers > 1 then
+      for _, line_num in ipairs(line_numbers) do
+        vim.api.nvim_buf_add_highlight(bufnr, ns_id, "Search", line_num, 0, -1)
+      end
+    end
+  end
+end
+
+-- Create a user command for convenience
+vim.api.nvim_create_user_command("HighlightDuplicates", highlight_duplicates, {})
+
+local function clear_duplicate_highlights()
+  local bufnr = vim.api.nvim_get_current_buf()
+  vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1)
+end
+
+vim.api.nvim_create_user_command("ClearDuplicateHighlights", clear_duplicate_highlights, {})
+-- Combination approach
+vim.o.equalalways = false  -- Disable equal window sizing
+vim.o.eadirection = "ver"  -- Only allow vertical adjustments
+vim.opt.scroll = 30
+vim.api.nvim_create_user_command('BufCloseType', function(opts)
+  vim.cmd('bufdo if expand("%:e") == "' .. opts.args .. '" | bd | endif')
+end, { nargs = 1 })

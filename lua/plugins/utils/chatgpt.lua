@@ -1,6 +1,6 @@
 return {
 	"jackMort/ChatGPT.nvim",
-    enabled=false,
+	enabled = false,
 	event = "VeryLazy",
 	config = function()
 		require("chatgpt").setup({
@@ -17,11 +17,11 @@ return {
 				--         return "gpt-3.5-turbo"
 				--     end
 				-- end,
-				model = "gpt-4-1106-preview",
+				model = "o3-mini-2025-01-31",
 				api_key_cmd = "cat ~/.openai_key",
 				frequency_penalty = 0,
 				presence_penalty = 0,
-				max_tokens = 4095,
+				max_tokens = 200000,
 				temperature = 0.2,
 				top_p = 0.1,
 				n = 1,

@@ -27,7 +27,7 @@ return {
 		opts = {
 			-- Install the LSP servers automatically using mason-lspconfig
 			ensure_installed = {
-				"pyright",
+				"basedpyright",
 				"ruff",
 				"bashls",
 				"clangd",
@@ -53,6 +53,7 @@ return {
 				event = "BufReadPost",
 			},
 		},
+  --- [TODO:description]
 		config = function()
 			-- ────────────────────────────────────────────────────────────────────────────────────
 			-- Set up LSP servers
@@ -159,7 +160,7 @@ return {
 					vim.diagnostic.setloclist()
 				end
 			end, "Show all diagnostics")
-			map("n", "<leader>i", function()
+			map("n", "<leader>ih", function()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 			end, "Toggle inlay hint")
 

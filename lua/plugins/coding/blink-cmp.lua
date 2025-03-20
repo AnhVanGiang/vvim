@@ -45,7 +45,7 @@ return {
 		},
 		-- Displays a preview of the selected item on the current line
 		completion = {
-			ghost_text = { enabled = true },
+			ghost_text = { enabled = false },
 			trigger = {
 				show_on_keyword = true,
 			},

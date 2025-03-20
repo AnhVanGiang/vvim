@@ -4,15 +4,17 @@ return {
   event = "VeryLazy",
   keys = {
     {
-      "<leader>-",
+      "<space>yy",
       "<cmd>Yazi<cr>",
       desc = "Open yazi at the current file",
+      noremap = true,
     },
     {
-      "<leader>cw",
+      "<space>yc",
       "<cmd>Yazi cwd<cr>",
       desc = "Open the file manager in nvim's working directory",
-    },
+      noremap = true,
+},
     {
       '<c-up>',
       "<cmd>Yazi toggle<cr>",

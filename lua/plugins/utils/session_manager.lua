@@ -1,6 +1,6 @@
 return {
     "Shatur/neovim-session-manager",
-    enabled=false,
+    enabled=true,
     dependencies = {
         {
             "nvim-lua/plenary.nvim",
@@ -9,7 +9,8 @@ return {
     },
     event = "BufEnter",
     keys = {
-        { "<space>s", "<CMD>SessionManager<CR>", desc = "SessionManager: Open" },
+        { "<leader>Sl", "<CMD>SessionManager load_session<CR>", desc = "SessionManager: Load", noremap = true },
+        { "<leader>Ss", "<CMD>SessionManager save_current_session<CR>", desc = "SessionManager: Save", noremap = true },
     },
     config = function()
         local Path = require("plenary.path")

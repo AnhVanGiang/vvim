@@ -2,7 +2,7 @@
 if vim.g.neovide then
     vim.g.neovide_refresh_rate = 60
 	-- Set GUI  font
-	-- vim.o.guifont = "JetBrainsMono Nerd Font:h17"
+	vim.o.guifont = "JetBrainsMono Nerd Font:h15"
 
 	-- Cursor effect
 	vim.g.neovide_cursor_vfx_mode = "railgun"

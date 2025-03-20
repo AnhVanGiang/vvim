@@ -1,6 +1,7 @@
 return {
     {
         "kwkarlwang/bufresize.nvim",
+        enabled = false,
         config = function()
             local opts = { noremap = true, silent = true }
             require("bufresize").setup({

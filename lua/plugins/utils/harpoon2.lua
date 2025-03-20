@@ -25,7 +25,7 @@ return {
 			{ '<Leader>4', function() require('harpoon'):list():select(4) end, desc = 'Harpoon to File 4' },
 			{ '<Leader>5', function() require('harpoon'):list():select(5) end, desc = 'Harpoon to File 5' },
 			{ '<Leader>6', function() require('harpoon'):list():select(6) end, desc = 'Harpoon to File 6' },
-			{ '<Leader><Leader>', function()
+			{ '<Leader>h', function()
 				local harpoon = require('harpoon')
 				harpoon.ui:toggle_quick_menu(harpoon:list())
 			end, desc = 'List locations' },

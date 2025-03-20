@@ -178,7 +178,7 @@ vim.keymap.set("n", "<leader>rp", "<cmd>!python3 %<CR>", { desc = "Run Python fi
 vim.api.nvim_set_keymap("n", "<leader>rpf", ":w<CR>:lua RunPythonInFloatingTerm()<CR>",
     { desc = "Run python in floating terminal", noremap = true, silent = true })
 
-vim.api.nvim_set_keymap("n", "<leader>pc", "o```{python}<CR><CR>```<Esc>k", { noremap = true, silent = true, desc = "Add python cell" })
+vim.api.nvim_set_keymap("n", "<space>pc", "o```{python}<CR><CR>```<Esc>k", { noremap = true, silent = true, desc = "Add python cell" })
 function RunPythonInFloatingTerm()
     -- Get the current buffer's file path
     local file = vim.fn.expand("%")
@@ -305,6 +305,9 @@ vim.keymap.set("n", "<space>ac", add_cell_marker, {noremap = true, desc = "Add #
 
 vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, { noremap = true, silent = true })
 
+-- Rabbit 
+vim.keymap.set("n", "<space>R", ":Rabbit history<CR>", { noremap = true, silent = true, desc="Rabbit" })
+-- vim.keymap.set("n", "<leader>rh", ":Rabbit history<CR>", { noremap = true, silent = true, desc="Rabbit" })
 -- vim.api.nvim_set_keymap(
 --   'n',
 --   '<leader>Ag',

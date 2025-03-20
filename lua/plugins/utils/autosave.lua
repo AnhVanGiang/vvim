@@ -14,22 +14,24 @@ return {
 			},
 			trigger_events = { "InsertLeave" }, -- Auto-save on these events
 			condition = function(buf)
-				if vim.bo[buf].filetype == "harpoon" then
+				-- Check if the buffer is valid
+				if not vim.api.nvim_buf_is_valid(buf) then
 					return false
 				end
-				if vim.bo[buf].filetype == "sql" then
-					return false
-				end
-				-- Only save if the buffer is not read-only and is a normal file
-				local fn = vim.fn
-				local utils = require("auto-save.utils.data")
 
-				if
-					fn.getbufvar(buf, "&modifiable") == 1
-					and utils.not_in(fn.getbufvar(buf, "&filetype"), { "gitcommit", "markdown" })
-				then
+				-- Get the filetype of the buffer
+				local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
+				if filetype == "harpoon" or filetype == "sql" then
+					return false
+				end
+
+				-- Get modifiable status of the buffer
+				local modifiable = vim.api.nvim_buf_get_option(buf, "modifiable")
+				-- Only allow saving if the buffer is modifiable and the filetype is not gitcommit or markdown
+				if modifiable and not vim.tbl_contains({ "gitcommit", "markdown" }, filetype) then
 					return true
 				end
+
 				return false
 			end,
 			write_all_buffers = false, -- Save only the current buffer

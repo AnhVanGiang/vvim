@@ -49,9 +49,9 @@ return {
 					markdown = { "prettier" },
 					typescript = { "prettier" },
 					yaml = { "prettier" },
-					python = { "isort", "black", timeout_ms = 1000},
+					python = { "isort", "black", timeout_ms = 30000},
 					lua = { "stylua" },
-					sql = { "sql-formatter" },
+					sql = { "sql-formatter", "sqlfluff" },
 					toml = { "taplo" },
 				},
 				formatters = {
