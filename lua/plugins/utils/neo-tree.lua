@@ -3,7 +3,7 @@ return {
 	-- Neo-tree
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",
+		-- branch = "v3.x",
 		event = "VeryLazy",
 		enabled = true,
 		dependencies = {
@@ -13,7 +13,7 @@ return {
 		},
 		keys = {
 			-- { "<leader>t", "<CMD>Neotree toggle<CR>", desc = "Neotree: Toggle file tree" },
-			{ "<leader>T", "<CMD>Neotree reveal<CR>", desc = "Neotree: Open tree at the current file" },
+			-- { "<leader>T", "<CMD>Neotree reveal<CR>", desc = "Neotree: Open tree at the current file" },
 		},
 		config = function()
 			vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
@@ -23,7 +23,7 @@ return {
 				enable_diagnostics = true,
 				source_selector = {
 					winbar = true,
-					statusline = false,
+					statusline = true,
 				},
 				filesystem = {
 					group_empty_dirs = true, -- when true, empty folders will be grouped together
@@ -39,27 +39,29 @@ return {
 						["<CR>"] = "focus_preview",
 						["<C-u>"] = { "scroll_preview", config = { direction = 10 } },
 						["<C-d>"] = { "scroll_preview", config = { direction = -10 } },
-
+						["zz"] = function()
+							vim.cmd("normal! zz")
+						end,
 						-- Open with system defaults
-						["O"] = {
-							command = function(state)
-								local node = state.tree:get_node()
-								local filepath = node.path
-								---@diagnostic disable-next-line: undefined-field
-								local ostype = vim.uv.os_uname().sysname
-								local command
-
-								if ostype == "Windows_NT" then
-									command = "start " .. filepath
-								elseif ostype == "Darwin" then
-									command = "open " .. filepath
-								else
-									command = "xdg-open " .. filepath
-								end
-								os.execute(command)
-							end,
-							desc = "open_with_system_defaults",
-						},
+						-- ["O"] = {
+						-- 	command = function(state)
+						-- 		local node = state.tree:get_node()
+						-- 		local filepath = node.path
+						-- 		---@diagnostic disable-next-line: undefined-field
+						-- 		local ostype = vim.uv.os_uname().sysname
+						-- 		local command
+						--
+						-- 		if ostype == "Windows_NT" then
+						-- 			command = "start " .. filepath
+						-- 		elseif ostype == "Darwin" then
+						-- 			command = "open " .. filepath
+						-- 		else
+						-- 			command = "xdg-open " .. filepath
+						-- 		end
+						-- 		os.execute(command)
+						-- 	end,
+						-- 	desc = "open_with_system_defaults",
+						-- },
 						-- Custom mappings
 						-- "h" moves to the parent directory and collapses the node
 						["h"] = function(state)

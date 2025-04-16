@@ -4,6 +4,7 @@ return {
     -- for complete functionality (language features)
     'quarto-dev/quarto-nvim',
     ft = { 'quarto' },
+    enabled = true,
     dev = false,
     opts = {},
     dependencies = {

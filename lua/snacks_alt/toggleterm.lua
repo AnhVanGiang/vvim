@@ -2,6 +2,7 @@ return {
   {
     "akinsho/toggleterm.nvim",
     version = "*",
+    enabled = false,
     config = function()
       function _G.set_terminal_keymaps()
         local opts = { noremap = true }

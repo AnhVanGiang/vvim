@@ -79,7 +79,7 @@ local function set_colorscheme(scheme)
 end
 
 -- Set your preferred colorscheme here
-set_colorscheme("catppuccin-frappe")
+set_colorscheme("tokyonight-moon")
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = "*.py",
 	command = "set filetype=python",
@@ -441,3 +441,78 @@ vim.opt.scroll = 30
 vim.api.nvim_create_user_command('BufCloseType', function(opts)
   vim.cmd('bufdo if expand("%:e") == "' .. opts.args .. '" | bd | endif')
 end, { nargs = 1 })
+
+vim.api.nvim_create_user_command('TogglePrintComments', function()
+  -- Get the visual selection
+  local start_line = vim.fn.line("'<")
+  local end_line = vim.fn.line("'>")
+  
+  -- Get all lines in the selection
+  local lines = vim.api.nvim_buf_get_lines(0, start_line-1, end_line, false)
+  
+  -- Determine if we should comment or uncomment
+  local should_comment = false
+  for _, line in ipairs(lines) do
+    if line:match("^%s*print") and not line:match("^%s*#") then
+      should_comment = true
+      break
+    end
+  end
+  
+  -- Process each line
+  for i, line in ipairs(lines) do
+    if line:match("^%s*print") or line:match("^%s*#%s*print") then
+      if should_comment then
+        -- Comment the line if it's not already commented
+        if not line:match("^%s*#") then
+          lines[i] = line:gsub("^(%s*)(print)", "%1# %2")
+        end
+      else
+        -- Uncomment the line
+        lines[i] = line:gsub("^(%s*)#%s*", "%1")
+      end
+    end
+  end
+  
+  -- Replace the lines in the buffer
+  vim.api.nvim_buf_set_lines(0, start_line-1, end_line, false, lines)
+end, {range = true})
+
+vim.api.nvim_create_user_command('OpenInCursor', function()
+  local project_dir = vim.fn.getcwd()
+  vim.fn.system('open -a Cursor "' .. project_dir .. '"')
+end, {})
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank({higroup="IncSearch", timeout=150})
+  end,
+  group = vim.api.nvim_create_augroup('highlight_yank', {clear = true}),
+  pattern = '*',
+})
+
+vim.keymap.set(
+  "n",
+  "<leader>k",
+  '<cmd>lua require("kubectl").toggle({ tab = true })<cr>',
+  { noremap = true, silent = true }
+)
+
+vim.api.nvim_create_user_command('ConvertPyCells', function()
+    vim.cmd([[%s/^# [+-]$/# %%/g]])
+end, {})
+
+vim.o.shell = '/opt/homebrew/bin/fish'
+
+vim.keymap.set('n', '<leader>ds', '<Cmd>split<CR><Cmd>lua vim.lsp.buf.definition()<CR>', {
+  noremap = true,
+  silent = true,
+  desc = "LSP Definition Horizontal Split"
+})
+
+-- Go to definition in a new vertical split
+vim.keymap.set('n', '<leader>dv', '<Cmd>vsplit<CR><Cmd>lua vim.lsp.buf.definition()<CR>', {
+  noremap = true,
+  silent = true,
+  desc = "LSP Definition Vertical Split"
+})
