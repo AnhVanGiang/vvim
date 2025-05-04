@@ -292,24 +292,6 @@ vim.api.nvim_create_user_command(
 			file_path,
 		}, {
 			stdout_buffered = true,
-			stderr_buffered = true,
-			on_stdout = function(_, data, _)
-				if data then
-					print(table.concat(data, "\n"))
-				end
-			end,
-			on_stderr = function(_, data, _)
-				if data then
-					print(table.concat(data, "\n"))
-				end
-			end,
-			on_exit = function(_, exit_code, _)
-				if exit_code == 0 then
-					print(string.format("Conversion completed successfully: %s", output_path))
-				else
-					print("Conversion failed. Check the error messages.")
-				end
-			end,
 		})
 	end,
 	{ nargs = "?" } -- Allow an optional argument
@@ -446,10 +428,10 @@ vim.api.nvim_create_user_command('TogglePrintComments', function()
   -- Get the visual selection
   local start_line = vim.fn.line("'<")
   local end_line = vim.fn.line("'>")
-  
+
   -- Get all lines in the selection
   local lines = vim.api.nvim_buf_get_lines(0, start_line-1, end_line, false)
-  
+
   -- Determine if we should comment or uncomment
   local should_comment = false
   for _, line in ipairs(lines) do
@@ -458,7 +440,7 @@ vim.api.nvim_create_user_command('TogglePrintComments', function()
       break
     end
   end
-  
+
   -- Process each line
   for i, line in ipairs(lines) do
     if line:match("^%s*print") or line:match("^%s*#%s*print") then
@@ -473,7 +455,7 @@ vim.api.nvim_create_user_command('TogglePrintComments', function()
       end
     end
   end
-  
+
   -- Replace the lines in the buffer
   vim.api.nvim_buf_set_lines(0, start_line-1, end_line, false, lines)
 end, {range = true})
@@ -522,4 +504,21 @@ vim.keymap.set("n", "<leader>ca", function()
 	require("tiny-code-action").code_action()
 end, { noremap = true, silent = true })
 
+-- Add a command to add '# type: ignore' to the current line
+vim.api.nvim_create_user_command('AddTypeIgnore', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local line_num = vim.api.nvim_win_get_cursor(0)[1] - 1 -- 0-indexed line number of current window
 
+  local lines = vim.api.nvim_buf_get_lines(bufnr, line_num, line_num + 1, false)
+  if #lines > 0 then
+    local current_line = lines[1]
+    -- Check if the line already ends with # type: ignore, ignoring case and whitespace
+    if not current_line:match("[%s#]-type:%s*ignore%s*$") then
+        -- Append, ensuring a space if the line is not empty
+        local new_line = current_line .. " # type: ignore"
+        vim.api.nvim_buf_set_lines(bufnr, line_num, line_num + 1, false, { new_line })
+    end
+  end
+end, {
+  desc = "Add '# type: ignore' to the end of the current line",
+})
