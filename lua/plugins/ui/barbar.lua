@@ -1,15 +1,17 @@
 -- Tabline bar at the top
 return {
     "romgrk/barbar.nvim",              -- buffer line (top)
+    enabled = true,
     dependencies = {
         "lewis6991/gitsigns.nvim",     -- OPTIONAL: for git status
         "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
     },
     event = "BufEnter",
+    -- event = 'VimEnter',
     init = function() vim.g.barbar_auto_setup = false end,
     keys = {
         { "<C-A-h>",   "<CMD>BufferPrevious<CR>",     desc = "Barbar: previous buffer" },
-        { "<C-A-j>",   "<CMD>BufferPick<CR>",         desc = "Barbar: pick buffer to switch to" },
+        { "<leader>bb",   "<CMD>BufferPick<CR>",         desc = "Barbar: pick buffer to switch to", remap = false },
         { "<C-A-k>",   "<CMD>BufferPickDelete<CR>",   desc = "Barbar: pick and delete buffer" },
         { "<C-A-l>",   "<CMD>BufferNext<CR>",         desc = "Barbar: next buffer" },
         { "<C-A-S-h>", "<CMD>BufferMovePrevious<CR>", desc = "Barbar: swap with previous buffer" },

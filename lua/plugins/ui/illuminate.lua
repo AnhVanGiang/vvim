@@ -1,6 +1,7 @@
 -- Highlight related text under cursor
 return {
     "RRethy/vim-illuminate",
+    enabled = false,
     config = function()
         require("illuminate").configure({
             -- providers: provider used to get references in the buffer, ordered by priority

@@ -56,9 +56,9 @@ require("lazy").setup({
 		{ import = plugins_cfg_dir },
 	},
 	-- Automatically install plugins and set default colorscheme
-	install = {
-		colorscheme = { "monokai-pro", "catppuccin-macchiato", "habamax" },
-	},
+	-- install = {
+	-- 	colorscheme = { "monokai-pro", "catppuccin-macchiato", "habamax" },
+	-- },
 	-- Automatically check for updates
 	checker = { enabled = true },
 
@@ -516,3 +516,10 @@ vim.keymap.set('n', '<leader>dv', '<Cmd>vsplit<CR><Cmd>lua vim.lsp.buf.definitio
   silent = true,
   desc = "LSP Definition Vertical Split"
 })
+
+vim.keymap.set("n", "ycc", "yygccp", { remap = true })
+vim.keymap.set("n", "<leader>ca", function()
+	require("tiny-code-action").code_action()
+end, { noremap = true, silent = true })
+
+

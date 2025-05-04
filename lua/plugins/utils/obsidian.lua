@@ -1,7 +1,7 @@
 return {
 	"epwalsh/obsidian.nvim",
 	version = "*",
-    enabled = false,
+    enabled = true,
 	lazy = true,
 	-- ft = "markdown",
 	event = {

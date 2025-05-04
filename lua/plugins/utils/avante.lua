@@ -24,15 +24,15 @@ return {
 			event = "VeryLazy",
 			-- opts = {
 			-- 	-- recommended settings
-			-- 	provider = "claude",
-			-- 	openai = {
-			-- 		endpoint = "https://api.anthropic.com",
-			-- 		model = "claude-3-7-sonnet-20250219", -- your desired model (or use gpt-4o, etc.)
-			-- 		timeout = 30000, -- timeout in milliseconds
-			-- 		temperature = 0, -- adjust if needed
-			-- 		max_tokens = 10000,
-			-- 		-- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
-			-- 	},
+				provider = "gemini",
+				openai = {
+					endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+					model = "gemini-2.5-flash-preview-04-17", -- your desired model (or use gpt-4o, etc.)
+					timeout = 30000, -- timeout in milliseconds
+					temperature = 0, -- adjust if needed
+					max_tokens = 100000,
+					-- reasoning_effort = "high" -- only supported for reasoning models (o1, etc.)
+				},
 			-- 	behaviour = {
 			-- 		auto_suggestions = true, -- Experimental stage
 			-- 		auto_set_highlight_group = false,
