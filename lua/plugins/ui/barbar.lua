@@ -11,7 +11,7 @@ return {
     init = function() vim.g.barbar_auto_setup = false end,
     keys = {
         { "<C-A-h>",   "<CMD>BufferPrevious<CR>",     desc = "Barbar: previous buffer" },
-        { "<leader>bb",   "<CMD>BufferPick<CR>",         desc = "Barbar: pick buffer to switch to", remap = false },
+        { "<space>bb",   "<CMD>BufferPick<CR>",         desc = "Barbar: pick buffer to switch to", remap = false },
         { "<C-A-k>",   "<CMD>BufferPickDelete<CR>",   desc = "Barbar: pick and delete buffer" },
         { "<C-A-l>",   "<CMD>BufferNext<CR>",         desc = "Barbar: next buffer" },
         { "<C-A-S-h>", "<CMD>BufferMovePrevious<CR>", desc = "Barbar: swap with previous buffer" },

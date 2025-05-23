@@ -1,7 +1,20 @@
 return {
 	"saghen/blink.cmp",
 	-- optional: provides snippets for the snippet source
-	dependencies = { "rafamadriz/friendly-snippets", "mikavilpas/blink-ripgrep.nvim" },
+	dependencies = {
+		"rafamadriz/friendly-snippets",
+		"mikavilpas/blink-ripgrep.nvim",
+		{
+			"supermaven-inc/supermaven-nvim",
+			opts = {
+				disable_inline_completion = true, -- disables inline completion for use with cmp
+				disable_keymaps = true, -- disables built in keymaps for more manual control
+			},
+		},
+		{
+			"huijiro/blink-cmp-supermaven",
+		},
+	},
 	enabled = false,
 
 	-- use a release tag to download pre-built binaries
@@ -30,7 +43,7 @@ return {
 						return cmp.select_and_accept()
 					end
 				end,
-				"snippet_forward",
+				-- "snippet_forward",
 				"fallback",
 			},
 			["<S-Tab>"] = { "snippet_backward", "fallback" },
@@ -45,7 +58,7 @@ return {
 		},
 		-- Displays a preview of the selected item on the current line
 		completion = {
-			ghost_text = { enabled = false },
+			ghost_text = { enabled = true },
 			trigger = {
 				show_on_keyword = true,
 			},
@@ -64,7 +77,7 @@ return {
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { "lsp", "snippets", "buffer", "path", "ripgrep" },
+			default = { "lsp","supermaven",  "snippets", "buffer", "path", "ripgrep" },
 			providers = {
 				ripgrep = {
 					module = "blink-ripgrep",
@@ -75,6 +88,11 @@ return {
 					-- 	max_filesize = "1M",
 					-- 	additional_rg_options = {},
 					-- },
+				},
+				supermaven = {
+					name = "supermaven",
+					module = "blink-cmp-supermaven",
+					async = true,
 				},
 			},
 		},

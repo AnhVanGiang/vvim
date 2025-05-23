@@ -25,7 +25,7 @@ return {
 			-- opts = {
 			-- 	-- recommended settings
 				provider = "gemini",
-				openai = {
+				gemini = {
 					endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
 					model = "gemini-2.5-flash-preview-04-17", -- your desired model (or use gpt-4o, etc.)
 					timeout = 30000, -- timeout in milliseconds

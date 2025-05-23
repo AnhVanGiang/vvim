@@ -92,7 +92,7 @@ return {
 				{ name = "nvim_lsp"},
 				{ name = "buffer",},
 				{ name = "path" },
-				{ name = "luasnip" },
+				-- { name = "luasnip" },
 			}),
 			formatting = {
 				format = require("lspkind").cmp_format({

@@ -53,7 +53,7 @@ return {
 				event = "BufReadPost",
 			},
 		},
-  --- [TODO:description]
+		--- [TODO:description]
 		config = function()
 			-- ────────────────────────────────────────────────────────────────────────────────────
 			-- Set up LSP servers
@@ -213,12 +213,12 @@ return {
 
 					-- if has conform, use the key binding with lsp_fallback in conform, otherwise
 					-- define keymap here
-					local has_conform, _ = pcall(require, "conform")
-					if not has_conform then
-						bufmap("n", "<leader>f", function()
-							vim.lsp.buf.format({ async = true })
-						end, "Format the buffer")
-					end
+					-- local has_conform, _ = pcall(require, "conform")
+					-- if not has_conform then
+					-- 	bufmap("n", "<leader>f", function()
+					-- 		vim.lsp.buf.format({ async = true })
+					-- 	end, "Format the buffer")
+					-- end
 
 					bufmap("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, "Add workspace")
 					bufmap("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, "Remove workspace")
