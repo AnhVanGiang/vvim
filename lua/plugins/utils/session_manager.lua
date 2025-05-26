@@ -8,10 +8,10 @@ return {
         },
     },
     event = "BufEnter",
-    keys = {
-        { "<leader>Sl", "<CMD>SessionManager load_session<CR>", desc = "SessionManager: Load", noremap = true },
-        { "<leader>Ss", "<CMD>SessionManager save_current_session<CR>", desc = "SessionManager: Save", noremap = true },
-    },
+    -- keys = {
+    --     { "<leader>Sl", "<CMD>SessionManager load_session<CR>", desc = "SessionManager: Load", noremap = true },
+    --     { "<leader>Ss", "<CMD>SessionManager save_current_session<CR>", desc = "SessionManager: Save", noremap = true },
+    -- },
     config = function()
         local Path = require("plenary.path")
         local config = require("session_manager.config")

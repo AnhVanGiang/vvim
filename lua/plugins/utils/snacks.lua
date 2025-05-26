@@ -27,7 +27,7 @@ return {
   },
   keys = {
     -- Top Pickers & Explorer
-    { "<leader><space>", function() Snacks.picker.smart() end, noremap = true, desc = "Smart Find Files" },
+    -- { "<leader><space>", function() Snacks.picker.smart() end, noremap = true, desc = "Smart Find Files" },
     -- { "<leader>,", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
     { "<leader>/", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, noremap = true, desc = "Command History" },
@@ -36,7 +36,7 @@ return {
     -- find
     { "<leader>fb", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, noremap = true, desc = "Find Config File" },
-    { "<leader>ff", function() Snacks.picker.files() end, noremap = true, desc = "Find Files" },
+    -- { "<leader>ff", function() Snacks.picker.files() end, noremap = true, desc = "Find Files" },
     { "<leader>fg", function() Snacks.picker.git_files() end, noremap = true, desc = "Find Git Files" },
     { "<leader>fp", function() Snacks.picker.projects() end, noremap = true, desc = "Projects" },
     { "<leader>fr", function() Snacks.picker.recent() end, noremap = true, desc = "Recent" },
@@ -49,9 +49,9 @@ return {
     { "<leader>gd", function() Snacks.picker.git_diff() end, noremap = true, desc = "Git Diff (Hunks)" },
     { "<leader>gf", function() Snacks.picker.git_log_file() end, noremap = true, desc = "Git Log File" },
     -- Grep
-    { "<leader>sb", function() Snacks.picker.lines() end, noremap = true, desc = "Buffer Lines" },
+    -- { "<leader>sb", function() Snacks.picker.lines() end, noremap = true, desc = "Buffer Lines" },
     { "<leader>sB", function() Snacks.picker.grep_buffers() end, noremap = true, desc = "Grep Open Buffers" },
-    { "<leader>sg", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
+    -- { "<leader>sg", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
     { "<leader>sw", function() Snacks.picker.grep_word() end, noremap = true, desc = "Visual selection or word", mode = { "n", "x" } },
     -- search
     { '<leader>s"', function() Snacks.picker.registers() end, noremap = true, desc = "Registers" },
@@ -87,7 +87,7 @@ return {
     { "<leader>z",  function() Snacks.zen() end, noremap = true, desc = "Toggle Zen Mode" },
     { "<leader>Z",  function() Snacks.zen.zoom() end, noremap = true, desc = "Toggle Zoom" },
     { "<leader>.",  function() Snacks.scratch() end, noremap = true, desc = "Toggle Scratch Buffer" },
-    -- { "<leader>S",  function() Snacks.scratch.select() end, noremap = true, desc = "Select Scratch Buffer" },
+    { "<leader>S",  function() Snacks.scratch.select() end, noremap = true, desc = "Select Scratch Buffer" },
     { "<leader>n",  function() Snacks.notifier.show_history() end, noremap = true, desc = "Notification History" },
     { "<leader>bd", function() Snacks.bufdelete() end, noremap = true, desc = "Delete Buffer" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, noremap = true, desc = "Rename File" },

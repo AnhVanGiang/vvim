@@ -2,16 +2,16 @@ return {
 	"epwalsh/obsidian.nvim",
 	version = "*",
     enabled = true,
-	lazy = true,
+	lazy = false,
 	-- ft = "markdown",
-	event = {
-		"BufReadPre " .. vim.fn.expand("~") .. "/.local/src/notes/*.md",
-		"BufNewFile " .. vim.fn.expand("~") .. "/.local/src/notes/*.md",
-	},
+	-- event = {
+	-- 	"BufReadPre " .. vim.fn.expand("~") .. "/.local/src/notes/*.md",
+	-- 	"BufNewFile " .. vim.fn.expand("~") .. "/.local/src/notes/*.md",
+	-- },
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope.nvim",
-		"hrsh7th/nvim-cmp",
+		"saghen/blink.cmp",
 	},
 	init = function()
 		vim.opt.conceallevel = 1
@@ -20,7 +20,7 @@ return {
 		workspaces = {
 			{
 				name = "notes",
-				path = "~/.local/src/notes",
+				path = "~/Documents/notes",
 			},
 		},
 		completion = {

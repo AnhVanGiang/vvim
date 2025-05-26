@@ -15,7 +15,7 @@ return {
 			"huijiro/blink-cmp-supermaven",
 		},
 	},
-	enabled = false,
+	enabled = true,
 
 	-- use a release tag to download pre-built binaries
 	version = "*",

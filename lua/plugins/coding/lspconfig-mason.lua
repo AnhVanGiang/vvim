@@ -27,8 +27,8 @@ return {
 		opts = {
 			-- Install the LSP servers automatically using mason-lspconfig
 			ensure_installed = {
-				"basedpyright",
-				"ruff",
+				-- "basedpyright",
+				-- "ruff",
 				"bashls",
 				"clangd",
 				"vimls",
@@ -59,6 +59,22 @@ return {
 			-- Set up LSP servers
 			-- ────────────────────────────────────────────────────────────────────────────────────
 			-- Server-specific configs
+			local lspconfig = require("lspconfig")
+			local configs = require("lspconfig.configs")
+
+			-- Add pyrefly configuration if it doesn't exist
+			if not configs.pyrefly then
+				configs.pyrefly = {
+					default_config = {
+						cmd = { "uv", "run", "pyrefly", "lsp" },
+						filetypes = { "python" },
+						root_dir = function(fname)
+							return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+						end,
+						settings = {},
+					},
+				}
+			end
 			local lsp_settings = {
 				lua_ls = {
 					Lua = {
@@ -113,16 +129,22 @@ return {
 					settings = lsp_settings[lsp],
 					capabilities = lsp_capabilities[lsp],
 					on_attach = function(client, bufnr)
-						if lsp == "ruff" then
-							-- Turn off hover for ruff
-							client.server_capabilities.hoverProvider = false
-						else
-							-- Use navic for non-ruff
-							require("nvim-navic").attach(client, bufnr)
+						if lsp == "basedpyright" then
+							-- require("inlay-hints").on_attach(client, bufnr)
+							-- else
+							-- 	-- Use navic for non-ruff
+							-- 	require("nvim-navic").attach(client, bufnr)
 						end
 					end,
 				})
 			end
+			lspconfig.pyrefly.setup({
+				settings = lsp_settings.pyrefly or {},
+				on_attach = function(client, bufnr)
+					require("nvim-navic").attach(client, bufnr)
+                    -- require("inlayhints").on_attach(client, bufnr)
+				end,
+			})
 
 			-- ────────────────────────────────────────────────────────────────────────────────────
 			-- Set up key-bindings
@@ -160,9 +182,9 @@ return {
 					vim.diagnostic.setloclist()
 				end
 			end, "Show all diagnostics")
-			map("n", "<leader>ih", function()
-				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-			end, "Toggle inlay hint")
+			-- map("n", "<leader>ih", function()
+			-- 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+			-- end, "Toggle inlay hint")
 
 			-- Use LspAttach autocommand to only map the following keys
 			-- after the language server attaches to the current buffer
