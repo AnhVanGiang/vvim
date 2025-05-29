@@ -79,7 +79,7 @@ local function set_colorscheme(scheme)
 end
 
 -- Set your preferred colorscheme here
-set_colorscheme("tokyonight-moon")
+set_colorscheme("onedark")
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = "*.py",
 	command = "set filetype=python",
@@ -515,10 +515,28 @@ vim.api.nvim_create_user_command('AddTypeIgnore', function()
     -- Check if the line already ends with # type: ignore, ignoring case and whitespace
     if not current_line:match("[%s#]-type:%s*ignore%s*$") then
         -- Append, ensuring a space if the line is not empty
-        local new_line = current_line .. " # type: ignore"
+        local new_line = current_line .. "  # type: ignore"
         vim.api.nvim_buf_set_lines(bufnr, line_num, line_num + 1, false, { new_line })
     end
   end
 end, {
   desc = "Add '# type: ignore' to the end of the current line",
 })
+
+vim.keymap.set("n", "<leader>ai", "<Cmd>AddTypeIgnore<CR>", { noremap = true, silent = true, desc = "Add '# type: ignore' to the end of the current line" })
+
+vim.api.nvim_create_user_command('LspDetach', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+  for _, client in ipairs(clients) do
+    vim.lsp.buf_detach_client(bufnr, client.id)
+  end
+  print("LSP detached from current buffer")
+end, {})
+
+vim.api.nvim_create_user_command('NewPython', 'new | setfiletype python', {})
+vim.api.nvim_create_user_command('NewMarkdown', 'new | setfiletype markdown', {})
+
+vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>")
+vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>")
+vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>")

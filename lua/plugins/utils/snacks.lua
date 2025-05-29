@@ -27,8 +27,8 @@ return {
   },
   keys = {
     -- Top Pickers & Explorer
-    -- { "<leader><space>", function() Snacks.picker.smart() end, noremap = true, desc = "Smart Find Files" },
-    -- { "<leader>,", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
+    { "<leader><space>", function() Snacks.picker.smart() end, noremap = true, desc = "Smart Find Files" },
+    { "<leader>,", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
     { "<leader>/", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, noremap = true, desc = "Command History" },
     { "<leader>n", function() Snacks.picker.notifications() end, noremap = true, desc = "Notification History" },
@@ -49,9 +49,9 @@ return {
     { "<leader>gd", function() Snacks.picker.git_diff() end, noremap = true, desc = "Git Diff (Hunks)" },
     { "<leader>gf", function() Snacks.picker.git_log_file() end, noremap = true, desc = "Git Log File" },
     -- Grep
-    -- { "<leader>sb", function() Snacks.picker.lines() end, noremap = true, desc = "Buffer Lines" },
+    { "<leader>sb", function() Snacks.picker.lines() end, noremap = true, desc = "Buffer Lines" },
     { "<leader>sB", function() Snacks.picker.grep_buffers() end, noremap = true, desc = "Grep Open Buffers" },
-    -- { "<leader>sg", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
+    { "<leader>sg", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
     { "<leader>sw", function() Snacks.picker.grep_word() end, noremap = true, desc = "Visual selection or word", mode = { "n", "x" } },
     -- search
     { '<leader>s"', function() Snacks.picker.registers() end, noremap = true, desc = "Registers" },

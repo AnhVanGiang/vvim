@@ -27,8 +27,8 @@ return {
 		opts = {
 			-- Install the LSP servers automatically using mason-lspconfig
 			ensure_installed = {
-				-- "basedpyright",
-				-- "ruff",
+                "pyrefly",
+				"ruff",
 				"bashls",
 				"clangd",
 				"vimls",
@@ -63,18 +63,18 @@ return {
 			local configs = require("lspconfig.configs")
 
 			-- Add pyrefly configuration if it doesn't exist
-			if not configs.pyrefly then
-				configs.pyrefly = {
-					default_config = {
-						cmd = { "uv", "run", "pyrefly", "lsp" },
-						filetypes = { "python" },
-						root_dir = function(fname)
-							return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-						end,
-						settings = {},
-					},
-				}
-			end
+			-- if not configs.pyrefly then
+			-- 	configs.pyrefly = {
+			-- 		default_config = {
+			-- 			cmd = { "uv", "run", "pyrefly", "lsp" },
+			-- 			filetypes = { "python" },
+			-- 			root_dir = function(fname)
+			-- 				return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+			-- 			end,
+			-- 			settings = {},
+			-- 		},
+			-- 	}
+			-- end
 			local lsp_settings = {
 				lua_ls = {
 					Lua = {
@@ -129,7 +129,7 @@ return {
 					settings = lsp_settings[lsp],
 					capabilities = lsp_capabilities[lsp],
 					on_attach = function(client, bufnr)
-						if lsp == "basedpyright" then
+						if lsp == "pyrefly" then
 							-- require("inlay-hints").on_attach(client, bufnr)
 							-- else
 							-- 	-- Use navic for non-ruff
@@ -138,13 +138,14 @@ return {
 					end,
 				})
 			end
-			lspconfig.pyrefly.setup({
-				settings = lsp_settings.pyrefly or {},
-				on_attach = function(client, bufnr)
-					require("nvim-navic").attach(client, bufnr)
-                    -- require("inlayhints").on_attach(client, bufnr)
-				end,
-			})
+
+			-- lspconfig.pyrefly.setup({
+			-- 	settings = lsp_settings.pyrefly or {},
+			-- 	on_attach = function(client, bufnr)
+			-- 		require("nvim-navic").attach(client, bufnr)
+   --                  -- require("inlayhints").on_attach(client, bufnr)
+			-- 	end,
+			-- })
 
 			-- ────────────────────────────────────────────────────────────────────────────────────
 			-- Set up key-bindings

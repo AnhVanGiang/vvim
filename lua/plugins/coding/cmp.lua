@@ -1,7 +1,7 @@
 -- Code completion
 return {
 	"hrsh7th/nvim-cmp", -- code completion
-	enabled = true,
+	enabled = false,
 	event = { "CmdlineEnter", "InsertEnter" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
