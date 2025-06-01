@@ -1,6 +1,6 @@
 return {
 	"ggandor/leap.nvim",
-    enabled = true,
+    enabled = false,
 	dependencies = {
 		"tpope/vim-repeat", -- Optional: enables repeating leap motions with .
 	},

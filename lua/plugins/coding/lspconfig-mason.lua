@@ -27,7 +27,7 @@ return {
 		opts = {
 			-- Install the LSP servers automatically using mason-lspconfig
 			ensure_installed = {
-                "pyrefly",
+				-- "pyrefly",
 				"ruff",
 				"bashls",
 				"clangd",
@@ -129,9 +129,33 @@ return {
 					settings = lsp_settings[lsp],
 					capabilities = lsp_capabilities[lsp],
 					on_attach = function(client, bufnr)
-						if lsp == "pyrefly" then
-							-- require("inlay-hints").on_attach(client, bufnr)
-							-- else
+						if lsp == "basedpyright" then
+							require("nvim-navic").attach(client, bufnr)
+						elseif lsp == "ty" then
+							local signature_config = {
+								bind = true, -- This is the default
+								doc_lines = 0, -- Number of documentation lines to show
+								floating_window = true, -- Use a floating window for signatures
+								-- floating_window_above_cur_line = true, -- Show window above cursor line
+								-- floating_window_off_x = 1,
+								-- floating_window_off_y = 0,
+								fix_pos = false, -- Fix window position
+								hint_enable = true, -- Show parameter hints
+								hint_prefix = "💡 ", -- Prefix for hints
+								hint_scheme = "Comment", -- Highlight group for hints
+								hi_parameter = "LspSignatureActiveParameter", -- Highlight group for active parameter
+								max_height = 12, -- Max height of the signature window
+								max_width = 120, -- Max width of the signature window
+								handler_opts = {
+									border = "single", -- Border style for floating window ("none", "single", "double", "rounded", "solid", "shadow")
+								},
+								zindex = 200, -- Z-index of the floating window
+								padding = "", -- Padding around signature text
+								-- timer_interval = 200, -- Debounce interval for signature request
+								-- toggle_key = nil, -- Keybind to toggle signature help (e.g., "<C-s>")
+								-- select_signature_key = nil, -- Keybind to cycle through signatures
+							}
+							require("lsp_signature").on_attach(client, bufnr)
 							-- 	-- Use navic for non-ruff
 							-- 	require("nvim-navic").attach(client, bufnr)
 						end
@@ -143,7 +167,7 @@ return {
 			-- 	settings = lsp_settings.pyrefly or {},
 			-- 	on_attach = function(client, bufnr)
 			-- 		require("nvim-navic").attach(client, bufnr)
-   --                  -- require("inlayhints").on_attach(client, bufnr)
+			--                  -- require("inlayhints").on_attach(client, bufnr)
 			-- 	end,
 			-- })
 
