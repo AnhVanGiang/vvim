@@ -2,11 +2,11 @@ return {
 	{
 		"zbirenbaum/copilot.lua",
 		event = "InsertEnter", -- load the plugin when entering insert mode
-        enabled = false,
+		enabled = false,
 		config = function()
 			require("copilot").setup({
 				panel = {
-					enabled = true,
+					enabled = false,
 					auto_refresh = false,
 					keymap = {
 						jump_prev = "[[",
@@ -21,8 +21,8 @@ return {
 					},
 				},
 				suggestion = {
-					enabled = true,
-					auto_trigger = true,
+					enabled = false,
+					auto_trigger = false,
 					hide_during_completion = true,
 					debounce = 75,
 					keymap = {

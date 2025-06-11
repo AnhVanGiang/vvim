@@ -72,10 +72,13 @@ return {
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),
 				["<C-d>"] = cmp.mapping.scroll_docs(4),
 				["<C-c>"] = cmp.mapping.abort(),
-				["<Tab>"] = cmp.mapping.confirm({ select = true }),
-				-- ["<Tab>"] = cmp.mapping(function(fallback)
-				-- 	handle_snippet_jump_or_fallback(next_item, 1) -- Use next_item as fallback
-				-- end, { "i", "s" }),
+				["<Tab>"] = function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item()
+					else
+						fallback()
+					end
+				end,
 				["<S-Tab>"] = cmp.mapping(function(fallback)
 					if has_luasnip_jump_backwards() then
 						luasnip.jump(-1)
@@ -87,10 +90,10 @@ return {
 				["<C-p>"] = cmp.mapping(prev_item, { "i", "s" }),
 			}),
 			sources = cmp.config.sources({
-                -- {name = "codeium"},
+				-- { name = "copilot" },
 				{ name = "supermaven"},
-				{ name = "nvim_lsp"},
-				{ name = "buffer",},
+				{ name = "nvim_lsp" },
+				{ name = "buffer" },
 				{ name = "path" },
 				-- { name = "luasnip" },
 			}),

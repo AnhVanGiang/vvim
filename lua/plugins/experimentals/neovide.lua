@@ -1,6 +1,7 @@
 -- Neovide settings if available
 if vim.g.neovide then
     vim.g.neovide_refresh_rate = 60
+    vim.env.PATH = vim.env.PATH .. ":/usr/local/bin:/opt/homebrew/bin"
 	-- Set GUI  font
 	vim.o.guifont = "JetBrainsMono Nerd Font:h15"
 

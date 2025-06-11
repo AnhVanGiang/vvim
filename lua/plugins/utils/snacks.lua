@@ -13,7 +13,30 @@ return {
       enabled = true,
       timeout = 3000,
     },
-    picker = { enabled = true },
+    picker = { 
+      enabled = true,
+      win = {
+        input = {
+          keys = {
+            ["<C-c>"] = { "close", mode = { "n", "i" } },
+            ["<Esc>"] = { "close", mode = { "n", "i" } },
+          },
+        },
+        list = {
+          -- Ensure proper positioning and sizing for the picker list
+          height = 0.6,
+          width = 0.6,
+          row = 0.5,
+          col = 0.5,
+          border = "rounded",
+          title_pos = "center",
+          -- Add some padding to prevent items from being hidden
+          wo = {
+            winblend = 0,
+          },
+        },
+      },
+    },
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
@@ -27,31 +50,31 @@ return {
   },
   keys = {
     -- Top Pickers & Explorer
-    -- { "<leader><space>", function() Snacks.picker.smart() end, noremap = true, desc = "Smart Find Files" },
-    -- { "<leader>,", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
-    -- { "<leader>/", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
-    -- { "<leader>:", function() Snacks.picker.command_history() end, noremap = true, desc = "Command History" },
-    -- { "<leader>n", function() Snacks.picker.notifications() end, noremap = true, desc = "Notification History" },
-    -- { "<leader>e", function() Snacks.explorer() end, noremap = true, desc = "File Explorer" },
-    -- -- find
-    -- { "<leader>fb", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
-    -- { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, noremap = true, desc = "Find Config File" },
-    -- -- { "<leader>ff", function() Snacks.picker.files() end, noremap = true, desc = "Find Files" },
-    -- { "<leader>fg", function() Snacks.picker.git_files() end, noremap = true, desc = "Find Git Files" },
-    -- { "<leader>fp", function() Snacks.picker.projects() end, noremap = true, desc = "Projects" },
-    -- { "<leader>fr", function() Snacks.picker.recent() end, noremap = true, desc = "Recent" },
-    -- -- git
-    -- { "<leader>gb", function() Snacks.picker.git_branches() end, noremap = true, desc = "Git Branches" },
-    -- { "<leader>gl", function() Snacks.picker.git_log() end, noremap = true, desc = "Git Log" },
-    -- { "<leader>gL", function() Snacks.picker.git_log_line() end, noremap = true, desc = "Git Log Line" },
-    -- { "<leader>gs", function() Snacks.picker.git_status() end, noremap = true, desc = "Git Status" },
-    -- { "<leader>gS", function() Snacks.picker.git_stash() end, noremap = true, desc = "Git Stash" },
-    -- { "<leader>gd", function() Snacks.picker.git_diff() end, noremap = true, desc = "Git Diff (Hunks)" },
-    -- { "<leader>gf", function() Snacks.picker.git_log_file() end, noremap = true, desc = "Git Log File" },
-    -- -- Grep
-    -- { "<leader>sb", function() Snacks.picker.lines() end, noremap = true, desc = "Buffer Lines" },
-    -- { "<leader>sB", function() Snacks.picker.grep_buffers() end, noremap = true, desc = "Grep Open Buffers" },
-    -- { "<leader>sg", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
+    { "<leader><space>", function() Snacks.picker.smart() end, noremap = true, desc = "Smart Find Files" },
+    { "<leader>,", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
+    { "<leader>/", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
+    { "<leader>:", function() Snacks.picker.command_history() end, noremap = true, desc = "Command History" },
+    { "<leader>n", function() Snacks.picker.notifications() end, noremap = true, desc = "Notification History" },
+    { "<leader>e", function() Snacks.explorer() end, noremap = true, desc = "File Explorer" },
+    -- find
+    { "<leader>fb", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
+    { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, noremap = true, desc = "Find Config File" },
+    -- { "<leader>ff", function() Snacks.picker.files() end, noremap = true, desc = "Find Files" },
+    { "<leader>fg", function() Snacks.picker.git_files() end, noremap = true, desc = "Find Git Files" },
+    { "<leader>fp", function() Snacks.picker.projects() end, noremap = true, desc = "Projects" },
+    { "<leader>fr", function() Snacks.picker.recent() end, noremap = true, desc = "Recent" },
+    -- git
+    { "<leader>gb", function() Snacks.picker.git_branches() end, noremap = true, desc = "Git Branches" },
+    { "<leader>gl", function() Snacks.picker.git_log() end, noremap = true, desc = "Git Log" },
+    { "<leader>gL", function() Snacks.picker.git_log_line() end, noremap = true, desc = "Git Log Line" },
+    { "<leader>gs", function() Snacks.picker.git_status() end, noremap = true, desc = "Git Status" },
+    { "<leader>gS", function() Snacks.picker.git_stash() end, noremap = true, desc = "Git Stash" },
+    { "<leader>gd", function() Snacks.picker.git_diff() end, noremap = true, desc = "Git Diff (Hunks)" },
+    { "<leader>gf", function() Snacks.picker.git_log_file() end, noremap = true, desc = "Git Log File" },
+    -- Grep
+    { "<leader>sb", function() Snacks.picker.lines() end, noremap = true, desc = "Buffer Lines" },
+    { "<leader>sB", function() Snacks.picker.grep_buffers() end, noremap = true, desc = "Grep Open Buffers" },
+    { "<leader>sg", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
     { "<leader>sw", function() Snacks.picker.grep_word() end, noremap = true, desc = "Visual selection or word", mode = { "n", "x" } },
     -- search
     { '<leader>s"', function() Snacks.picker.registers() end, noremap = true, desc = "Registers" },
@@ -82,7 +105,7 @@ return {
     { "gI", function() Snacks.picker.lsp_implementations() end, noremap = true, desc = "Goto Implementation" },
     { "gy", function() Snacks.picker.lsp_type_definitions() end, noremap = true, desc = "Goto T[y]pe Definition" },
     { "<leader>ss", function() Snacks.picker.lsp_symbols() end, noremap = true, desc = "LSP Symbols" },
-    { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, noremap = true, desc = "LSP Workspace Symbols" },
+    -- { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, noremap = true, desc = "LSP Workspace Symbols" },
     -- Other
     { "<leader>z",  function() Snacks.zen() end, noremap = true, desc = "Toggle Zen Mode" },
     { "<leader>Z",  function() Snacks.zen.zoom() end, noremap = true, desc = "Toggle Zoom" },
@@ -92,7 +115,7 @@ return {
     { "<leader>bd", function() Snacks.bufdelete() end, noremap = true, desc = "Delete Buffer" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, noremap = true, desc = "Rename File" },
     { "<leader>gB", function() Snacks.gitbrowse() end, noremap = true, desc = "Git Browse", mode = { "n", "v" } },
-    -- { "<leader>gg", function() Snacks.lazygit() end, noremap = true, desc = "Lazygit" },
+    { "<leader>gg", function() Snacks.lazygit() end, noremap = true, desc = "Lazygit" },
     { "<leader>un", function() Snacks.notifier.hide() end, noremap = true, desc = "Dismiss All Notifications" },
     { "<c-/>",      function() Snacks.terminal() end, noremap = true, desc = "Toggle Terminal" },
     { "<c-_>",      function() Snacks.terminal() end, noremap = true, desc = "which_key_ignore" },

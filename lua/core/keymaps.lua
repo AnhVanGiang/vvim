@@ -90,7 +90,7 @@ vim.keymap.set("n", "{", "{^", { noremap = true })
 
 -- Splits
 vim.keymap.set("n", "<leader>vs", "<cmd>vsplit<CR>", { desc = "Vertical split" })
-vim.keymap.set("n", "<leader>ss", "<cmd>split<CR>", { desc = "Horizontal split" })
+-- vim.keymap.set("n", "<leader>ss", "<cmd>split<CR>", { desc = "Horizontal split" })
 
 -- Close split
 vim.keymap.set("n", "<leader>qq", "<cmd>q<CR>", { desc = "Close buffer" })
