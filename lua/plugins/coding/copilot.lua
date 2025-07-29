@@ -2,7 +2,7 @@ return {
 	{
 		"zbirenbaum/copilot.lua",
 		event = "InsertEnter", -- load the plugin when entering insert mode
-		enabled = false,
+		enabled = true,
 		config = function()
 			require("copilot").setup({
 				panel = {
@@ -35,11 +35,11 @@ return {
 					},
 				},
 				filetypes = {
-					yaml = false,
-					markdown = false,
+					yaml = true,
+					markdown = true,
 					help = false,
-					gitcommit = false,
-					gitrebase = false,
+					gitcommit = true,
+					gitrebase = true,
 					hgcommit = false,
 					svn = false,
 					cvs = false,

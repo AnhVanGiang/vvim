@@ -54,6 +54,7 @@ return {
 					lua = { "stylua" },
 					sql = { "sql-formatter", "sqlfluff" },
 					toml = { "taplo" },
+                    terraform = { "terraform_fmt" },
 				},
 				formatters = {
 					-- black = {

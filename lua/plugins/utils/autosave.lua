@@ -28,7 +28,7 @@ return {
 				-- Get modifiable status of the buffer
 				local modifiable = vim.api.nvim_buf_get_option(buf, "modifiable")
 				-- Only allow saving if the buffer is modifiable and the filetype is not gitcommit or markdown
-				if modifiable and not vim.tbl_contains({ "gitcommit", "markdown" }, filetype) then
+				if modifiable and not vim.tbl_contains({ "gitcommit"}, filetype) then
 					return true
 				end
 

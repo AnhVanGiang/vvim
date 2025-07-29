@@ -105,169 +105,74 @@ return {
 			},
 		})
 
-		-- Key mappings with descriptions
+		-- Key mappings matching snacks keymaps
 		local opts = { noremap = true, silent = true }
 
-		-- File pickers
-		-- vim.keymap.set("n", "<leader>ff", fzf.files, vim.tbl_extend("force", opts, { desc = "Find files" }))
-		-- vim.keymap.set("n", "<leader>fg", fzf.git_files, vim.tbl_extend("force", opts, { desc = "Find git files" }))
-		-- vim.keymap.set("n", "<leader>fb", fzf.buffers, vim.tbl_extend("force", opts, { desc = "Find buffers" }))
-		-- vim.keymap.set("n", "<leader>fo", fzf.oldfiles, vim.tbl_extend("force", opts, { desc = "Find recent files" }))
-		-- vim.keymap.set("n", "<leader>fq", fzf.quickfix, vim.tbl_extend("force", opts, { desc = "Find quickfix items" }))
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>fl",
-		-- 	fzf.loclist,
-		-- 	vim.tbl_extend("force", opts, { desc = "Find location list items" })
-		-- )
-		--
-		-- -- Search
-		-- vim.keymap.set("n", "<leader>rg", fzf.live_grep, vim.tbl_extend("force", opts, { desc = "Live grep" }))
-		-- vim.keymap.set("n", "<leader>rG", fzf.grep, vim.tbl_extend("force", opts, { desc = "Grep with input" }))
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>rw",
-		-- 	fzf.grep_cword,
-		-- 	vim.tbl_extend("force", opts, { desc = "Grep word under cursor" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>rW",
-		-- 	fzf.grep_cWORD,
-		-- 	vim.tbl_extend("force", opts, { desc = "Grep WORD under cursor" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"v",
-		-- 	"<leader>rg",
-		-- 	fzf.grep_visual,
-		-- 	vim.tbl_extend("force", opts, { desc = "Grep visual selection" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>rb",
-		-- 	fzf.lgrep_curbuf,
-		-- 	vim.tbl_extend("force", opts, { desc = "Live grep current buffer" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>rB",
-		-- 	fzf.live_grep_glob,
-		-- 	vim.tbl_extend("force", opts, { desc = "Live grep with glob pattern" })
-		-- )
-		-- vim.keymap.set("n", "<leader>rr", fzf.resume, vim.tbl_extend("force", opts, { desc = "Resume last search" }))
-		--
-		-- -- Git
-		-- vim.keymap.set("n", "<leader>gc", fzf.git_commits, vim.tbl_extend("force", opts, { desc = "Git commits" }))
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>gC",
-		-- 	fzf.git_bcommits,
-		-- 	vim.tbl_extend("force", opts, { desc = "Git buffer commits" })
-		-- )
-		-- vim.keymap.set("n", "<leader>gb", fzf.git_branches, vim.tbl_extend("force", opts, { desc = "Git branches" }))
-		-- vim.keymap.set("n", "<leader>gs", fzf.git_status, vim.tbl_extend("force", opts, { desc = "Git status" }))
-		-- vim.keymap.set("n", "<leader>gS", fzf.git_stash, vim.tbl_extend("force", opts, { desc = "Git stash" }))
-		--
-		-- -- LSP
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>lr",
-		-- 	fzf.lsp_references,
-		-- 	vim.tbl_extend("force", opts, { desc = "LSP references" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>ld",
-		-- 	fzf.lsp_definitions,
-		-- 	vim.tbl_extend("force", opts, { desc = "LSP definitions" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>lD",
-		-- 	fzf.lsp_declarations,
-		-- 	vim.tbl_extend("force", opts, { desc = "LSP declarations" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>lt",
-		-- 	fzf.lsp_typedefs,
-		-- 	vim.tbl_extend("force", opts, { desc = "LSP type definitions" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>li",
-		-- 	fzf.lsp_implementations,
-		-- 	vim.tbl_extend("force", opts, { desc = "LSP implementations" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>ls",
-		-- 	fzf.lsp_document_symbols,
-		-- 	vim.tbl_extend("force", opts, { desc = "LSP document symbols" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>lS",
-		-- 	fzf.lsp_workspace_symbols,
-		-- 	vim.tbl_extend("force", opts, { desc = "LSP workspace symbols" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>la",
-		-- 	fzf.lsp_code_actions,
-		-- 	vim.tbl_extend("force", opts, { desc = "LSP code actions" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>le",
-		-- 	fzf.diagnostics_document,
-		-- 	vim.tbl_extend("force", opts, { desc = "LSP document diagnostics" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>lE",
-		-- 	fzf.diagnostics_workspace,
-		-- 	vim.tbl_extend("force", opts, { desc = "LSP workspace diagnostics" })
-		-- )
-		--
-		-- -- Vim/Neovim
-		-- vim.keymap.set("n", "<leader>vh", fzf.help_tags, vim.tbl_extend("force", opts, { desc = "Help tags" }))
-		-- vim.keymap.set("n", "<leader>vm", fzf.man_pages, vim.tbl_extend("force", opts, { desc = "Man pages" }))
-		-- vim.keymap.set("n", "<leader>vc", fzf.colorschemes, vim.tbl_extend("force", opts, { desc = "Colorschemes" }))
-		-- vim.keymap.set("n", "<leader>vC", fzf.commands, vim.tbl_extend("force", opts, { desc = "Commands" }))
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>vH",
-		-- 	fzf.command_history,
-		-- 	vim.tbl_extend("force", opts, { desc = "Command history" })
-		-- )
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>vs",
-		-- 	fzf.search_history,
-		-- 	vim.tbl_extend("force", opts, { desc = "Search history" })
-		-- )
-		-- vim.keymap.set("n", "<leader>vk", fzf.keymaps, vim.tbl_extend("force", opts, { desc = "Keymaps" }))
-		-- vim.keymap.set("n", "<leader>vr", fzf.registers, vim.tbl_extend("force", opts, { desc = "Registers" }))
-		-- vim.keymap.set("n", "<leader>va", fzf.autocmds, vim.tbl_extend("force", opts, { desc = "Autocommands" }))
-		-- vim.keymap.set("n", "<leader>vj", fzf.jumps, vim.tbl_extend("force", opts, { desc = "Jump list" }))
-		-- vim.keymap.set("n", "<leader>vM", fzf.marks, vim.tbl_extend("force", opts, { desc = "Marks" }))
-		-- vim.keymap.set("n", "<leader>vt", fzf.tags, vim.tbl_extend("force", opts, { desc = "Tags" }))
-		-- vim.keymap.set("n", "<leader>vT", fzf.btags, vim.tbl_extend("force", opts, { desc = "Buffer tags" }))
-		--
-		-- -- Misc
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>:",
-		-- 	fzf.command_history,
-		-- 	vim.tbl_extend("force", opts, { desc = "Command history" })
-		-- )
-		-- vim.keymap.set("n", "<leader>/", fzf.search_history, vim.tbl_extend("force", opts, { desc = "Search history" }))
-		-- vim.keymap.set(
-		-- 	"n",
-		-- 	"<leader>?",
-		-- 	fzf.builtin,
-		-- 	vim.tbl_extend("force", opts, { desc = "FzfLua builtin commands" })
-		-- )
+		-- Top Pickers & Explorer (commented out - using snacks)
+		-- vim.keymap.set("n", "<leader><space>", function()
+        --     require("fzf-lua-enchanted-files").files()
+		-- end, vim.tbl_extend("force", opts, { desc = "Smart Find Files" }))
+		-- vim.keymap.set("n", "<leader>,", function()
+		-- 	fzf.buffers({
+		-- 		sort_lastused = true,
+		-- 		ignore_current_buffer = true,
+		-- 	})
+		-- end, vim.tbl_extend("force", opts, { desc = "Buffers" }))
+		-- vim.keymap.set("n", "<leader>/", fzf.live_grep, vim.tbl_extend("force", opts, { desc = "Grep" }))
+		-- vim.keymap.set("n", "<leader>:", fzf.command_history, vim.tbl_extend("force", opts, { desc = "Command History" }))
+		
+		-- find (commented out - using snacks)
+		-- vim.keymap.set("n", "<leader>fb", fzf.buffers, vim.tbl_extend("force", opts, { desc = "Buffers" }))
+		-- vim.keymap.set("n", "<leader>fc", function() fzf.files({ cwd = vim.fn.stdpath("config") }) end, vim.tbl_extend("force", opts, { desc = "Find Config File" }))
+		-- vim.keymap.set("n", "<leader>ff", function() 
+		-- 	fzf.files({
+		-- 		cmd = "fd --type f --hidden --no-ignore --exclude .git",
+		-- 		prompt = "All Files> ",
+		-- 	})
+		-- end, vim.tbl_extend("force", opts, { desc = "Find All Files (including hidden)" }))
+		-- vim.keymap.set("n", "<leader>fg", fzf.git_files, vim.tbl_extend("force", opts, { desc = "Find Git Files" }))
+		-- vim.keymap.set("n", "<leader>fr", fzf.oldfiles, vim.tbl_extend("force", opts, { desc = "Recent" }))
+		
+		-- git (commented out - using snacks)
+		-- vim.keymap.set("n", "<leader>gb", fzf.git_branches, vim.tbl_extend("force", opts, { desc = "Git Branches" }))
+		-- vim.keymap.set("n", "<leader>gl", fzf.git_commits, vim.tbl_extend("force", opts, { desc = "Git Log" }))
+		-- vim.keymap.set("n", "<leader>gL", fzf.git_bcommits, vim.tbl_extend("force", opts, { desc = "Git Log Line" }))
+		-- vim.keymap.set("n", "<leader>gs", fzf.git_status, vim.tbl_extend("force", opts, { desc = "Git Status" }))
+		-- vim.keymap.set("n", "<leader>gS", fzf.git_stash, vim.tbl_extend("force", opts, { desc = "Git Stash" }))
+		-- vim.keymap.set("n", "<leader>gf", fzf.git_bcommits, vim.tbl_extend("force", opts, { desc = "Git Log File" }))
+		
+		-- Grep (commented out - using snacks)
+		-- vim.keymap.set("n", "<leader>sb", fzf.blines, vim.tbl_extend("force", opts, { desc = "Buffer Lines" }))
+		-- vim.keymap.set("n", "<leader>sB", fzf.grep_curbuf, vim.tbl_extend("force", opts, { desc = "Grep Open Buffers" }))
+		-- vim.keymap.set("n", "<leader>sg", fzf.live_grep, vim.tbl_extend("force", opts, { desc = "Grep" }))
+		-- vim.keymap.set("n", "<leader>sw", fzf.grep_cword, vim.tbl_extend("force", opts, { desc = "Visual selection or word" }))
+		-- vim.keymap.set("v", "<leader>sw", fzf.grep_visual, vim.tbl_extend("force", opts, { desc = "Visual selection or word" }))
+		
+		-- search (commented out - using snacks)
+		-- vim.keymap.set("n", '<leader>s"', fzf.registers, vim.tbl_extend("force", opts, { desc = "Registers" }))
+		-- vim.keymap.set("n", '<leader>s/', fzf.search_history, vim.tbl_extend("force", opts, { desc = "Search History" }))
+		-- vim.keymap.set("n", "<leader>sa", fzf.autocmds, vim.tbl_extend("force", opts, { desc = "Autocmds" }))
+		-- vim.keymap.set("n", "<leader>sc", fzf.command_history, vim.tbl_extend("force", opts, { desc = "Command History" }))
+		-- vim.keymap.set("n", "<leader>sC", fzf.commands, vim.tbl_extend("force", opts, { desc = "Commands" }))
+		-- vim.keymap.set("n", "<leader>sd", fzf.diagnostics_document, vim.tbl_extend("force", opts, { desc = "Diagnostics" }))
+		-- vim.keymap.set("n", "<leader>sD", fzf.diagnostics_workspace, vim.tbl_extend("force", opts, { desc = "Buffer Diagnostics" }))
+		-- vim.keymap.set("n", "<leader>sh", fzf.help_tags, vim.tbl_extend("force", opts, { desc = "Help Pages" }))
+		-- vim.keymap.set("n", "<leader>sH", fzf.highlights, vim.tbl_extend("force", opts, { desc = "Highlights" }))
+		-- vim.keymap.set("n", "<leader>sj", fzf.jumps, vim.tbl_extend("force", opts, { desc = "Jumps" }))
+		-- vim.keymap.set("n", "<leader>sk", fzf.keymaps, vim.tbl_extend("force", opts, { desc = "Keymaps" }))
+		-- vim.keymap.set("n", "<leader>sl", fzf.loclist, vim.tbl_extend("force", opts, { desc = "Location List" }))
+		-- vim.keymap.set("n", "<leader>sm", fzf.marks, vim.tbl_extend("force", opts, { desc = "Marks" }))
+		-- vim.keymap.set("n", "<leader>sM", fzf.man_pages, vim.tbl_extend("force", opts, { desc = "Man Pages" }))
+		-- vim.keymap.set("n", "<leader>sq", fzf.quickfix, vim.tbl_extend("force", opts, { desc = "Quickfix List" }))
+		-- vim.keymap.set("n", "<leader>sR", fzf.resume, vim.tbl_extend("force", opts, { desc = "Resume" }))
+		-- vim.keymap.set("n", "<leader>uC", fzf.colorschemes, vim.tbl_extend("force", opts, { desc = "Colorschemes" }))
+		
+		-- LSP (commented out - using snacks)
+		-- vim.keymap.set("n", "gd", fzf.lsp_definitions, vim.tbl_extend("force", opts, { desc = "Goto Definition" }))
+		-- vim.keymap.set("n", "gD", fzf.lsp_declarations, vim.tbl_extend("force", opts, { desc = "Goto Declaration" }))
+		-- vim.keymap.set("n", "gr", fzf.lsp_references, vim.tbl_extend("force", opts, { desc = "References", nowait = true }))
+		-- vim.keymap.set("n", "gI", fzf.lsp_implementations, vim.tbl_extend("force", opts, { desc = "Goto Implementation" }))
+		-- vim.keymap.set("n", "gy", fzf.lsp_typedefs, vim.tbl_extend("force", opts, { desc = "Goto T[y]pe Definition" }))
+		-- vim.keymap.set("n", "<leader>ss", fzf.lsp_document_symbols, vim.tbl_extend("force", opts, { desc = "LSP Symbols" }))
 	end,
 }

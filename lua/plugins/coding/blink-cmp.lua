@@ -4,6 +4,7 @@ return {
 	dependencies = {
 		"rafamadriz/friendly-snippets",
 		"mikavilpas/blink-ripgrep.nvim",
+		"fang2hou/blink-copilot",
 		{
 			"supermaven-inc/supermaven-nvim",
 			opts = {
@@ -77,7 +78,7 @@ return {
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = {"supermaven", "lsp",  "snippets", "buffer", "path", "ripgrep" },
+			default = { "copilot", "lsp", "snippets", "buffer", "path", "ripgrep" },
 			providers = {
 				ripgrep = {
 					module = "blink-ripgrep",
@@ -89,9 +90,15 @@ return {
 					-- 	additional_rg_options = {},
 					-- },
 				},
-				supermaven = {
-					name = "supermaven",
-					module = "blink-cmp-supermaven",
+				-- supermaven = {
+				-- 	name = "supermaven",
+				-- 	module = "blink-cmp-supermaven",
+				-- 	async = true,
+				-- },
+				copilot = {
+					name = "copilot",
+					module = "blink-copilot",
+					score_offset = 100,
 					async = true,
 				},
 			},

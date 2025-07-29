@@ -18,6 +18,8 @@ vim.g.mapleader = "\\"
 -- -- Visual mode mappings
 -- vim.api.nvim_set_keymap('v', 'K', ":m '<-2<CR>gv=gv", { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('v', 'J', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
+-- maps Alt + h/j/k/l to window navigation
+-- This custom mapping should override any plugin defaults.
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local plugins_cfg_dir = "plugins"
 -- Window resizing with Ctrl+arrows
@@ -79,7 +81,7 @@ local function set_colorscheme(scheme)
 end
 
 -- Set your preferred colorscheme here
-set_colorscheme("onedark")
+set_colorscheme("catppuccin-macchiato")
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = "*.py",
 	command = "set filetype=python",
@@ -180,12 +182,24 @@ vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<CR>', { silent = true 
 vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<CR>', { silent = true })
 
 -- Create a command that opens a terminal in a vertical split
-vim.api.nvim_create_user_command('VSTerminal', function()
+vim.api.nvim_create_user_command('VsTerminal', function()
   -- Create a vertical split
   vim.cmd('vsplit')
+  -- Resize the new split to 30% of the width
+  vim.cmd('vertical resize 95%')
   -- Open terminal in the new split
   vim.cmd('terminal')
 end, {})
+
+vim.api.nvim_create_user_command('STerminal', function()
+  -- Create a vertical split
+  vim.cmd('split')
+  -- Resize the new split to 30% of the width
+  vim.cmd('horizontal resize 20%')
+  -- Open terminal in the new split
+  vim.cmd('terminal')
+end, {})
+
 
 vim.api.nvim_create_user_command(
 	"ConvertIpynbToPy",
@@ -317,27 +331,27 @@ end
 vim.keymap.set("n", "<leader>rt", toggle_boolean, { noremap = true, silent = true, desc = "Change boolean" })
 
 -- Auto select virtualenv Nvim open
-vim.api.nvim_create_user_command('SelectPoetryVenv', function()
-  -- Check for `pyproject.toml` in the current directory or parent directories
-  local pyproject_file = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
-  if pyproject_file ~= '' then
-    -- Use venv-selector's retrieve_from_cache or open a selector UI
-    local venv_selector = require('venv-selector')
-    local venv = venv_selector.retrieve_from_cache() -- Try to get the cached venv
-
-    if venv ~= nil and venv ~= '' then
-      print('Using cached venv: ' .. venv)
-    else
-      -- Open the selector UI if no cached venv is found
-      print('No cached venv found')
-      -- venv_selector.select_venv()
-    end
-  else
-    print('No `pyproject.toml` found in the current project.')
-  end
-end, {
-  desc = 'Use venv-selector to activate Poetry virtualenv for the current project',
-})
+-- vim.api.nvim_create_user_command('SelectPoetryVenv', function()
+--   -- Check for `pyproject.toml` in the current directory or parent directories
+--   local pyproject_file = vim.fn.findfile('pyproject.toml', vim.fn.getcwd() .. ';')
+--   if pyproject_file ~= '' then
+--     -- Use venv-selector's retrieve_from_cache or open a selector UI
+--     local venv_selector = require('venv-selector')
+--     local venv = venv_selector.retrieve_from_cache() -- Try to get the cached venv
+--
+--     if venv ~= nil and venv ~= '' then
+--       print('Using cached venv: ' .. venv)
+--     else
+--       -- Open the selector UI if no cached venv is found
+--       print('No cached venv found')
+--       -- venv_selector.select_venv()
+--     end
+--   else
+--     print('No `pyproject.toml` found in the current project.')
+--   end
+-- end, {
+--   desc = 'Use venv-selector to activate Poetry virtualenv for the current project',
+-- })
 
 vim.keymap.set("i", "<C-e>", function()
   -- Debug: Notify that the function was triggered
@@ -419,7 +433,7 @@ vim.api.nvim_create_user_command("ClearDuplicateHighlights", clear_duplicate_hig
 -- Combination approach
 vim.o.equalalways = false  -- Disable equal window sizing
 vim.o.eadirection = "ver"  -- Only allow vertical adjustments
-vim.opt.scroll = 30
+-- vim.opt.scroll = 30
 vim.api.nvim_create_user_command('BufCloseType', function(opts)
   vim.cmd('bufdo if expand("%:e") == "' .. opts.args .. '" | bd | endif')
 end, { nargs = 1 })
@@ -540,3 +554,32 @@ vim.api.nvim_create_user_command('NewMarkdown', 'new | setfiletype markdown', {}
 vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>")
 vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>")
+
+if vim.g.vscode then
+  -- Redefine the unsupported function to do nothing when in VSCode
+  -- This will silence the error without affecting your regular Neovim setup.
+  vim.lsp.buf.clear_references = function()
+    -- This function is now empty and will not cause an error
+  end
+end
+vim.opt.wrap = true
+
+-- Ensure TreeSitter highlighting takes precedence over traditional syntax
+require('nvim-treesitter.configs').setup({
+  highlight = {
+    enable = true,
+    -- Disable vim regex highlighting when TreeSitter is available
+    additional_vim_regex_highlighting = false,
+  },
+  -- Make sure Python parser is installed
+  ensure_installed = { "python", "lua", "vim" },
+})
+
+-- Explicitly disable traditional syntax highlighting for TreeSitter-supported files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "python", "lua", "javascript", "typescript" }, -- Add languages you use
+  callback = function()
+    vim.cmd("syntax off")  -- Disable traditional syntax
+    -- TreeSitter will handle highlighting
+  end,
+})

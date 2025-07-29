@@ -6,15 +6,19 @@ return {
   opts = {
     bigfile = { enabled = true },
     dashboard = { enabled = true },
-    explorer = { enabled = true },
+    explorer = { 
+      enabled = true,
+      hidden = true 
+    },
     indent = { enabled = true },
     input = { enabled = true },
     notifier = {
       enabled = true,
       timeout = 3000,
     },
-    picker = { 
+    picker = {
       enabled = true,
+      hidden = true,
       win = {
         input = {
           keys = {
@@ -30,7 +34,8 @@ return {
           col = 0.5,
           border = "rounded",
           title_pos = "center",
-          -- Add some padding to prevent items from being hidden
+          -- Add padding to prevent items from being hidden behind title/input
+          padding = { top = 1, bottom = 1 },
           wo = {
             winblend = 0,
           },
@@ -39,7 +44,7 @@ return {
     },
     quickfile = { enabled = true },
     scope = { enabled = true },
-    scroll = { enabled = true },
+    scroll = { enabled = false },
     statuscolumn = { enabled = true },
     words = { enabled = true },
     styles = {
@@ -54,12 +59,11 @@ return {
     { "<leader>,", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
     { "<leader>/", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, noremap = true, desc = "Command History" },
-    { "<leader>n", function() Snacks.picker.notifications() end, noremap = true, desc = "Notification History" },
     { "<leader>e", function() Snacks.explorer() end, noremap = true, desc = "File Explorer" },
     -- find
     { "<leader>fb", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, noremap = true, desc = "Find Config File" },
-    -- { "<leader>ff", function() Snacks.picker.files() end, noremap = true, desc = "Find Files" },
+    { "<leader>ff", function() Snacks.picker.files() end, noremap = true, desc = "Find Files" },
     { "<leader>fg", function() Snacks.picker.git_files() end, noremap = true, desc = "Find Git Files" },
     { "<leader>fp", function() Snacks.picker.projects() end, noremap = true, desc = "Projects" },
     { "<leader>fr", function() Snacks.picker.recent() end, noremap = true, desc = "Recent" },
@@ -80,7 +84,6 @@ return {
     { '<leader>s"', function() Snacks.picker.registers() end, noremap = true, desc = "Registers" },
     { '<leader>s/', function() Snacks.picker.search_history() end, noremap = true, desc = "Search History" },
     { "<leader>sa", function() Snacks.picker.autocmds() end, noremap = true, desc = "Autocmds" },
-    { "<leader>sb", function() Snacks.picker.lines() end, noremap = true, desc = "Buffer Lines" },
     { "<leader>sc", function() Snacks.picker.command_history() end, noremap = true, desc = "Command History" },
     { "<leader>sC", function() Snacks.picker.commands() end, noremap = true, desc = "Commands" },
     { "<leader>sd", function() Snacks.picker.diagnostics() end, noremap = true, desc = "Diagnostics" },
@@ -105,8 +108,8 @@ return {
     { "gI", function() Snacks.picker.lsp_implementations() end, noremap = true, desc = "Goto Implementation" },
     { "gy", function() Snacks.picker.lsp_type_definitions() end, noremap = true, desc = "Goto T[y]pe Definition" },
     { "<leader>ss", function() Snacks.picker.lsp_symbols() end, noremap = true, desc = "LSP Symbols" },
-    -- { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, noremap = true, desc = "LSP Workspace Symbols" },
-    -- Other
+    { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, noremap = true, desc = "LSP Workspace Symbols" },
+    -- Other (keeping non-picker functionality)
     { "<leader>z",  function() Snacks.zen() end, noremap = true, desc = "Toggle Zen Mode" },
     { "<leader>Z",  function() Snacks.zen.zoom() end, noremap = true, desc = "Toggle Zoom" },
     { "<leader>.",  function() Snacks.scratch() end, noremap = true, desc = "Toggle Scratch Buffer" },
