@@ -7,7 +7,7 @@ return {
         config = function()
             require("noice").setup({
                 -- Turn off cmdline, messages, popupmenu, and notify for the default behavior
-                -- cmdline = { enabled = false, },
+                cmdline = { enabled = true, },
                 -- messages = { enabled = false, },
                 -- popupmenu = { enabled = false, },
                 -- notify = { enabled = false, },
@@ -48,6 +48,11 @@ return {
                         -- Skip obsidian notification about conceallevel
                         filter = { find = "Obsidian additional syntax features require 'conceallevel' to be set to 1 or 2", },
                         skip = true,
+                    },
+                    {
+                        -- Fix snacks picker display issues
+                        filter = { event = "msg_show", find = "snacks" },
+                        view = "mini",
                     },
                     { filter = { find = "E162" },                                   view = "mini" },
                     { filter = { event = "msg_show", kind = "", find = "written" }, view = "mini" },

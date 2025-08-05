@@ -81,7 +81,7 @@ local function set_colorscheme(scheme)
 end
 
 -- Set your preferred colorscheme here
-set_colorscheme("catppuccin-macchiato")
+set_colorscheme("tokyonight")
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = "*.py",
 	command = "set filetype=python",
@@ -581,5 +581,18 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.cmd("syntax off")  -- Disable traditional syntax
     -- TreeSitter will handle highlighting
+  end,
+})
+
+-- Fix syntax highlighting after external file modifications
+vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "CursorHold" }, {
+  callback = function()
+    if vim.bo.modified == false then
+      vim.cmd("checktime")
+      -- Force syntax highlighting refresh
+      vim.cmd("syntax sync fromstart")
+      -- Redraw the screen to ensure highlighting is updated
+      vim.cmd("redraw!")
+    end
   end,
 })

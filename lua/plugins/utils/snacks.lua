@@ -18,28 +18,12 @@ return {
     },
     picker = {
       enabled = true,
-      hidden = true,
-      win = {
-        input = {
-          keys = {
-            ["<C-c>"] = { "close", mode = { "n", "i" } },
-            ["<Esc>"] = { "close", mode = { "n", "i" } },
-          },
-        },
-        list = {
-          -- Ensure proper positioning and sizing for the picker list
-          height = 0.6,
-          width = 0.6,
-          row = 0.5,
-          col = 0.5,
-          border = "rounded",
-          title_pos = "center",
-          -- Add padding to prevent items from being hidden behind title/input
-          padding = { top = 1, bottom = 1 },
-          wo = {
-            winblend = 0,
-          },
-        },
+      layout = {
+        preset = "telescope",
+        -- height = 0.8,
+        -- width = 0.8,
+        -- row = 0.5,
+        -- col = 0.5,
       },
     },
     quickfile = { enabled = true },
@@ -55,7 +39,7 @@ return {
   },
   keys = {
     -- Top Pickers & Explorer
-    { "<leader><space>", function() Snacks.picker.smart() end, noremap = true, desc = "Smart Find Files" },
+    -- { "<leader><space>", function() Snacks.picker.smart() end, noremap = true, desc = "Smart Find Files" },
     { "<leader>,", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
     { "<leader>/", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, noremap = true, desc = "Command History" },

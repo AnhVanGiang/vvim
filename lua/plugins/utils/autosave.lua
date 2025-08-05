@@ -21,7 +21,7 @@ return {
 
 				-- Get the filetype of the buffer
 				local filetype = vim.api.nvim_buf_get_option(buf, "filetype")
-				if filetype == "harpoon" or filetype == "sql" then
+				if filetype == "harpoon" then
 					return false
 				end
 
