@@ -45,7 +45,7 @@ return {
     { "<leader>:", function() Snacks.picker.command_history() end, noremap = true, desc = "Command History" },
     { "<leader>e", function() Snacks.explorer() end, noremap = true, desc = "File Explorer" },
     -- find
-    { "<leader>fb", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
+    -- { "<leader>fb", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, noremap = true, desc = "Find Config File" },
     { "<leader>ff", function() Snacks.picker.files() end, noremap = true, desc = "Find Files" },
     { "<leader>fg", function() Snacks.picker.git_files() end, noremap = true, desc = "Find Git Files" },

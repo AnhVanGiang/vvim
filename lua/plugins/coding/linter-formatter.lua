@@ -5,7 +5,7 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		event = "VeryLazy",
 		opts = {
-			ensure_installed = { "cpplint", "shellcheck", "prettier" },
+			ensure_installed = { "cpplint", "shellcheck", "prettier", "ruff" },
 		},
 	},
 	-- Linter
@@ -49,7 +49,7 @@ return {
 					markdown = { "prettier" },
 					typescript = { "prettier" },
 					yaml = { "prettier" },
-					python = { "isort", "black", timeout_ms = 30000, "yapf" },
+					python = { "ruff_format", "ruff_organize_imports" },
 					rust = { "rustfmt" },
 					lua = { "stylua" },
 					sql = { "sql-formatter", "sqlfluff" },
@@ -57,9 +57,12 @@ return {
                     terraform = { "terraform_fmt" },
 				},
 				formatters = {
-					-- black = {
-					-- 	prepend_args = { "--fast"}, -- Use Black in fast mode (optional)
-					-- },
+					ruff_format = {
+						args = { "format", "--line-length", "120", "--stdin-filename", "$FILENAME", "-" },
+					},
+					ruff_organize_imports = {
+						args = { "check", "--select", "I", "--fix", "--stdin-filename", "$FILENAME", "-" },
+					},
 
                     -- [ "sqlfluff" ] = {
                     --     append_args = {"--dialect", "bigquery", "$FILENAME" },

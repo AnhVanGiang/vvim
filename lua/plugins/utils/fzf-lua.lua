@@ -122,7 +122,7 @@ return {
 		-- vim.keymap.set("n", "<leader>:", fzf.command_history, vim.tbl_extend("force", opts, { desc = "Command History" }))
 		
 		-- find (commented out - using snacks)
-		-- vim.keymap.set("n", "<leader>fb", fzf.buffers, vim.tbl_extend("force", opts, { desc = "Buffers" }))
+		vim.keymap.set("n", "<leader>fb", fzf.buffers, vim.tbl_extend("force", opts, { desc = "Buffers" }))
 		-- vim.keymap.set("n", "<leader>fc", function() fzf.files({ cwd = vim.fn.stdpath("config") }) end, vim.tbl_extend("force", opts, { desc = "Find Config File" }))
 		-- vim.keymap.set("n", "<leader>ff", function() 
 		-- 	fzf.files({

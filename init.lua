@@ -1,4 +1,8 @@
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
+-- Load globals first (needed for UI components)
+-- ────────────────────────────────────────────────────────────────────────────────────────────────
+
+-- ────────────────────────────────────────────────────────────────────────────────────────────────
 -- Nvim's core settings without plugins
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
 require("core")
@@ -23,10 +27,10 @@ vim.g.mapleader = "\\"
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 local plugins_cfg_dir = "plugins"
 -- Window resizing with Ctrl+arrows
-vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { silent = true })
-vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { silent = true })
-vim.keymap.set('n', '<C-Up>', ':resize +2<CR>', { silent = true })
-vim.keymap.set('n', '<C-Down>', ':resize -2<CR>', { silent = true })
+vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Up>", ":resize +2<CR>", { silent = true })
+vim.keymap.set("n", "<C-Down>", ":resize -2<CR>", { silent = true })
 if not vim.uv.fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
 	local out = vim.fn.system({
@@ -80,8 +84,8 @@ local function set_colorscheme(scheme)
 	end
 end
 
--- Set your preferred colorscheme here
-set_colorscheme("tokyonight")
+-- Set mp-nvim theme as default
+set_colorscheme("sonokai")
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = "*.py",
 	command = "set filetype=python",
@@ -170,36 +174,35 @@ except Exception as e:
 	{ nargs = "?" } -- Allow an optional argument
 )
 
-vim.keymap.set({ 'n', 'v' }, '<C-k>', '<cmd>Treewalker Up<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-j>', '<cmd>Treewalker Down<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-l>', '<cmd>Treewalker Right<cr>', { silent = true })
-vim.keymap.set({ 'n', 'v' }, '<C-h>', '<cmd>Treewalker Left<cr>', { silent = true })
+vim.keymap.set({ "n", "v" }, "<C-k>", "<cmd>Treewalker Up<cr>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<C-j>", "<cmd>Treewalker Down<cr>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<C-l>", "<cmd>Treewalker Right<cr>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<C-h>", "<cmd>Treewalker Left<cr>", { silent = true })
 
 -- swapping
-vim.keymap.set('n', '<C-S-j>', '<cmd>Treewalker SwapDown<cr>', { silent = true })
-vim.keymap.set('n', '<C-S-k>', '<cmd>Treewalker SwapUp<cr>', { silent = true })
-vim.keymap.set('n', '<C-S-l>', '<cmd>Treewalker SwapRight<CR>', { silent = true })
-vim.keymap.set('n', '<C-S-h>', '<cmd>Treewalker SwapLeft<CR>', { silent = true })
+vim.keymap.set("n", "<C-S-j>", "<cmd>Treewalker SwapDown<cr>", { silent = true })
+vim.keymap.set("n", "<C-S-k>", "<cmd>Treewalker SwapUp<cr>", { silent = true })
+vim.keymap.set("n", "<C-S-l>", "<cmd>Treewalker SwapRight<CR>", { silent = true })
+vim.keymap.set("n", "<C-S-h>", "<cmd>Treewalker SwapLeft<CR>", { silent = true })
 
 -- Create a command that opens a terminal in a vertical split
-vim.api.nvim_create_user_command('VsTerminal', function()
-  -- Create a vertical split
-  vim.cmd('vsplit')
-  -- Resize the new split to 30% of the width
-  vim.cmd('vertical resize 95%')
-  -- Open terminal in the new split
-  vim.cmd('terminal')
+vim.api.nvim_create_user_command("VsTerminal", function()
+	-- Create a vertical split
+	vim.cmd("vsplit")
+	-- Resize the new split to 30% of the width
+	vim.cmd("vertical resize 95%")
+	-- Open terminal in the new split
+	vim.cmd("terminal")
 end, {})
 
-vim.api.nvim_create_user_command('STerminal', function()
-  -- Create a vertical split
-  vim.cmd('split')
-  -- Resize the new split to 30% of the width
-  vim.cmd('horizontal resize 20%')
-  -- Open terminal in the new split
-  vim.cmd('terminal')
+vim.api.nvim_create_user_command("STerminal", function()
+	-- Create a vertical split
+	vim.cmd("split")
+	-- Resize the new split to 30% of the width
+	vim.cmd("horizontal resize 20%")
+	-- Open terminal in the new split
+	vim.cmd("terminal")
 end, {})
-
 
 vim.api.nvim_create_user_command(
 	"ConvertIpynbToPy",
@@ -354,245 +357,252 @@ vim.keymap.set("n", "<leader>rt", toggle_boolean, { noremap = true, silent = tru
 -- })
 
 vim.keymap.set("i", "<C-e>", function()
-  -- Debug: Notify that the function was triggered
-  print("Function triggered!")
+	-- Debug: Notify that the function was triggered
+	print("Function triggered!")
 
-  -- Define matching pairs
-  local pair_chars = { ["("] = ")", ["["] = "]", ["{"] = "}", ['"'] = '"', ["'"] = "'" }
-  local col = vim.fn.col('.')  -- Current cursor column
-  local line = vim.fn.getline('.') -- Current line
+	-- Define matching pairs
+	local pair_chars = { ["("] = ")", ["["] = "]", ["{"] = "}", ['"'] = '"', ["'"] = "'" }
+	local col = vim.fn.col(".") -- Current cursor column
+	local line = vim.fn.getline(".") -- Current line
 
-  -- Debug: Print current column and line
-  print("Current column:", col)
-  print("Current line:", line)
+	-- Debug: Print current column and line
+	print("Current column:", col)
+	print("Current line:", line)
 
-  -- If we're at the end of the line, do nothing
-  if col > #line then
-    print("At the end of the line, no action taken.")
-    return
-  end
+	-- If we're at the end of the line, do nothing
+	if col > #line then
+		print("At the end of the line, no action taken.")
+		return
+	end
 
-  local char_at_cursor = line:sub(col, col) -- Character under the cursor
-  local char_after_cursor = line:sub(col + 1, col + 1) -- Character after the cursor
+	local char_at_cursor = line:sub(col, col) -- Character under the cursor
+	local char_after_cursor = line:sub(col + 1, col + 1) -- Character after the cursor
 
-  -- Debug: Print characters at and after the cursor
-  print("Char at cursor:", char_at_cursor)
-  print("Char after cursor:", char_after_cursor)
+	-- Debug: Print characters at and after the cursor
+	print("Char at cursor:", char_at_cursor)
+	print("Char after cursor:", char_after_cursor)
 
-  -- If the character after the cursor matches a closing pair, move the cursor forward
-  if pair_chars[char_at_cursor] == char_after_cursor then
-    print("Match found! Moving cursor forward.")
-    vim.cmd("normal! l")
-  else
-    print("No match found.")
-  end
+	-- If the character after the cursor matches a closing pair, move the cursor forward
+	if pair_chars[char_at_cursor] == char_after_cursor then
+		print("Match found! Moving cursor forward.")
+		vim.cmd("normal! l")
+	else
+		print("No match found.")
+	end
 end, { noremap = true, silent = true })
 
-vim.api.nvim_create_user_command('FTermOpen', require('FTerm').open, { bang = true })
-vim.api.nvim_create_user_command('FTermClose', require('FTerm').close, { bang = true })
-vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })
+vim.api.nvim_create_user_command("FTermOpen", require("FTerm").open, { bang = true })
+vim.api.nvim_create_user_command("FTermClose", require("FTerm").close, { bang = true })
+vim.api.nvim_create_user_command("FTermExit", require("FTerm").exit, { bang = true })
 
 -- Define a namespace for duplicate highlights
 local ns_id = vim.api.nvim_create_namespace("duplicate_highlight")
 
 local function highlight_duplicates()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-  local occurrences = {}
+	local bufnr = vim.api.nvim_get_current_buf()
+	local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+	local occurrences = {}
 
-  -- Build a table of line text to its line numbers (0-indexed)
-  for i, line in ipairs(lines) do
-    if line ~= "" then  -- skip empty lines if desired
-      occurrences[line] = occurrences[line] or {}
-      table.insert(occurrences[line], i - 1)
-    end
-  end
+	-- Build a table of line text to its line numbers (0-indexed)
+	for i, line in ipairs(lines) do
+		if line ~= "" then -- skip empty lines if desired
+			occurrences[line] = occurrences[line] or {}
+			table.insert(occurrences[line], i - 1)
+		end
+	end
 
-  -- Clear previous highlights in our namespace
-  vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1)
+	-- Clear previous highlights in our namespace
+	vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1)
 
-  -- Highlight lines that appear more than once
-  for _, line_numbers in pairs(occurrences) do
-    if #line_numbers > 1 then
-      for _, line_num in ipairs(line_numbers) do
-        vim.api.nvim_buf_add_highlight(bufnr, ns_id, "Search", line_num, 0, -1)
-      end
-    end
-  end
+	-- Highlight lines that appear more than once
+	for _, line_numbers in pairs(occurrences) do
+		if #line_numbers > 1 then
+			for _, line_num in ipairs(line_numbers) do
+				vim.api.nvim_buf_add_highlight(bufnr, ns_id, "Search", line_num, 0, -1)
+			end
+		end
+	end
 end
 
 -- Create a user command for convenience
 vim.api.nvim_create_user_command("HighlightDuplicates", highlight_duplicates, {})
 
 local function clear_duplicate_highlights()
-  local bufnr = vim.api.nvim_get_current_buf()
-  vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1)
+	local bufnr = vim.api.nvim_get_current_buf()
+	vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 0, -1)
 end
 
 vim.api.nvim_create_user_command("ClearDuplicateHighlights", clear_duplicate_highlights, {})
 -- Combination approach
-vim.o.equalalways = false  -- Disable equal window sizing
-vim.o.eadirection = "ver"  -- Only allow vertical adjustments
+vim.o.equalalways = false -- Disable equal window sizing
+vim.o.eadirection = "ver" -- Only allow vertical adjustments
 -- vim.opt.scroll = 30
-vim.api.nvim_create_user_command('BufCloseType', function(opts)
-  vim.cmd('bufdo if expand("%:e") == "' .. opts.args .. '" | bd | endif')
+vim.api.nvim_create_user_command("BufCloseType", function(opts)
+	vim.cmd('bufdo if expand("%:e") == "' .. opts.args .. '" | bd | endif')
 end, { nargs = 1 })
 
-vim.api.nvim_create_user_command('TogglePrintComments', function()
-  -- Get the visual selection
-  local start_line = vim.fn.line("'<")
-  local end_line = vim.fn.line("'>")
+vim.api.nvim_create_user_command("TogglePrintComments", function()
+	-- Get the visual selection
+	local start_line = vim.fn.line("'<")
+	local end_line = vim.fn.line("'>")
 
-  -- Get all lines in the selection
-  local lines = vim.api.nvim_buf_get_lines(0, start_line-1, end_line, false)
+	-- Get all lines in the selection
+	local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
 
-  -- Determine if we should comment or uncomment
-  local should_comment = false
-  for _, line in ipairs(lines) do
-    if line:match("^%s*print") and not line:match("^%s*#") then
-      should_comment = true
-      break
-    end
-  end
+	-- Determine if we should comment or uncomment
+	local should_comment = false
+	for _, line in ipairs(lines) do
+		if line:match("^%s*print") and not line:match("^%s*#") then
+			should_comment = true
+			break
+		end
+	end
 
-  -- Process each line
-  for i, line in ipairs(lines) do
-    if line:match("^%s*print") or line:match("^%s*#%s*print") then
-      if should_comment then
-        -- Comment the line if it's not already commented
-        if not line:match("^%s*#") then
-          lines[i] = line:gsub("^(%s*)(print)", "%1# %2")
-        end
-      else
-        -- Uncomment the line
-        lines[i] = line:gsub("^(%s*)#%s*", "%1")
-      end
-    end
-  end
+	-- Process each line
+	for i, line in ipairs(lines) do
+		if line:match("^%s*print") or line:match("^%s*#%s*print") then
+			if should_comment then
+				-- Comment the line if it's not already commented
+				if not line:match("^%s*#") then
+					lines[i] = line:gsub("^(%s*)(print)", "%1# %2")
+				end
+			else
+				-- Uncomment the line
+				lines[i] = line:gsub("^(%s*)#%s*", "%1")
+			end
+		end
+	end
 
-  -- Replace the lines in the buffer
-  vim.api.nvim_buf_set_lines(0, start_line-1, end_line, false, lines)
-end, {range = true})
+	-- Replace the lines in the buffer
+	vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, lines)
+end, { range = true })
 
-vim.api.nvim_create_user_command('OpenInCursor', function()
-  local project_dir = vim.fn.getcwd()
-  vim.fn.system('open -a Cursor "' .. project_dir .. '"')
+vim.api.nvim_create_user_command("OpenInCursor", function()
+	local project_dir = vim.fn.getcwd()
+	vim.fn.system('open -a Cursor "' .. project_dir .. '"')
 end, {})
 
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank({higroup="IncSearch", timeout=150})
-  end,
-  group = vim.api.nvim_create_augroup('highlight_yank', {clear = true}),
-  pattern = '*',
+vim.api.nvim_create_autocmd("TextYankPost", {
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 150 })
+	end,
+	group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+	pattern = "*",
 })
 
 vim.keymap.set(
-  "n",
-  "<leader>k",
-  '<cmd>lua require("kubectl").toggle({ tab = true })<cr>',
-  { noremap = true, silent = true }
+	"n",
+	"<leader>k",
+	'<cmd>lua require("kubectl").toggle({ tab = true })<cr>',
+	{ noremap = true, silent = true }
 )
 
-vim.api.nvim_create_user_command('ConvertPyCells', function()
-    vim.cmd([[%s/^# [+-]$/# %%/g]])
+vim.api.nvim_create_user_command("ConvertPyCells", function()
+	vim.cmd([[%s/^# [+-]$/# %%/g]])
 end, {})
 
-vim.o.shell = '/opt/homebrew/bin/fish'
+vim.o.shell = "/opt/homebrew/bin/fish"
 
-vim.keymap.set('n', '<leader>ds', '<Cmd>split<CR><Cmd>lua vim.lsp.buf.definition()<CR>', {
-  noremap = true,
-  silent = true,
-  desc = "LSP Definition Horizontal Split"
+vim.keymap.set("n", "<leader>ds", "<Cmd>split<CR><Cmd>lua vim.lsp.buf.definition()<CR>", {
+	noremap = true,
+	silent = true,
+	desc = "LSP Definition Horizontal Split",
 })
 
 -- Go to definition in a new vertical split
-vim.keymap.set('n', '<leader>dv', '<Cmd>vsplit<CR><Cmd>lua vim.lsp.buf.definition()<CR>', {
-  noremap = true,
-  silent = true,
-  desc = "LSP Definition Vertical Split"
+vim.keymap.set("n", "<leader>dv", "<Cmd>vsplit<CR><Cmd>lua vim.lsp.buf.definition()<CR>", {
+	noremap = true,
+	silent = true,
+	desc = "LSP Definition Vertical Split",
 })
 
 vim.keymap.set("n", "ycc", "yygccp", { remap = true })
+-- Ensure zz works for centering cursor
+vim.keymap.set("n", "zz", "zz", { noremap = true, silent = true, desc = "Center cursor in window" })
 vim.keymap.set("n", "<leader>ca", function()
 	require("tiny-code-action").code_action()
 end, { noremap = true, silent = true })
 
 -- Add a command to add '# type: ignore' to the current line
-vim.api.nvim_create_user_command('AddTypeIgnore', function()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local line_num = vim.api.nvim_win_get_cursor(0)[1] - 1 -- 0-indexed line number of current window
+vim.api.nvim_create_user_command("AddTypeIgnore", function()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local line_num = vim.api.nvim_win_get_cursor(0)[1] - 1 -- 0-indexed line number of current window
 
-  local lines = vim.api.nvim_buf_get_lines(bufnr, line_num, line_num + 1, false)
-  if #lines > 0 then
-    local current_line = lines[1]
-    -- Check if the line already ends with # type: ignore, ignoring case and whitespace
-    if not current_line:match("[%s#]-type:%s*ignore%s*$") then
-        -- Append, ensuring a space if the line is not empty
-        local new_line = current_line .. "  # type: ignore"
-        vim.api.nvim_buf_set_lines(bufnr, line_num, line_num + 1, false, { new_line })
-    end
-  end
+	local lines = vim.api.nvim_buf_get_lines(bufnr, line_num, line_num + 1, false)
+	if #lines > 0 then
+		local current_line = lines[1]
+		-- Check if the line already ends with # type: ignore, ignoring case and whitespace
+		if not current_line:match("[%s#]-type:%s*ignore%s*$") then
+			-- Append, ensuring a space if the line is not empty
+			local new_line = current_line .. "  # type: ignore"
+			vim.api.nvim_buf_set_lines(bufnr, line_num, line_num + 1, false, { new_line })
+		end
+	end
 end, {
-  desc = "Add '# type: ignore' to the end of the current line",
+	desc = "Add '# type: ignore' to the end of the current line",
 })
 
-vim.keymap.set("n", "<leader>ai", "<Cmd>AddTypeIgnore<CR>", { noremap = true, silent = true, desc = "Add '# type: ignore' to the end of the current line" })
+vim.keymap.set(
+	"n",
+	"<leader>ai",
+	"<Cmd>AddTypeIgnore<CR>",
+	{ noremap = true, silent = true, desc = "Add '# type: ignore' to the end of the current line" }
+)
 
-vim.api.nvim_create_user_command('LspDetach', function()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
-  for _, client in ipairs(clients) do
-    vim.lsp.buf_detach_client(bufnr, client.id)
-  end
-  print("LSP detached from current buffer")
+vim.api.nvim_create_user_command("LspDetach", function()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+	for _, client in ipairs(clients) do
+		vim.lsp.buf_detach_client(bufnr, client.id)
+	end
+	print("LSP detached from current buffer")
 end, {})
 
-vim.api.nvim_create_user_command('NewPython', 'new | setfiletype python', {})
-vim.api.nvim_create_user_command('NewMarkdown', 'new | setfiletype markdown', {})
+vim.api.nvim_create_user_command("NewPython", "new | setfiletype python", {})
+vim.api.nvim_create_user_command("NewMarkdown", "new | setfiletype markdown", {})
 
 vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>")
 vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>")
 vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>")
 
 if vim.g.vscode then
-  -- Redefine the unsupported function to do nothing when in VSCode
-  -- This will silence the error without affecting your regular Neovim setup.
-  vim.lsp.buf.clear_references = function()
-    -- This function is now empty and will not cause an error
-  end
+	-- Redefine the unsupported function to do nothing when in VSCode
+	-- This will silence the error without affecting your regular Neovim setup.
+	vim.lsp.buf.clear_references = function()
+		-- This function is now empty and will not cause an error
+	end
 end
 vim.opt.wrap = true
 
 -- Ensure TreeSitter highlighting takes precedence over traditional syntax
-require('nvim-treesitter.configs').setup({
-  highlight = {
-    enable = true,
-    -- Disable vim regex highlighting when TreeSitter is available
-    additional_vim_regex_highlighting = false,
-  },
-  -- Make sure Python parser is installed
-  ensure_installed = { "python", "lua", "vim" },
+require("nvim-treesitter.configs").setup({
+	highlight = {
+		enable = true,
+		-- Disable vim regex highlighting when TreeSitter is available
+		additional_vim_regex_highlighting = false,
+	},
+	-- Make sure Python parser is installed
+	ensure_installed = { "python", "lua", "vim" },
 })
 
 -- Explicitly disable traditional syntax highlighting for TreeSitter-supported files
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "python", "lua", "javascript", "typescript" }, -- Add languages you use
-  callback = function()
-    vim.cmd("syntax off")  -- Disable traditional syntax
-    -- TreeSitter will handle highlighting
-  end,
+	pattern = { "python", "lua", "javascript", "typescript" }, -- Add languages you use
+	callback = function()
+		vim.cmd("syntax off") -- Disable traditional syntax
+		-- TreeSitter will handle highlighting
+	end,
 })
 
 -- Fix syntax highlighting after external file modifications
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "CursorHold" }, {
-  callback = function()
-    if vim.bo.modified == false then
-      vim.cmd("checktime")
-      -- Force syntax highlighting refresh
-      vim.cmd("syntax sync fromstart")
-      -- Redraw the screen to ensure highlighting is updated
-      vim.cmd("redraw!")
-    end
-  end,
+	callback = function()
+		if vim.bo.modified == false then
+			vim.cmd("checktime")
+			-- Force syntax highlighting refresh
+			vim.cmd("syntax sync fromstart")
+			-- Redraw the screen to ensure highlighting is updated
+			vim.cmd("redraw!")
+		end
+	end,
 })

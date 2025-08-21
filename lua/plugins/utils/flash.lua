@@ -24,22 +24,22 @@ return {
 		},
 
 		-- Map `r` and `R` for remote and treesitter search
-		{
-			"r",
-			mode = "o",
-			function()
-				require("flash").remote()
-			end,
-			desc = "Remote Flash",
-		},
-		{
-			"R",
-			mode = { "o", "x" },
-			function()
-				require("flash").treesitter_search()
-			end,
-			desc = "Treesitter Search",
-		},
+		-- {
+		-- 	"r",
+		-- 	mode = "o",
+		-- 	function()
+		-- 		require("flash").remote()
+		-- 	end,
+		-- 	desc = "Remote Flash",
+		-- },
+		-- {
+		-- 	"R",
+		-- 	mode = { "o", "x" },
+		-- 	function()
+		-- 		require("flash").treesitter_search()
+		-- 	end,
+		-- 	desc = "Treesitter Search",
+		-- },
 
 		-- Map `<c-s>` to toggle Flash in the command mode
 		{
