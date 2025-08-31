@@ -85,7 +85,7 @@ return {
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = { "copilot", "lsp", "snippets", "buffer", "path", "ripgrep" },
+			default = {"copilot", "lsp", "snippets", "buffer", "path", "ripgrep" },
 			providers = {
 				ripgrep = {
 					module = "blink-ripgrep",
@@ -97,11 +97,11 @@ return {
 					-- 	additional_rg_options = {},
 					-- },
 				},
-				-- supermaven = {
-				-- 	name = "supermaven",
-				-- 	module = "blink-cmp-supermaven",
-				-- 	async = true,
-				-- },
+				supermaven = {
+					name = "supermaven",
+					module = "blink-cmp-supermaven",
+					async = true,
+				},
 				copilot = {
 					name = "copilot",
 					module = "blink-copilot",

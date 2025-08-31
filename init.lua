@@ -606,3 +606,13 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "CursorHold" }, {
 		end
 	end,
 })
+-- vim.keymap.set("i", "<C-CR>", function()
+--   if not vim.lsp.inline_completion.get() then
+--     return "<C-CR>"
+--   end
+-- end, {
+--   expr = true,
+--   replace_keycodes = true,
+--   desc = "Get the current inline completion",
+-- })
+
