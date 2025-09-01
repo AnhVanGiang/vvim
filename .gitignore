@@ -1,3 +1,9 @@
 .DS_Store
 lazy-lock.json
 .aider*
+window_type=editor
+tags
+node_modules
+package-lock.json
+package.json
+startup.log
