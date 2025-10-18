@@ -59,7 +59,7 @@ return {
 			-- Set up LSP servers
 			-- ────────────────────────────────────────────────────────────────────────────────────
 			-- Server-specific configs
-			local lspconfig = require("lspconfig")
+			-- local lspconfig = require("lspconfig")
 			local configs = require("lspconfig.configs")
 
 			-- Add pyrefly configuration if it doesn't exist
@@ -125,42 +125,47 @@ return {
 			-- The servers are ensured to be installed by mason-lspconfig
 			local servers = require("mason-lspconfig").get_installed_servers()
 			for _, lsp in ipairs(servers) do
-				require("lspconfig")[lsp].setup({
-					settings = lsp_settings[lsp],
-					capabilities = lsp_capabilities[lsp],
-					on_attach = function(client, bufnr)
-						if lsp == "basedpyright" then
-							require("nvim-navic").attach(client, bufnr)
-						elseif lsp == "ty" then
-							local signature_config = {
-								bind = true, -- This is the default
-								doc_lines = 0, -- Number of documentation lines to show
-								floating_window = true, -- Use a floating window for signatures
-								-- floating_window_above_cur_line = true, -- Show window above cursor line
-								-- floating_window_off_x = 1,
-								-- floating_window_off_y = 0,
-								fix_pos = false, -- Fix window position
-								hint_enable = true, -- Show parameter hints
-								hint_prefix = "💡 ", -- Prefix for hints
-								hint_scheme = "Comment", -- Highlight group for hints
-								hi_parameter = "LspSignatureActiveParameter", -- Highlight group for active parameter
-								max_height = 12, -- Max height of the signature window
-								max_width = 120, -- Max width of the signature window
-								handler_opts = {
-									border = "single", -- Border style for floating window ("none", "single", "double", "rounded", "solid", "shadow")
-								},
-								zindex = 200, -- Z-index of the floating window
-								padding = "", -- Padding around signature text
-								-- timer_interval = 200, -- Debounce interval for signature request
-								-- toggle_key = nil, -- Keybind to toggle signature help (e.g., "<C-s>")
-								-- select_signature_key = nil, -- Keybind to cycle through signatures
-							}
-							require("lsp_signature").on_attach(client, bufnr)
-							-- 	-- Use navic for non-ruff
-							-- 	require("nvim-navic").attach(client, bufnr)
-						end
-					end,
-				})
+				-- Check if the server config exists in lspconfig before trying to set it up
+				-- This prevents errors when non-LSP tools (formatters/linters) are installed via mason
+				-- Only check configs table directly to avoid triggering __index metamethod
+				if configs[lsp] then
+					require("lspconfig")[lsp].setup({
+						settings = lsp_settings[lsp],
+						capabilities = lsp_capabilities[lsp],
+						on_attach = function(client, bufnr)
+							if lsp == "basedpyright" then
+								require("nvim-navic").attach(client, bufnr)
+							elseif lsp == "ty" then
+								local signature_config = {
+									bind = true, -- This is the default
+									doc_lines = 0, -- Number of documentation lines to show
+									floating_window = true, -- Use a floating window for signatures
+									-- floating_window_above_cur_line = true, -- Show window above cursor line
+									-- floating_window_off_x = 1,
+									-- floating_window_off_y = 0,
+									fix_pos = false, -- Fix window position
+									hint_enable = true, -- Show parameter hints
+									hint_prefix = "💡 ", -- Prefix for hints
+									hint_scheme = "Comment", -- Highlight group for hints
+									hi_parameter = "LspSignatureActiveParameter", -- Highlight group for active parameter
+									max_height = 12, -- Max height of the signature window
+									max_width = 120, -- Max width of the signature window
+									handler_opts = {
+										border = "single", -- Border style for floating window ("none", "single", "double", "rounded", "solid", "shadow")
+									},
+									zindex = 200, -- Z-index of the floating window
+									padding = "", -- Padding around signature text
+									-- timer_interval = 200, -- Debounce interval for signature request
+									-- toggle_key = nil, -- Keybind to toggle signature help (e.g., "<C-s>")
+									-- select_signature_key = nil, -- Keybind to cycle through signatures
+								}
+								require("lsp_signature").on_attach(client, bufnr)
+								-- 	-- Use navic for non-ruff
+								-- 	require("nvim-navic").attach(client, bufnr)
+							end
+						end,
+					})
+				end
 			end
 
 			-- lspconfig.pyrefly.setup({

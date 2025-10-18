@@ -16,7 +16,7 @@ return {
         },
     },
     keys = {
-        { "<space><space>", "<CMD>Telescope<CR>", desc = "Telescope: Open builtin", noremap = true },
+        -- { "<space><space>", "<CMD>Telescope<CR>", desc = "Telescope: Open builtin", noremap = true },
         -- { "<leader>fa", "<CMD>Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<CR>", desc = "Telescope: Find all files", noremap = true },
         -- { "<leader>ff", "<CMD>Telescope frecency workleader=CWD<CR>", desc = "Telescope: Find files using frecency", noremap = true },
         -- { "<leader>sg", "<CMD>Telescope live_grep<CR>", desc = "Telescope: Find text", noremap = true },

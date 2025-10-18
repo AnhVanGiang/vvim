@@ -1,6 +1,6 @@
 return {
 	"stevearc/aerial.nvim",
-    enabled = false,
+    enabled = true,
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
 		"nvim-tree/nvim-web-devicons",

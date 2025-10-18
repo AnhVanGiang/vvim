@@ -9,7 +9,7 @@ return {
 		providers = {
 			gemini = {
 				endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
-				model = "gemini-2.5-flash", -- Gemini 2.5 Pro model
+				model = "gemini-2.5-pro", -- Gemini 2.5 Pro model
 				timeout = 30000, -- timeout in milliseconds
 				temperature = 0, -- adjust if needed
 				max_tokens = 100000,
@@ -17,13 +17,9 @@ return {
 			},
 			openai = {
 				endpoint = "https://api.openai.com/v1",
-				model = "gpt-4o-mini", -- GPT-4.1 mini model
+				model = "gpt-5", -- GPT-4.1 mini model
 				timeout = 30000, -- timeout in milliseconds
 				max_tokens = 100000,
-				-- api_key_name = "OPENAI_API_KEY", -- environment variable name (default)
-				extra_request_body = {
-					temperature = 0, -- moved from direct config to extra_request_body
-				},
 			},
 		},
 		behaviour = {

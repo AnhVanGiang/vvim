@@ -5,15 +5,15 @@ return {
 		"nvim-neo-tree/neo-tree.nvim",
 		-- branch = "v3.x",
 		event = "VeryLazy",
-		enabled = true,
+		enabled = false,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"MunifTanjim/nui.nvim",
 		},
 		keys = {
-			-- { "<leader>t", "<CMD>Neotree toggle<CR>", desc = "Neotree: Toggle file tree" },
-			-- { "<leader>T", "<CMD>Neotree reveal<CR>", desc = "Neotree: Open tree at the current file" },
+			{ "<leader>e", "<CMD>Neotree toggle<CR>", desc = "Neotree: Toggle file tree" },
+			{ "<leader>E", "<CMD>Neotree reveal<CR>", desc = "Neotree: Open tree at the current file" },
 		},
 		config = function()
 			vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
@@ -31,10 +31,10 @@ return {
 				},
 				window = {
 					mappings = {
-						["s"] = function()
-							-- Call Leap's forward jump function
-                            require("flash").jump()
-						end,
+						-- ["s"] = function()
+						-- 	-- Call Leap's forward jump function
+      --                       require("flash").jump()
+						-- end,
 						-- ["S"] = function()
 						-- 	-- Call Leap's backward jump function
 						-- 	require("leap").leap({ backward = true, target_windows = { vim.fn.win_getid() } })

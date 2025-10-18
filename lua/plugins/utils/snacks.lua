@@ -40,14 +40,14 @@ return {
   keys = {
     -- Top Pickers & Explorer
     { "<leader><space>", function() Snacks.picker.smart() end, noremap = true, desc = "Smart Find Files" },
-    { "<leader>,", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
-    { "<leader>/", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
+    -- { "<leader>,", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
+    -- { "<leader>/", function() Snacks.picker.grep() end, noremap = true, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, noremap = true, desc = "Command History" },
     { "<leader>e", function() Snacks.explorer() end, noremap = true, desc = "File Explorer" },
     -- find
-    { "<leader>fb", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
+    { "fb", function() Snacks.picker.buffers() end, noremap = true, desc = "Buffers" },
     { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, noremap = true, desc = "Find Config File" },
-    { "<leader>ff", function() Snacks.picker.files() end, noremap = true, desc = "Find Files" },
+    -- { "<leader>ff", function() Snacks.picker.files() end, noremap = true, desc = "Find Files" },
     { "<leader>fg", function() Snacks.picker.git_files() end, noremap = true, desc = "Find Git Files" },
     { "<leader>fp", function() Snacks.picker.projects() end, noremap = true, desc = "Projects" },
     { "<leader>fr", function() Snacks.picker.recent() end, noremap = true, desc = "Recent" },
@@ -85,16 +85,12 @@ return {
     { "<leader>sR", function() Snacks.picker.resume() end, noremap = true, desc = "Resume" },
     { "<leader>su", function() Snacks.picker.undo() end, noremap = true, desc = "Undo History" },
     { "<leader>uC", function() Snacks.picker.colorschemes() end, noremap = true, desc = "Colorschemes" },
-    -- LSP
-    { "gd", function() Snacks.picker.lsp_definitions() end, noremap = true, desc = "Goto Definition" },
-    { "gD", function() Snacks.picker.lsp_declarations() end, noremap = true, desc = "Goto Declaration" },
-    { "gr", function() Snacks.picker.lsp_references() end, noremap = true, nowait = true, desc = "References" },
-    { "gI", function() Snacks.picker.lsp_implementations() end, noremap = true, desc = "Goto Implementation" },
-    { "gy", function() Snacks.picker.lsp_type_definitions() end, noremap = true, desc = "Goto T[y]pe Definition" },
+    -- LSP (using native LSP keymaps instead of Snacks picker for gd, gr, gi, gy)
+    -- These are now handled in lspconfig-mason.lua
     { "<leader>ss", function() Snacks.picker.lsp_symbols() end, noremap = true, desc = "LSP Symbols" },
     { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, noremap = true, desc = "LSP Workspace Symbols" },
     -- Other (keeping non-picker functionality)
-    { "<leader>z",  function() Snacks.zen() end, noremap = true, desc = "Toggle Zen Mode" },
+    -- { "<leader>z",  function() Snacks.zen() end, noremap = true, desc = "Toggle Zen Mode" },
     { "<leader>Z",  function() Snacks.zen.zoom() end, noremap = true, desc = "Toggle Zoom" },
     { "<leader>.",  function() Snacks.scratch() end, noremap = true, desc = "Toggle Scratch Buffer" },
     { "<leader>S",  function() Snacks.scratch.select() end, noremap = true, desc = "Select Scratch Buffer" },
@@ -131,6 +127,7 @@ return {
   init = function()
     vim.api.nvim_create_autocmd("User", {
       pattern = "VeryLazy",
+      --- [TODO:description]
       callback = function()
         -- Setup some globals for debugging (lazy-loaded)
         _G.dd = function(...)
@@ -139,7 +136,11 @@ return {
         _G.bt = function()
           Snacks.debug.backtrace()
         end
-        vim.print = _G.dd -- Override print to use snacks for `:=` command
+        -- Only override vim.print when explicitly enabled by the user.
+        -- Enable with: `:lua vim.g.snacks_debug_print = true`
+        if vim.g.snacks_debug_print == true then
+          vim.print = _G.dd -- Override print to use snacks debug inspector
+        end
 
         -- Create some toggle mappings
         Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
@@ -150,7 +151,7 @@ return {
         Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
         Snacks.toggle.treesitter():map("<leader>uT")
         Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map("<leader>ub")
-        Snacks.toggle.inlay_hints():map("<leader>uh")
+        -- Snacks.toggle.inlay_hints():map("<leader>uh")
         Snacks.toggle.indent():map("<leader>ug")
         Snacks.toggle.dim():map("<leader>uD")
       end,

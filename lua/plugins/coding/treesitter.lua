@@ -9,9 +9,12 @@ return {
           -- Add parsers you want to ensure are installed
           "bibtex", "cmake", "cpp", "css", "dap_repl", "dockerfile", "git_config", "html",
           "javascript", "json", "latex", "regex", "scala", "sql", "toml", "typescript", "yaml",
+          "python", "lua", "vim", -- Additional parsers
         },
         highlight = {
           enable = true, -- Enable syntax highlighting
+          -- Disable vim regex highlighting when TreeSitter is available
+          additional_vim_regex_highlighting = false,
           disable = function(_, buf) -- Function to disable for large files
             -- Disable in large number of lines
             local max_n_lines = 50000
@@ -32,6 +35,15 @@ return {
           enable = false, -- Disabled because Treesitter's indent is buggy
           disable = {},
         },
+      })
+
+      -- Explicitly disable traditional syntax highlighting for TreeSitter-supported files
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "python", "lua", "javascript", "typescript" },
+        callback = function()
+          vim.cmd("syntax off") -- Disable traditional syntax
+          -- TreeSitter will handle highlighting
+        end,
       })
     end,
   },

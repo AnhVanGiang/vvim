@@ -16,7 +16,7 @@ return {
 			"huijiro/blink-cmp-supermaven",
 		},
 	},
-	enabled = true,
+	enabled = true,  -- Disabled due to SIGKILL on macOS 15.7.1 - using nvim-cmp instead
 
 	-- use a release tag to download pre-built binaries
 	version = "*",
@@ -36,24 +36,13 @@ return {
 			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
 
-			["<Tab>"] = {
-				function(cmp)
-					if vim.b[vim.api.nvim_get_current_buf()].nes_state then
-						cmp.hide()
-						return (
-							require("copilot-lsp.nes").apply_pending_nes()
-							and require("copilot-lsp.nes").walk_cursor_end_edit()
-						)
-					end
-					if cmp.snippet_active() then
-						return cmp.accept()
-					else
-						return cmp.select_and_accept()
-					end
-				end,
-				"snippet_forward",
-				"fallback",
-			},
+			-- ["<Tab>"] = {
+			-- 	"snippet_forward",
+			-- 	function() -- sidekick next edit suggestion
+			-- 		return require("sidekick").nes_jump_or_apply()
+			-- 	end,
+			-- 	"fallback",
+			-- },
 			["<S-Tab>"] = { "snippet_backward", "fallback" },
 
 			["<Up>"] = { "select_prev", "fallback" },
@@ -85,7 +74,7 @@ return {
 		-- Default list of enabled providers defined so that you can extend it
 		-- elsewhere in your config, without redefining it, due to `opts_extend`
 		sources = {
-			default = {"copilot", "lsp", "snippets", "buffer", "path", "ripgrep" },
+			default = { "lsp", "copilot", "snippets", "buffer", "path", "ripgrep" },
 			providers = {
 				ripgrep = {
 					module = "blink-ripgrep",
@@ -97,15 +86,15 @@ return {
 					-- 	additional_rg_options = {},
 					-- },
 				},
-				supermaven = {
-					name = "supermaven",
-					module = "blink-cmp-supermaven",
-					async = true,
-				},
+				-- supermaven = {
+				-- 	name = "supermaven",
+				-- 	module = "blink-cmp-supermaven",
+				-- 	async = true,
+				-- },
 				copilot = {
 					name = "copilot",
 					module = "blink-copilot",
-					score_offset = 100,
+					score_offset = 20,
 					async = true,
 				},
 			},

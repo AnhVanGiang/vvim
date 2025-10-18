@@ -118,7 +118,7 @@ return {
 		-- 		ignore_current_buffer = true,
 		-- 	})
 		-- end, vim.tbl_extend("force", opts, { desc = "Buffers" }))
-		-- vim.keymap.set("n", "<leader>/", fzf.live_grep, vim.tbl_extend("force", opts, { desc = "Grep" }))
+		vim.keymap.set("n", "<leader>/", fzf.live_grep, vim.tbl_extend("force", opts, { desc = "Grep" }))
 		-- vim.keymap.set("n", "<leader>:", fzf.command_history, vim.tbl_extend("force", opts, { desc = "Command History" }))
 		
 		-- find (commented out - using snacks)

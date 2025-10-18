@@ -2,6 +2,9 @@ return {
 	{
 		"zbirenbaum/copilot.lua",
 		event = "InsertEnter", -- load the plugin when entering insert mode
+		dependencies = {
+			"copilotlsp-nvim/copilot-lsp",
+		},
 		enabled = true,
 		config = function()
 			require("copilot").setup({
@@ -20,8 +23,16 @@ return {
 						ratio = 0.4,
 					},
 				},
+				nes = {
+					enabled = true,
+					keymap = {
+						accept_and_goto = "<leader>p",
+						accept = false,
+						dismiss = "<Esc>",
+					},
+				},
 				suggestion = {
-					enabled = false,
+					enabled = true,
 					auto_trigger = false,
 					hide_during_completion = true,
 					debounce = 75,

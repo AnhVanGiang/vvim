@@ -47,13 +47,13 @@ return {
 		end
 
 		-- Function to handle snippet jump or fallback
-		local handle_snippet_jump_or_fallback = function(fallback, direction)
-			if luasnip.expand_or_jumpable(direction) then
-				luasnip.expand_or_jump(direction)
-			else
-				fallback()
-			end
-		end
+		-- local handle_snippet_jump_or_fallback = function(fallback, direction)
+		-- 	if luasnip.expand_or_jumpable(direction) then
+		-- 		luasnip.expand_or_jump(direction)
+		-- 	else
+		-- 		fallback()
+		-- 	end
+		-- end
 
 		-- Main config
 		cmp.setup({
@@ -74,7 +74,7 @@ return {
 				["<C-c>"] = cmp.mapping.abort(),
 				["<Tab>"] = function(fallback)
 					if cmp.visible() then
-						cmp.select_next_item()
+						cmp.confirm({ select = true })
 					else
 						fallback()
 					end
@@ -90,9 +90,8 @@ return {
 				["<C-p>"] = cmp.mapping(prev_item, { "i", "s" }),
 			}),
 			sources = cmp.config.sources({
-				-- { name = "copilot" },
-				{ name = "supermaven"},
 				{ name = "nvim_lsp" },
+				{ name = "copilot" },
 				{ name = "buffer" },
 				{ name = "path" },
 				-- { name = "luasnip" },
@@ -101,6 +100,15 @@ return {
 				format = require("lspkind").cmp_format({
 					mode = "symbol_text",
 					preset = "codicons",
+					menu = {
+						copilot = "[Copilot]",
+						nvim_lsp = "[LSP]",
+						buffer = "[Buffer]",
+						path = "[Path]",
+						luasnip = "[Snippet]",
+						cmdline = "[Cmd]",
+						calc = "[Calc]",
+					},
 				}),
 			},
 			experimental = {
