@@ -205,16 +205,16 @@ return {
 			map("n", "]d", function()
 				vim.diagnostic.goto_next()
 			end, "Next diagnostic")
-			map("n", "<space>d", function()
-				if telescope_ok then
-					telescope.diagnostics()
-				else
-					vim.diagnostic.setloclist()
-				end
-			end, "Show all diagnostics")
-			-- map("n", "<leader>ih", function()
-			-- 	vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-			-- end, "Toggle inlay hint")
+			-- map("n", "<space>d", function()
+			-- 	if telescope_ok then
+			-- 		telescope.diagnostics()
+			-- 	else
+			-- 		vim.diagnostic.setloclist()
+			-- 	end
+			-- end, "Show all diagnostics")
+			map("n", "<leader>ih", function()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+			end, "Toggle inlay hint")
 
 			-- Use LspAttach autocommand to only map the following keys
 			-- after the language server attaches to the current buffer
@@ -293,12 +293,9 @@ return {
 
 			-- Config diagnostics
 			vim.diagnostic.config({
-				virtual_text = {
-					source = true, -- Or 'if_many'  -> show source of diagnostics
-					-- prefix = '■', -- Could be '●', '▎', 'x'
-				},
+				virtual_text = false,
 				float = {
-					source = true, -- Or 'if_many'  -> show source of diagnostics
+					source = false, -- Or 'if_many'  -> show source of diagnostics
 					border = "rounded",
 				},
 			})

@@ -363,7 +363,7 @@ vim.keymap.set("n", "<space>ac", add_cell_marker, { noremap = true, desc = "Add 
 vim.keymap.set("n", "<space>d", vim.diagnostic.open_float, { noremap = true, silent = true })
 
 -- Rabbit
-vim.keymap.set("n", "<space>R", ":Rabbit history<CR>", { noremap = true, silent = true, desc = "Rabbit" })
+vim.keymap.set("n", "<space>R", ":Rabbit trail<CR>", { noremap = true, silent = true, desc = "Rabbit" })
 -- vim.keymap.set("n", "<leader>rh", ":Rabbit history<CR>", { noremap = true, silent = true, desc="Rabbit" })
 -- vim.api.nvim_set_keymap(
 --   'n',

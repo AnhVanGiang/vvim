@@ -7,7 +7,7 @@ return {
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
           -- Add parsers you want to ensure are installed
-          "bibtex", "cmake", "cpp", "css", "dap_repl", "dockerfile", "git_config", "html",
+          "bibtex", "cmake", "cpp", "css", "dockerfile", "git_config", "html",
           "javascript", "json", "latex", "regex", "scala", "sql", "toml", "typescript", "yaml",
           "python", "lua", "vim", -- Additional parsers
         },
