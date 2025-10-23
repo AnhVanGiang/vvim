@@ -72,6 +72,22 @@ require("lazy").setup({
 	ui = {
 		border = "rounded",
 	},
+
+	-- Performance settings to prevent git spawn failures
+	git = {
+		timeout = 300, -- Increase timeout to 5 minutes
+		url_format = "https://github.com/%s.git",
+	},
+	performance = {
+		cache = {
+			enabled = true,
+		},
+		rtp = {
+			disabled_plugins = {},
+		},
+	},
+	-- Reduce concurrent operations to prevent spawn failures
+	concurrency = 8, -- Limit to 8 concurrent git operations (default is nil/unlimited)
 })
 
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -85,7 +101,7 @@ local function set_colorscheme(scheme)
 end
 
 -- Set mp-nvim theme as default
-set_colorscheme("sonokai")
+set_colorscheme("catppuccin-mocha")
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = "*.py",
 	command = "set filetype=python",
@@ -391,9 +407,9 @@ vim.keymap.set("i", "<C-e>", function()
 	end
 end, { noremap = true, silent = true })
 
-vim.api.nvim_create_user_command("FTermOpen", require("FTerm").open, { bang = true })
-vim.api.nvim_create_user_command("FTermClose", require("FTerm").close, { bang = true })
-vim.api.nvim_create_user_command("FTermExit", require("FTerm").exit, { bang = true })
+-- vim.api.nvim_create_user_command("FTermOpen", require("FTerm").open, { bang = true })
+-- vim.api.nvim_create_user_command("FTermClose", require("FTerm").close, { bang = true })
+-- vim.api.nvim_create_user_command("FTermExit", require("FTerm").exit, { bang = true })
 
 -- Define a namespace for duplicate highlights
 local ns_id = vim.api.nvim_create_namespace("duplicate_highlight")
@@ -574,25 +590,8 @@ if vim.g.vscode then
 end
 vim.opt.wrap = true
 
--- Ensure TreeSitter highlighting takes precedence over traditional syntax
-require("nvim-treesitter.configs").setup({
-	highlight = {
-		enable = true,
-		-- Disable vim regex highlighting when TreeSitter is available
-		additional_vim_regex_highlighting = false,
-	},
-	-- Make sure Python parser is installed
-	ensure_installed = { "python", "lua", "vim" },
-})
-
--- Explicitly disable traditional syntax highlighting for TreeSitter-supported files
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "python", "lua", "javascript", "typescript" }, -- Add languages you use
-	callback = function()
-		vim.cmd("syntax off") -- Disable traditional syntax
-		-- TreeSitter will handle highlighting
-	end,
-})
+-- Treesitter configuration is now handled in the treesitter plugin spec
+-- This prevents issues with treesitter not being loaded when init.lua runs
 
 -- Fix syntax highlighting after external file modifications
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "CursorHold" }, {
@@ -606,6 +605,15 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "CursorHold" }, {
 		end
 	end,
 })
+vim.diagnostic.config({
+    virtual_text = false,
+})
+vim.opt.colorcolumn = {}
+vim.o.tabstop = 4 -- A TAB character looks like 4 spaces
+vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
+vim.o.softtabstop = 4 -- Number of spaces inserted instead of a TAB character
+vim.o.shiftwidth = 4 -- Number of spaces inserted when indenting
+
 -- vim.keymap.set("i", "<C-CR>", function()
 --   if not vim.lsp.inline_completion.get() then
 --     return "<C-CR>"
