@@ -493,10 +493,10 @@ vim.api.nvim_create_user_command("TogglePrintComments", function()
 	vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, lines)
 end, { range = true })
 
-vim.api.nvim_create_user_command("OpenInCursor", function()
-	local project_dir = vim.fn.getcwd()
-	vim.fn.system('open -a Cursor "' .. project_dir .. '"')
-end, {})
+-- vim.api.nvim_create_user_command("OpenInCursor", function()
+-- 	local project_dir = vim.fn.getcwd()
+-- 	vim.fn.system('open -a Cursor "' .. project_dir .. '"')
+-- end, {})
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
