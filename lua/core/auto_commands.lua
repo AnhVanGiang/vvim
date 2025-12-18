@@ -4,6 +4,15 @@
 local default_opts = { noremap = true, silent = true }
 
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
+-- Filetype detection
+-- ────────────────────────────────────────────────────────────────────────────────────────────────
+vim.filetype.add({
+    extension = {
+        conf = "hocon", -- Treat .conf files as HOCON
+    },
+})
+
+-- ────────────────────────────────────────────────────────────────────────────────────────────────
 -- Auto change the configs
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
 local user_cfgs_group = vim.api.nvim_create_augroup("user_cfgs", { clear = false })
@@ -68,6 +77,35 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.spell = true
     end,
 })
+
+-- ────────────────────────────────────────────────────────────────────────────────────────────────
+-- Terminal enhancements
+-- ────────────────────────────────────────────────────────────────────────────────────────────────
+local terminal_group = vim.api.nvim_create_augroup("terminal_enhancements", { clear = true })
+
+-- Add clear functionality to native Neovim terminals (not ToggleTerm)
+-- vim.api.nvim_create_autocmd("TermOpen", {
+--     desc = "Add clear shortcuts to native terminals",
+--     pattern = "term://*",
+--     group = terminal_group,
+--     callback = function()
+--         -- Only apply to NON-toggleterm terminals
+--         local bufname = vim.api.nvim_buf_get_name(0)
+--         if not bufname:match("toggleterm") then
+--             -- <C-l> to clear terminal screen AND scrollback buffer completely
+--             vim.keymap.set("t", "<C-l>", function()
+--                 -- Send terminal escape codes to clear scrollback + screen
+--                 vim.fn.feedkeys("\x1b[3J\x1b[2J\x1b[H", "n") -- Clear scrollback + screen
+--                 vim.fn.feedkeys("clear\n", "n") -- Also run clear command
+--             end, { buffer = true, desc = "Clear terminal and scrollback", noremap = true, silent = true })
+--
+--             -- <Alt-l> for soft clear (just visible screen)
+--             vim.keymap.set("t", "<A-l>", function()
+--                 vim.fn.feedkeys("clear\n", "n")
+--             end, { buffer = true, desc = "Clear terminal screen", noremap = true, silent = true })
+--         end
+--     end,
+-- })
 
 -- ────────────────────────────────────────────────────────────────────────────────────────────────
 -- Callable commands

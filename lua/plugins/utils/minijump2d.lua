@@ -19,7 +19,7 @@ return {
 				dim = false,
 
 				-- How many steps ahead to show. Set to big number to show all steps.
-				n_steps_ahead = 0,
+				n_steps_ahead = 1,
 			},
 		})
 	end,

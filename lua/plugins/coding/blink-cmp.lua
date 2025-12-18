@@ -5,16 +5,16 @@ return {
 		"rafamadriz/friendly-snippets",
 		"mikavilpas/blink-ripgrep.nvim",
 		"fang2hou/blink-copilot",
-		{
-			"supermaven-inc/supermaven-nvim",
-			opts = {
-				disable_inline_completion = true, -- disables inline completion for use with cmp
-				disable_keymaps = true, -- disables built in keymaps for more manual control
-			},
-		},
-		{
-			"huijiro/blink-cmp-supermaven",
-		},
+		-- {
+		-- 	"supermaven-inc/supermaven-nvim",
+		-- 	opts = {
+		-- 		disable_inline_completion = true, -- disables inline completion for use with cmp
+		-- 		disable_keymaps = true, -- disables built in keymaps for more manual control
+		-- 	},
+		-- },
+		-- {
+		-- 	"huijiro/blink-cmp-supermaven",
+		-- },
 	},
 	enabled = true,  -- Disabled due to SIGKILL on macOS 15.7.1 - using nvim-cmp instead
 
@@ -36,13 +36,21 @@ return {
 			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
 
-			-- ["<Tab>"] = {
-			-- 	"snippet_forward",
-			-- 	function() -- sidekick next edit suggestion
-			-- 		return require("sidekick").nes_jump_or_apply()
-			-- 	end,
-			-- 	"fallback",
-			-- },
+			["<Tab>"] = {
+				function(cmp)
+					if cmp.snippet_active() then
+						return cmp.snippet_forward()
+					elseif cmp.is_visible() then
+						return cmp.select_and_accept()
+					else
+						return false
+					end
+				end,
+				function() -- sidekick next edit suggestion
+					return require("sidekick").nes_jump_or_apply()
+				end,
+				"fallback",
+			},
 			["<S-Tab>"] = { "snippet_backward", "fallback" },
 
 			["<Up>"] = { "select_prev", "fallback" },

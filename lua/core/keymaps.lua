@@ -335,6 +335,28 @@ vim.keymap.set("n", "<leader>4", ":ToggleTerm 4<CR>", { noremap = true, silent =
 -- Clear search highlight
 -- vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>', { silent = true })
 
+-- Define OpenFloatingTerminal function using native terminal
+function OpenFloatingTerminal()
+	local width = math.floor(vim.o.columns * 0.8)
+	local height = math.floor(vim.o.lines * 0.8)
+	local col = math.floor((vim.o.columns - width) / 2)
+	local row = math.floor((vim.o.lines - height) / 2)
+	local opts = {
+		relative = "editor",
+		width = width,
+		height = height,
+		col = col,
+		row = row,
+		style = "minimal",
+		border = "curved",
+	}
+
+	local buf = vim.api.nvim_create_buf(false, true)
+	local win = vim.api.nvim_open_win(buf, true, opts)
+	vim.fn.termopen(vim.o.shell)
+	vim.cmd("startinsert")
+end
+
 vim.keymap.set(
 	"n",
 	"<leader>ft",

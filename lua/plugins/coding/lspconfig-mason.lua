@@ -167,6 +167,23 @@ return {
 					})
 				end
 			end
+			-- Setup pytest_lsp (custom server definition)
+			local lspconfig = require("lspconfig")
+			-- local configs = require("lspconfig.configs")
+
+			-- Define pytest_lsp if not already defined
+			-- if not configs.pytest_lsp then
+			-- 	configs.pytest_lsp = {
+			-- 		default_config = {
+			-- 			cmd = { "pytest-language-server" },
+			-- 			filetypes = { "python" },
+			-- 			root_dir = lspconfig.util.root_pattern("pyproject.toml", "setup.py", "setup.cfg", "pytest.ini"),
+			-- 		},
+			-- 	}
+			-- end
+
+			-- Now setup the server
+			-- lspconfig.pytest_lsp.setup({})
 
 			-- lspconfig.pyrefly.setup({
 			-- 	settings = lsp_settings.pyrefly or {},

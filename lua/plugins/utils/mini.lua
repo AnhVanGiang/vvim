@@ -7,6 +7,10 @@ return {
     },
     config = function()
       require('mini.files').setup()
+      require('mini.ai').setup()
+      -- require('mini.cmdline').setup()
+      -- require('mini.completion').setup()
+      -- require('mini.animate').setup()
       -- You can configure other mini modules here
       -- For example:
       -- require('mini.statusline').setup()

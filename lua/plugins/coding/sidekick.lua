@@ -20,17 +20,17 @@ return {
 					-- win_p = { "<c-w>p", "blur" }, -- leave the cli window
 					-- blur = { "<c-o>", "blur" }, -- leave the cli window
 					-- prompt = { "<c-p>", "prompt" }, -- insert prompt or context
-					{
-						"<Tab>",
-						function()
-							-- if there is a next edit, jump to it, otherwise apply it if any
-							if not require("sidekick").nes_jump_or_apply() then
-								return "<Tab>" -- fallback to normal tab
-							end
-						end,
-						expr = true,
-						desc = "Goto/Apply Next Edit Suggestion",
-					},
+					-- {
+					-- 	"<Tab>",
+					-- 	function()
+					-- 		-- if there is a next edit, jump to it, otherwise apply it if any
+					-- 		if not require("sidekick").nes_jump_or_apply() then
+					-- 			return "<Tab>" -- fallback to normal tab
+					-- 		end
+					-- 	end,
+					-- 	expr = true,
+					-- 	desc = "Goto/Apply Next Edit Suggestion",
+					-- },
                     -- {
                     --     "<leader>ac",
                     --     function()
